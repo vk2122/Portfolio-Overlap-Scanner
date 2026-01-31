@@ -1,13 +1,18 @@
 import { STOCKS, FUNDS } from './data/mock-db.js';
 import { calculatePortfolioExposure } from './engine/calculator.js';
+import { fetchMarketData } from './data/loader.js';
 
 // State
 let userHoldings = [];
+let marketData = { stocks: STOCKS, funds: FUNDS }; // Initial Mock Data
 
 // DOM Elements
 const form = document.getElementById('add-holding-form');
 const typeSelect = document.getElementById('instrument-type');
-const instrumentSelect = document.getElementById('instrument-select');
+const instrumentSelect = document.getElementById('instrument-select'); // Legacy ref
+const instrumentSearch = document.getElementById('instrument-search');
+const instrumentIdInput = document.getElementById('instrument-id');
+const searchResults = document.getElementById('search-results');
 const holdingsList = document.getElementById('holdings-list');
 const resultsArea = document.getElementById('results-area');
 const emptyStateResults = document.getElementById('empty-state-results');
@@ -24,12 +29,40 @@ const processImportBtn = document.getElementById('process-import-btn');
 const importMsg = document.getElementById('import-msg');
 
 // Initialization
-function init() {
-    populateInstrumentSelect('EQUITY');
+async function init() {
+    // Search State
+    instrumentSearch.placeholder = "Loading data...";
+    instrumentSearch.disabled = true;
+
+    // Fetch Data
+    try {
+        const data = await fetchMarketData();
+        marketData = data;
+        instrumentSearch.placeholder = "Search by name or ticker...";
+        instrumentSearch.disabled = false;
+    } catch (e) {
+        console.error("Init failed", e);
+        instrumentSearch.placeholder = "Error loading data";
+    }
+
+    // Search Listener
+    instrumentSearch.addEventListener('input', (e) => {
+        handleSearch(e.target.value);
+    });
+
+    // Hide search on click outside
+    document.addEventListener('click', (e) => {
+        if (!instrumentSearch.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.classList.add('hidden');
+        }
+    });
 
     // Event Listeners
     typeSelect.addEventListener('change', (e) => {
-        populateInstrumentSelect(e.target.value);
+        // Clear search when type changes
+        instrumentSearch.value = '';
+        instrumentIdInput.value = '';
+        searchResults.classList.add('hidden');
     });
 
     form.addEventListener('submit', handleAddHolding);
@@ -87,25 +120,70 @@ function init() {
     }
 }
 
-// Populate Select Options
-function populateInstrumentSelect(type) {
-    instrumentSelect.innerHTML = '<option value="" disabled selected>Select...</option>';
+// Search Handler
+function handleSearch(query) {
+    if (!query || query.length < 2) {
+        searchResults.classList.add('hidden');
+        return;
+    }
+
+    const type = typeSelect.value;
+    const q = query.toLowerCase();
 
     let options = [];
     if (type === 'EQUITY') {
-        options = STOCKS.map(s => ({ value: s.isin, label: `${s.ticker} - ${s.name}` }));
-    } else if (type === 'MF') {
-        options = FUNDS.filter(f => f.type === 'MF').map(f => ({ value: f.id, label: f.name }));
-    } else if (type === 'ETF') {
-        options = FUNDS.filter(f => f.type === 'ETF').map(f => ({ value: f.id, label: f.name }));
+        options = marketData.stocks.filter(s =>
+            (s.ticker && s.ticker.toLowerCase().includes(q)) ||
+            (s.name && s.name.toLowerCase().includes(q))
+        ).map(s => ({
+            id: s.isin,
+            main: s.ticker,
+            sub: s.name
+        }));
+    } else {
+        // MF or ETF
+        const isEtf = type === 'ETF';
+        options = marketData.funds.filter(f => {
+            const matchName = f.name.toLowerCase().includes(q);
+            const matchType = isEtf ?
+                (f.type === 'ETF' || (f.name && f.name.includes('ETF'))) :
+                (f.type === 'MF' || !f.name.includes('ETF'));
+            return matchName && matchType;
+        }).map(f => ({
+            id: f.id,
+            main: f.name,
+            sub: isEtf ? 'ETF' : 'Mutual Fund'
+        }));
     }
 
-    options.forEach(opt => {
-        const el = document.createElement('option');
-        el.value = opt.value;
-        el.textContent = opt.label;
-        instrumentSelect.appendChild(el);
-    });
+    // Limit results
+    options = options.slice(0, 20);
+
+    if (options.length === 0) {
+        searchResults.innerHTML = '<div class="result-item">No matches found</div>';
+    } else {
+        searchResults.innerHTML = '';
+        options.forEach(opt => {
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            div.innerHTML = `
+                <div class="result-main">${opt.main}</div>
+                <div class="result-sub">${opt.sub}</div>
+            `;
+            div.addEventListener('click', () => {
+                selectInstrument(opt);
+            });
+            searchResults.appendChild(div);
+        });
+    }
+
+    searchResults.classList.remove('hidden');
+}
+
+function selectInstrument(opt) {
+    instrumentSearch.value = opt.main; // Show Ticker or Name
+    instrumentIdInput.value = opt.id;
+    searchResults.classList.add('hidden');
 }
 
 // Handle Add Holding
@@ -113,18 +191,22 @@ function handleAddHolding(e) {
     e.preventDefault();
 
     const type = typeSelect.value;
-    const id = instrumentSelect.value;
+    const id = instrumentIdInput.value; // Use hidden ID
     const value = parseFloat(document.getElementById('market-value').value);
 
-    // Get Name for UI
-    let name = '';
-    if (type === 'EQUITY') {
-        const s = STOCKS.find(x => x.isin === id);
-        name = s ? s.ticker : id;
-    } else {
-        const f = FUNDS.find(x => x.id === id);
-        name = f ? f.name : id;
+    // Validate
+    if (!id) {
+        alert("Please select a valid instrument from the search results.");
+        return;
     }
+
+    // Get Name for UI
+    let name = instrumentSearch.value;
+    // (Name is already in input, but we might want full details from DB if needed)
+
+    // We already have ID.
+    // If name is empty (user typed but didn't click), we might want to warn.
+    // But we check ID existence.
 
     const holding = {
         id: Date.now(), // internal ID
@@ -138,8 +220,9 @@ function handleAddHolding(e) {
 
     // Reset Form
     document.getElementById('market-value').value = '';
-    instrumentSelect.value = '';
-    instrumentSelect.focus();
+    instrumentSearch.value = '';
+    instrumentIdInput.value = '';
+    instrumentSearch.focus();
 
     updateUI();
 }
@@ -191,10 +274,10 @@ function processImportText() {
             // check if exists in DB (to get name)
             let name = instrumentId;
             if (type === 'EQUITY') {
-                const s = STOCKS.find(x => x.isin === instrumentId);
+                const s = marketData.stocks.find(x => x.isin === instrumentId);
                 if (s) name = s.ticker;
             } else {
-                const f = FUNDS.find(x => x.id === instrumentId);
+                const f = marketData.funds.find(x => x.id === instrumentId);
                 if (f) name = f.name;
             }
 
@@ -217,37 +300,20 @@ function processImportText() {
         importMsg.textContent = `Successfully imported ${validHoldings.length} holdings. ${skipped > 0 ? skipped + " skipped." : ""}`;
         importMsg.className = "import-msg success";
 
-        // Switch back to manual tab logic requires unhiding manual and hiding import? 
-        // Or just let user see confirmation.
-        // Let's scroll to results area
+        // Scroll to results area
         setTimeout(() => {
             document.getElementById('output-section').scrollIntoView({ behavior: 'smooth' });
         }, 500);
 
-    } catch (err) {
-        importMsg.textContent = "Invalid format: " + err.message;
+    } catch (e) {
+        importMsg.textContent = "Error: " + e.message;
         importMsg.className = "import-msg error";
     }
 }
 
-
-// Remove Holding
-window.removeHolding = function (id) {
-    userHoldings = userHoldings.filter(h => h.id !== id);
-    updateUI();
-};
-
-function formatCurrency(num) {
-    return new Intl.NumberFormat('en-IN', {
-        style: 'currency',
-        currency: 'INR',
-        maximumFractionDigits: 0
-    }).format(num);
-}
-
-// Update All UI Elements
+// Update UI
 function updateUI() {
-    renderHoldingsList();
+    renderHoldings();
 
     if (userHoldings.length === 0) {
         resultsArea.classList.add('hidden');
@@ -255,100 +321,104 @@ function updateUI() {
         return;
     }
 
-    // Calculation
-    // Map internal holdings to format expected by calculator
-    // Check if duplicate IDs need merging? Calculator summing logic handles duplicate additions of same stock, 
-    // but calculator expects unique entries or sums them up? 
-    // Logic: holdings.forEach... stock.directVal += value. So it handles multiple entries of same stock fine.
-
-    const calculationInput = userHoldings.map(h => ({
-        type: h.type,
-        id: h.instrumentId,
-        value: h.value
-    }));
-
-    const result = calculatePortfolioExposure(calculationInput);
-    renderResults(result);
-}
-
-function renderHoldingsList() {
-    holdingsList.innerHTML = '';
-
-    if (userHoldings.length === 0) {
-        holdingsList.classList.add('empty');
-        holdingsList.innerHTML = '<p class="placeholder-text">No holdings added yet.</p>';
-        return;
-    }
-
-    holdingsList.classList.remove('empty');
-
-    userHoldings.forEach(h => {
-        const el = document.createElement('div');
-        el.className = 'holding-item';
-        el.innerHTML = `
-            <div class="holding-info">
-                <div>${h.name}</div>
-                <div>${h.type}</div>
-            </div>
-            <div style="display:flex; align-items:center;">
-                <div class="holding-value">${formatCurrency(h.value)}</div>
-                <button class="delete-btn" onclick="removeHolding(${h.id})">×</button>
-            </div>
-        `;
-        holdingsList.appendChild(el);
-    });
-}
-
-function renderResults(data) {
     resultsArea.classList.remove('hidden');
     emptyStateResults.classList.add('hidden');
 
-    totalValueEl.textContent = formatCurrency(data.totalPortfolioValue);
+    const result = calculatePortfolioExposure(userHoldings);
+    renderResults(result);
+}
 
-    if (data.stockExposures.length > 0) {
-        topStockEl.textContent = `${data.stockExposures[0].ticker} (${data.stockExposures[0].exposurePercent.toFixed(1)}%)`;
+// Render Holdings List
+function renderHoldings() {
+    holdingsList.innerHTML = '';
+
+    if (userHoldings.length === 0) {
+        holdingsList.innerHTML = '<div class="empty-holdings">No holdings added yet.</div>';
+        return;
+    }
+
+    userHoldings.forEach(h => {
+        const item = document.createElement('div');
+        item.className = 'holding-item';
+        item.innerHTML = `
+            <div class="holding-info">
+                <div class="holding-name">${h.name}</div>
+                <div class="holding-meta">${h.type === 'EQUITY' ? 'Stock' : h.type} • ₹${h.value.toLocaleString()}</div>
+            </div>
+            <button class="remove-btn" title="Remove">&times;</button>
+        `;
+
+        item.querySelector('.remove-btn').addEventListener('click', () => {
+            removeHolding(h.id);
+        });
+
+        holdingsList.appendChild(item);
+    });
+}
+
+function removeHolding(id) {
+    userHoldings = userHoldings.filter(h => h.id !== id);
+    updateUI();
+}
+
+// Render Results
+function renderResults(result) {
+    totalValueEl.textContent = `₹${result.totalValue.toLocaleString()}`;
+
+    // Top Concentration
+    const topStock = result.stockExposure[0];
+    if (topStock) {
+        topStockEl.textContent = `${topStock.ticker} (${topStock.exposurePct.toFixed(1)}%)`;
     } else {
         topStockEl.textContent = '-';
     }
 
-    // Render Top 5
+    // Render List
     exposureListEl.innerHTML = '';
-    const top5 = data.stockExposures.slice(0, 5);
+    const topStocks = result.stockExposure.slice(0, 5);
 
-    top5.forEach(stock => {
-        const isConcentrated = stock.exposurePercent >= 5;
-        const total = stock.exposurePercent;
+    topStocks.forEach(stock => {
+        const card = document.createElement('div');
+        card.className = 'exposure-card';
+        if (stock.exposurePct >= 5) card.classList.add('alert'); // Threshold
 
-        const directPct = (stock.directVal / stock.totalValue) * 100;
-        const mfPct = (stock.mfVal / stock.totalValue) * 100;
-        const etfPct = (stock.etfVal / stock.totalValue) * 100;
+        const directPct = (stock.directVal / result.totalValue) * 100;
+        const mfPct = (stock.mfVal / result.totalValue) * 100;
+        const etfPct = (stock.etfVal / result.totalValue) * 100;
 
-        const directWidth = (stock.directVal / data.totalPortfolioValue) * 100;
-        const mfWidth = (stock.mfVal / data.totalPortfolioValue) * 100;
-        const etfWidth = (stock.etfVal / data.totalPortfolioValue) * 100;
+        // Visual bars
+        const maxPct = stock.exposurePct;
+        const directWidth = (directPct / maxPct) * 100;
+        const mfWidth = (mfPct / maxPct) * 100;
+        const etfWidth = (etfPct / maxPct) * 100;
 
-        const el = document.createElement('div');
-        el.className = 'exposure-bar-container';
-        el.innerHTML = `
+        const isConcentrated = stock.exposurePct >= 5;
+
+        card.innerHTML = `
             <div class="exposure-header">
-                <span class="stock-name">${stock.ticker}</span>
-                <span class="total-percent ${isConcentrated ? 'warn' : ''}">${total.toFixed(2)}%</span>
+                <div>
+                    <span class="stock-ticker">${stock.ticker}</span>
+                    <span class="stock-name">${stock.name}</span>
+                </div>
+                <span class="total-percent ${isConcentrated ? 'warn' : ''}">${stock.exposurePct.toFixed(2)}%</span>
             </div>
             <div class="progress-track">
-                <div class="progress-segment seg-direct" style="width: ${directWidth}%" title="Direct: ${directPct.toFixed(0)}%"></div>
+                <div class="progress-segment seg-direct" style="width: ${directWidth}%" title="Stocks: ${directPct.toFixed(0)}%"></div>
                 <div class="progress-segment seg-mf" style="width: ${mfWidth}%" title="MF: ${mfPct.toFixed(0)}%"></div>
                 <div class="progress-segment seg-etf" style="width: ${etfWidth}%" title="ETF: ${etfPct.toFixed(0)}%"></div>
             </div>
             <div class="exposure-breakdown">
-                ${stock.directVal > 0 ? `<span><span class="dot bg-direct"></span>Direct ${(directPct).toFixed(0)}%</span>` : ''}
+                ${stock.directVal > 0 ? `<span><span class="dot bg-direct"></span>Stocks ${(directPct).toFixed(0)}%</span>` : ''}
                 ${stock.mfVal > 0 ? `<span><span class="dot bg-mf"></span>MF ${(mfPct).toFixed(0)}%</span>` : ''}
                 ${stock.etfVal > 0 ? `<span><span class="dot bg-etf"></span>ETF ${(etfPct).toFixed(0)}%</span>` : ''}
             </div>
-            ${isConcentrated ? `<div class="warning-flag">⚠️ Concentrated Exposure (>5%)</div>` : ''}
+            ${isConcentrated ? '<div class="alert-badge">High Concentration Risk</div>' : ''}
         `;
-        exposureListEl.appendChild(el);
+
+        exposureListEl.appendChild(card);
     });
 }
+
 
 // Start
 init();
