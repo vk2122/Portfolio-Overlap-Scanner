@@ -1,0 +1,96 @@
+/* Import Section Styles */
+.hidden {
+    display: none !important;
+}
+
+.import-area {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.instruction-text {
+    font-weight: 500;
+}
+
+.instruction-subtext {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+}
+
+.file-drop-zone {
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.file-drop-zone:hover {
+    border-color: var(--color-primary);
+    background: rgba(var(--hue-primary), 60%, 20%, 0.1);
+}
+
+.separator {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    position: relative;
+    margin: var(--space-xs) 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: var(--color-border);
+}
+
+.separator::before {
+    left: 0;
+}
+
+.separator::after {
+    right: 0;
+}
+
+textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    font-family: 'monospace';
+    font-size: 0.9rem;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.import-msg {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    min-height: 1.5rem;
+}
+
+.import-msg.error {
+    color: var(--color-danger);
+}
+
+.import-msg.success {
+    color: var(--color-success);
+}
