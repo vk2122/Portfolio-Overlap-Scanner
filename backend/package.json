@@ -1,0 +1,20 @@
+{
+    "name": "portfolio-overlap-backend",
+    "version": "1.0.0",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "node src/server.js",
+        "test": "jest",
+        "test:mutation": "stryker run"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "cors": "^2.8.5",
+        "body-parser": "^1.20.2"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "@stryker-mutator/core": "^8.2.0",
+        "@stryker-mutator/jest-runner": "^8.2.0"
+    }
+}

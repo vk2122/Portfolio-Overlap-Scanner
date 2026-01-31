@@ -2,8 +2,10 @@
  * Mock Database for Indian Market Instruments
  * V1 Skeleton Data
  */
+// @ts-nocheck
 
-export const STOCKS = [
+
+const STOCKS = [
     { isin: "INE002A01018", ticker: "RELIANCE", name: "Reliance Industries Ltd", sector: "Energy" },
     { isin: "INE001A01036", ticker: "HDFC", name: "HDFC Bank Ltd", sector: "Financials" },
     { isin: "INE467B01029", ticker: "TCS", name: "Tata Consultancy Services Ltd", sector: "Technology" },
@@ -22,7 +24,7 @@ export const STOCKS = [
 ];
 
 // Compositions (Weights are approximate examples for V1 demo)
-export const FUNDS = [
+const FUNDS = [
     {
         id: "MF_HDFC_TOP100",
         name: "HDFC Top 100 Fund",
@@ -60,3 +62,5 @@ export const FUNDS = [
         ]
     }
 ];
+
+module.exports = { STOCKS, FUNDS };

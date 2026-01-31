@@ -1,7 +1,7 @@
 
-// URLs for local data (downloaded to avoid CORS/Fetch issues on localhost)
-const STOCKS_URL = './js/data/stocks.json';
-const FUNDS_URL = './js/data/funds.json';
+// URLs for local data (in public folder)
+const STOCKS_URL = '/data/stocks.json';
+const FUNDS_URL = '/data/funds.json';
 
 // Cache for the session
 let allStocks = [];
@@ -14,10 +14,13 @@ import { STOCKS as MOCK_STOCKS, FUNDS as MOCK_FUNDS } from './mock-db.js';
 export async function fetchMarketData() {
     if (isLoaded) return { stocks: allStocks, funds: allFunds };
 
-    console.log("Fetching local market data...");
+    console.log("Fetching market data (Next.js)...");
 
     try {
         // Parallel Fetch
+        // Note: In Next.js client-side, relative paths to public work.
+        // In Server Components, we might need full URL, but this is likely called from Client Component (Search).
+        // We will assume Client Side usage for now.
         const [stocksRes, fundsRes] = await Promise.allSettled([
             fetch(STOCKS_URL),
             fetch(FUNDS_URL)
@@ -26,9 +29,7 @@ export async function fetchMarketData() {
         // Process Stocks
         if (stocksRes.status === 'fulfilled') {
             const raw = await stocksRes.value.json();
-            // Format check: The downloaded file appears to be {"Name": "Symbol"} object.
             if (Array.isArray(raw)) {
-                // Handle if it were an array
                 allStocks = raw.map(s => ({
                     ticker: s.Symbol || s.symbol || s.ticker,
                     name: s['Company Name'] || s.name || s.Name,
@@ -36,22 +37,18 @@ export async function fetchMarketData() {
                     type: 'EQUITY'
                 })).filter(s => s.ticker);
             } else {
-                // Handle Object format: { "Name": "Symbol" }
                 allStocks = Object.entries(raw).map(([name, ticker]) => ({
                     ticker: ticker,
                     name: name,
-                    isin: `INE_SYNTH_${ticker}`, // Synthetic ISIN for listing purposes
+                    isin: ticker,
                     type: 'EQUITY'
                 }));
             }
-        } else {
-            console.warn("Stocks fetch failed", stocksRes.reason);
         }
 
         // Process Funds
         if (fundsRes.status === 'fulfilled') {
             const raw = await fundsRes.value.json();
-            // mfapi.in returns array of { schemeCode, schemeName, ... }
             if (Array.isArray(raw)) {
                 allFunds = raw.map(f => ({
                     id: String(f.schemeCode),
@@ -60,26 +57,15 @@ export async function fetchMarketData() {
                     constituents: []
                 }));
             }
-        } else {
-            console.warn("Funds fetch failed", fundsRes.reason);
         }
 
     } catch (e) {
         console.error("Data fetch error:", e);
     }
 
-    // Merge with Mock Data (Mock data at top for demo purposes)
-    // We filter mock items from the fetched list to avoid noticeable dupes if possible, 
-    // but names might differ. Simple prepend is safest for v1.
-
-    // Prefix Mock ISINs are real, Synthetic are not. 
-    // We want Listing to start with Real/Mock ones so user sees data they can overlap with.
-
-    // Deduplicate Stocks (Prefer Mock Data as it has constituent logic if any, though stocks don't carry constituents in this app context, Mock has Real ISINs)
+    // Deduplicate Stocks
     const stockMap = new Map();
-    // Add Mock First
     MOCK_STOCKS.forEach(s => stockMap.set(s.ticker.toUpperCase(), s));
-    // Add Fetched (only if not exists)
     allStocks.forEach(s => {
         if (!stockMap.has(s.ticker.toUpperCase())) {
             stockMap.set(s.ticker.toUpperCase(), s);
@@ -98,6 +84,5 @@ export async function fetchMarketData() {
     allFunds = Array.from(fundMap.values());
 
     isLoaded = true;
-    console.log(`Loaded ${allStocks.length} Stocks and ${allFunds.length} Funds.`);
     return { stocks: allStocks, funds: allFunds };
 }

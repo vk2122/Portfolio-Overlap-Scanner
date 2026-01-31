@@ -1,47 +1,78 @@
-# Portfolio Overlap Insight Platform (v1)
+# UNSTACKED — Portfolio Concentration Scanner 🔬
 
-A privacy-focused, client-side web application to analyze portfolio concentration and overlap across Direct Equity, Mutual Funds, and ETFs for Indian investors.
+**UNSTACKED** is a high-end, institutional-grade diagnostic instrument designed to reveal hidden concentration risks in Indian investment portfolios. It provides a clinical, single-axis analysis of equity and mutual fund holdings to ensure your diversification isn't just an illusion.
 
-## Features
-- **Deterministic Exposure Calculation**: Aggregates exposure at stock level.
-- **Privacy First**: All data processing happens in your browser. No data is sent to any server.
-- **Visual Insights**: See your top concentrated stocks and their source (Direct vs MF vs ETF).
-- **Import Support**: Manual entry or upload structured JSON data.
+![Unstacked Preview](https://via.placeholder.com/1200x600/0B0D10/E8EAED?text=UNSTACKED+DIAGNOSTIC+SCANNER)
 
-## Quick Start
+## 💎 Core Philosophy
+Most investors "stack" funds thinking they are diversifying, only to realize their underlying stock exposure is identical across multiple products. **UNSTACKED** deconstructs your portfolio to find the truth.
 
-### Prerequisites
-- Python 3.x (recommended for local server) or any static web server.
+## 🚀 Key Features
 
-### Running the App
-1. Open a terminal in this directory.
-2. Run a local server:
-   ```bash
-   python -m http.server 8000
-   ```
-3. Open your browser and navigate to: [http://localhost:8000](http://localhost:8000)
+### 1. Clinical Diagnostic Interface
+- **Single-Axis Vertical Flow**: A streamlined UX that moves from input to insight without distraction.
+- **Glassmorphic Depth**: High-end UI textures with 20px frosted-glass blurs for a premium "technical instrument" feel.
+- **Dynamic Verdicts**: Large-scale visual feedback that updates in real-time as you add holdings.
 
-## usage
+### 2. Dual-Mode Analysis
+- **Manual Entry**: Intelligent, auto-closing search dropdowns for Stocks, Mutual Funds, and ETFs (Indian Market).
+- **CAS Import (PDF)**: Technical select-mode for PDF statements with real-time file feedback (Ready for parsing engine integration).
 
-### Manual Entry
-1. Select the instrument type (Equity, MF, ETF).
-2. Choose the specific instrument from the list.
-3. Enter the current market value.
-4. Click **Add Holding**.
+### 3. Precision Risk Engine
+- **7.0% Moderate Risk**: Threshold for initial concentration alerts.
+- **15.0% Critical Risk**: High-intensity alert state with "Risk Red" branding.
+- **Portfolio Context**: Exposure metrics are grounded against your total capital size (₹) for actionable insight.
 
-### CAS Import (Beta)
-1. Go to the "CAS Import" tab.
-2. Drag and drop a JSON file matching the schema, or paste the JSON content.
-3. Click **Process Import**.
+## 🛠 Tech Stack
+- **Frontend**: Next.js 14, React, Vanilla CSS3 (Custom Design System).
+- **Backend**: Node.js, Express.js.
+- **Deployment**: Vercel Serverless Architecture (Monorepo Optimized).
+- **Data**: Curated Database of Indian Blue-chip Stocks & Top Mutual Funds.
 
-**Sample JSON Format:**
-```json
-[
-    { "type": "MF", "id": "MF_HDFC_TOP100", "value": 100000 },
-    { "type": "EQUITY", "isin": "INE001A01036", "value": 50000 }
-]
+## 📦 Project Structure
+```bash
+├── frontend/          # Next.js Application
+│   ├── app/           # App router & Global styles (Refined CSS)
+│   ├── components/    # Core UI logic (PortfolioApp.js)
+│   └── lib/           # Data loaders & Mock DB
+├── backend/           # Node.js API
+│   ├── src/           # Calculator logic & Express Server
+│   └── tests/         # Unit testing suite
+├── vercel.json        # Production Deployment Orchestrator
+└── .gitignore         # Optimized for GitHub/Vercel
 ```
 
-## Tech Stack
-- HTML5, CSS3 (Vanilla), JavaScript (ES6+)
-- No external dependencies (framework-less)
+## 🏗 Local Development
+
+1. **Clone the Repo**
+   ```bash
+   git clone https://github.com/your-username/portfolio-overlap-scanner.git
+   cd portfolio-overlap-scanner
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   # Root, Frontend, and Backend
+   npm install
+   cd frontend && npm install
+   cd ../backend && npm install
+   ```
+
+3. **Run Locally**
+   ```bash
+   # Terminal 1: Backend (Port 5000)
+   cd backend && npm start
+
+   # Terminal 2: Frontend (Port 3000)
+   cd frontend && npm run dev
+   ```
+
+## 🌐 Deployment
+This project is pre-configured for **Vercel**. 
+- The `vercel.json` at the root handles the routing and builds.
+- The backend automatically scales as Serverless Functions.
+- The frontend dynamically detects the environment and routes API calls to the correct production proxy.
+
+---
+
+**UNSTACKED** — *Diversified? Check again.*
