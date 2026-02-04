@@ -1,0 +1,179 @@
+:root {
+    /* ================================================
+       THEME SYSTEM - SEMANTIC COLOR ROLES
+       DO NOT USE RAW HEX IN COMPONENTS
+       ================================================ */
+
+    /* Default: Dark Mode */
+    --theme: 'dark';
+
+    /* Deployed UI palette */
+    --bg-primary: #0b0d10;
+    --bg-surface: rgba(255, 255, 255, 0.02);
+
+    /* Text */
+    --text-primary: #e8eaed;
+    --text-secondary: #6b7280;
+    --text-muted: #6b7280;
+
+    /* Borders */
+    --border-subtle: #1c1f26;
+    --border-default: #1c1f26;
+
+    /* Accents */
+    --accent-primary: #f5a623; /* action */
+    --accent-primary-hover: #f7b44a;
+    --accent-secondary: #2e8b8b; /* info */
+    --accent-gradient: linear-gradient(135deg, #f5a623 0%, #2e8b8b 100%);
+
+    /* Extra semantic aliases (to match deployed naming) */
+    --color-action: var(--accent-primary);
+    --color-info: var(--accent-secondary);
+    --color-risk: #d64545;
+
+    /* Semantic */
+    --success: #2e8b8b;
+    --danger: #d64545;
+    --warning: #f5a623;
+
+    /* Charts */
+    --chart-1: #f5a623;
+    --chart-2: #2e8b8b;
+    --chart-3: #38BDF8;
+    --chart-4: #A78BFA;
+    --chart-5: #F472B6;
+    --chart-6: #F97316;
+
+    /* Risk Semantic Colors */
+    --risk-high: var(--danger);
+    --risk-medium: var(--warning);
+    --risk-low: var(--success);
+
+    /* State Colors */
+    --state-success: var(--success);
+    --state-warning: var(--warning);
+    --state-error: var(--danger);
+    --state-info: #38BDF8;
+
+    /* Typography & Spacing remain same */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --text-page-title-size: 24px;
+    --text-page-title-weight: 600;
+    --text-page-title-height: 1.3;
+    --text-section-title-size: 18px;
+    --text-section-title-weight: 600;
+    --text-section-title-height: 1.4;
+    --text-body-primary-size: 14px;
+    --text-body-primary-weight: 400;
+    --text-body-primary-height: 1.6;
+    --text-body-secondary-size: 12px;
+    --text-body-secondary-weight: 400;
+    --text-body-secondary-height: 1.5;
+    --text-label-size: 12px;
+    --text-label-weight: 500;
+    --text-label-height: 1.4;
+    --text-metric-size: 20px;
+    --text-metric-weight: 600;
+    --text-metric-height: 1.2;
+    --space-section: 48px;
+    --space-subsection: 32px;
+    --space-component: 16px;
+    --space-inline: 8px;
+    --padding-desktop: 32px;
+    --padding-tablet: 24px;
+    --padding-mobile: 16px;
+    --card-radius: 8px;
+    --card-padding: 16px;
+    --card-border: 1px solid var(--border-default);
+    --button-height: 40px;
+    --button-radius: 6px;
+    --button-padding-x: 16px;
+    --input-height: 40px;
+    --input-radius: 6px;
+    --input-padding-x: 12px;
+    --input-border: 1px solid var(--border-default);
+    --max-content-width: 960px;
+    --transition-instant: 150ms ease;
+    --transition-fast: 200ms ease;
+    --transition-base: 300ms ease;
+    --transition-theme: 150ms ease;
+}
+
+/* ================================================
+   LIGHT MODE OVERRIDES
+   ================================================ */
+
+[data-theme='light'] {
+    --theme: 'light';
+
+    /* Backgrounds */
+    --bg-primary: #F8FAFC;
+    --bg-surface: #FFFFFF;
+
+    /* Text */
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #475569;
+
+    /* Borders */
+    --border-subtle: #E2E8F0;
+    --border-default: #E2E8F0;
+
+    /* Accents */
+    --accent-primary: #F59E0B;
+    --accent-primary-hover: #D97706;
+    --accent-secondary: #0EA5E9;
+    --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #0EA5E9 100%);
+
+    /* Semantic */
+    --success: #059669;
+    --danger: #DC2626;
+    --warning: #D97706;
+
+    /* Risk Semantic Colors */
+    --risk-high: var(--danger);
+    --risk-medium: var(--warning);
+    --risk-low: var(--success);
+
+    /* State Colors */
+    --state-success: var(--success);
+    --state-warning: var(--warning);
+    --state-error: var(--danger);
+    --state-info: #0EA5E9;
+
+    /* Charts */
+    --chart-1: #F59E0B;
+    --chart-2: #0EA5E9;
+    --chart-3: #10B981;
+    --chart-4: #8B5CF6;
+    --chart-5: #EC4899;
+    --chart-6: #F97316;
+}
+
+/* Responsive Padding */
+@media (max-width: 1199px) and (min-width: 768px) {
+    :root {
+        --padding-horizontal: var(--padding-tablet);
+    }
+}
+
+@media (max-width: 767px) {
+    :root {
+        --padding-horizontal: var(--padding-mobile);
+    }
+}
+
+@media (min-width: 1200px) {
+    :root {
+        --padding-horizontal: var(--padding-desktop);
+    }
+}
+
+/* Theme transition */
+:root {
+    transition: background-color var(--transition-theme), color var(--transition-theme);
+}
+
+* {
+    transition: background-color var(--transition-theme), border-color var(--transition-theme), color var(--transition-theme);
+}

@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-    title: 'Portfolio Overlap Insight Platform',
+    title: 'UNSTACKED - Portfolio Overlap Insight Platform',
     description: 'Analyze your portfolio concentration and overlap.',
 }
 

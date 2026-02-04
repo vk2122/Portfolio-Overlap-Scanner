@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { fetchMarketData } from '../lib/loader';
 
 const API_BASE = typeof window !== 'undefined' && window.location.hostname === 'localhost'
@@ -13,6 +13,9 @@ export default function PortfolioApp() {
     const [result, setResult] = useState(null);
     const [calculating, setCalculating] = useState(false);
     const [activeTab, setActiveTab] = useState('manual');
+
+    // UI state (charts / hover)
+    const [hoverSlice, setHoverSlice] = useState(null); // { sector, x, y, pct, stocks: [] }
 
     // Form State
     const [type, setType] = useState('EQUITY');
@@ -77,6 +80,10 @@ export default function PortfolioApp() {
         setSearchQuery(''); setValue(''); setSelectedInstrument(null);
     };
 
+    const removeHolding = (id) => {
+        setHoldings(prev => prev.filter(h => h.id !== id));
+    };
+
     const processImport = () => {
         try {
             const data = JSON.parse(importText);
@@ -106,16 +113,103 @@ export default function PortfolioApp() {
 
     const topStock = result?.stockExposure?.[0];
     const topPct = topStock?.exposurePct || 0;
-    const isCritical = topPct >= 15;
+    const overlapPercent = result?.overlapPercent || 0;
+    const diversificationScore = result?.diversificationScore || 0;
+    const overlapVerdict = result?.overlapVerdict || 'LOW';
+    const largestSector = result?.largestSectorExposure;
+    const topOverlapPairs = result?.topOverlapPairs || [];
+    const interpretation = result?.interpretation || '';
+    const getRiskLevel = () => {
+        if (topPct >= 15) return 'high';
+        if (topPct >= 7) return 'medium';
+        return 'low';
+    };
+
+    const riskLevel = getRiskLevel();
 
     const getJudgment = () => {
-        if (topPct >= 15) return 'HIGH CONCENTRATION';
-        if (topPct >= 7) return 'MODERATE CONCENTRATION';
+        if (riskLevel === 'high') return 'HIGH CONCENTRATION';
+        if (riskLevel === 'medium') return 'MODERATE CONCENTRATION';
         return 'LOW CONCENTRATION';
     };
 
     const totalValue = holdings.reduce((sum, h) => sum + h.value, 0);
     const cleanTicker = (ticker) => ticker?.replace('INE_SYNTH_', '').replace('INE_', '');
+
+    const overlapStocks = useMemo(() => {
+        const stocks = result?.stockExposure || [];
+        return stocks.filter(s => (s.sourceCount || 0) >= 2);
+    }, [result]);
+
+    const overlapBySector = useMemo(() => {
+        const totals = new Map();
+        overlapStocks.forEach(s => {
+            const sector = s.sector || 'Unknown';
+            totals.set(sector, (totals.get(sector) || 0) + (s.totalVal || 0));
+        });
+        const overlapValue = overlapStocks.reduce((sum, s) => sum + (s.totalVal || 0), 0);
+        return Array.from(totals.entries())
+            .map(([sector, val]) => ({
+                sector,
+                value: val,
+                pct: overlapValue > 0 ? (val / overlapValue) * 100 : 0,
+                stocks: overlapStocks
+                    .filter(s => (s.sector || 'Unknown') === sector)
+                    .sort((a, b) => (b.totalVal || 0) - (a.totalVal || 0))
+            }))
+            .sort((a, b) => b.value - a.value);
+    }, [overlapStocks]);
+
+    const pieSlices = useMemo(() => {
+        const data = overlapBySector;
+        const total = data.reduce((sum, d) => sum + d.value, 0);
+        if (!total) return [];
+        let startAngle = 0;
+        const slices = [];
+        for (const d of data) {
+            const angle = (d.value / total) * 360;
+            slices.push({
+                ...d,
+                startAngle,
+                endAngle: startAngle + angle
+            });
+            startAngle += angle;
+        }
+        return slices;
+    }, [overlapBySector]);
+
+    // SVG arc helpers for pie
+    const polarToCartesian = (cx, cy, r, angleDeg) => {
+        const angleRad = ((angleDeg - 90) * Math.PI) / 180.0;
+        return {
+            x: cx + (r * Math.cos(angleRad)),
+            y: cy + (r * Math.sin(angleRad))
+        };
+    };
+    const describeDonutSlice = (cx, cy, rOuter, rInner, startAngle, endAngle) => {
+        const startOuter = polarToCartesian(cx, cy, rOuter, endAngle);
+        const endOuter = polarToCartesian(cx, cy, rOuter, startAngle);
+        const startInner = polarToCartesian(cx, cy, rInner, startAngle);
+        const endInner = polarToCartesian(cx, cy, rInner, endAngle);
+        const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+
+        return [
+            `M ${startOuter.x} ${startOuter.y}`,
+            `A ${rOuter} ${rOuter} 0 ${largeArcFlag} 0 ${endOuter.x} ${endOuter.y}`,
+            `L ${startInner.x} ${startInner.y}`,
+            `A ${rInner} ${rInner} 0 ${largeArcFlag} 1 ${endInner.x} ${endInner.y}`,
+            'Z'
+        ].join(' ');
+    };
+
+    const chartPalette = [
+        'var(--chart-1)',
+        'var(--chart-2)',
+        'var(--chart-3)',
+        'var(--chart-4)',
+        'var(--chart-5)',
+        'var(--chart-6)'
+    ];
 
     return (
         <>
@@ -182,9 +276,9 @@ export default function PortfolioApp() {
                         <button type="submit" className="cta-reveal">ADD</button>
                     </form>
                 ) : (
-                    <div className="input-strip cas-strip" style={{ alignItems: 'flex-end', height: 'auto', minHeight: 'unset' }}>
-                        <div className="field" style={{ flex: 1, gap: '0.2rem' }}>
-                            <label style={{ marginBottom: '0.1rem' }}>CAS STATEMENT (PDF)</label>
+                    <div className="input-strip">
+                        <div className="field">
+                            <label>CAS STATEMENT (PDF)</label>
                             <div className="custom-file-input">
                                 <input
                                     type="file"
@@ -205,20 +299,170 @@ export default function PortfolioApp() {
                             </div>
                         </div>
                         <button className="cta-reveal" onClick={() => alert("PDF Parsing Engine pending backend integration. Use Manual Entry for testing.")}>
-                            REVEAL OVERLAP
+                            ANALYZE
                         </button>
                     </div>
                 )}
 
                 {activeTab === 'import' && importMsg && (
-                    <div className="status-bar active" style={{ borderTop: 'none', borderBottom: '1px solid var(--border-subtle)' }}>
+                    <div className="status-bar active">
                         {importMsg}
                     </div>
                 )}
 
                 {activeTab === 'manual' && (
                     <>
-                        <div className={`status-bar ${calculating ? 'active' : ''} ${isCritical ? 'danger' : ''}`}>
+                        {holdings.length > 0 && (
+                            <div className="details-zone holdings-zone">
+                                <h4>HOLDINGS</h4>
+                                {holdings.map(h => (
+                                    <div key={h.id} className="exposure-row">
+                                        <span className="ticker">{cleanTicker(h.name)}</span>
+                                        <span className="pct">₹{Number(h.value).toLocaleString()}</span>
+                                        <button
+                                            type="button"
+                                            className="icon-btn"
+                                            aria-label={`Remove holding ${cleanTicker(h.name)}`}
+                                            title="Remove holding"
+                                            onClick={() => removeHolding(h.id)}
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {result && holdings.length >= 2 && (
+                            <div className="details-zone insights-zone">
+                                <h4>OVERLAP INSIGHTS</h4>
+                                <div className="insights-grid">
+                                    <div className="insights-metrics">
+                                        <div className="exposure-row">
+                                            <span className="ticker">Overlap %</span>
+                                            <span className="pct">{overlapPercent.toFixed(1)}%</span>
+                                        </div>
+                                        <div className="exposure-row">
+                                            <span className="ticker">Diversification Score</span>
+                                            <span className="pct">{diversificationScore.toFixed(1)}</span>
+                                        </div>
+                                        <div className="exposure-row">
+                                            <span className="ticker">Overlap Verdict</span>
+                                            <span className="pct">{overlapVerdict}</span>
+                                        </div>
+
+                                        {interpretation && (
+                                            <p className="interpretation">{interpretation}</p>
+                                        )}
+
+                                        {largestSector && (
+                                            <div className="exposure-row">
+                                                <span className="ticker">Largest Sector Exposure</span>
+                                                <span className="pct">
+                                                    {largestSector.sector} · {largestSector.exposurePct.toFixed(1)}%
+                                                </span>
+                                            </div>
+                                        )}
+
+                                        {topOverlapPairs.length > 0 && (
+                                            <div className="overlap-pairs">
+                                                <span className="ticker">Top Overlap Pairs</span>
+                                                {topOverlapPairs.map(pair => (
+                                                    <div key={pair.pair} className="exposure-row">
+                                                        <span className="ticker">{pair.pair}</span>
+                                                        <span className="pct">{pair.overlapPct.toFixed(1)}%</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="insights-chart">
+                                        <div className="chart-title">Overlap Composition (by sector)</div>
+
+                                        {pieSlices.length === 0 ? (
+                                            <div className="text-body-secondary" style={{ paddingTop: 8 }}>
+                                                Add more overlapping holdings to see the sector breakdown.
+                                            </div>
+                                        ) : (
+                                            <div className="chart-wrap">
+                                                <svg
+                                                    className="pie"
+                                                    viewBox="0 0 200 200"
+                                                    role="img"
+                                                    aria-label="Overlap sector pie chart"
+                                                    onMouseLeave={() => setHoverSlice(null)}
+                                                >
+                                                    <circle cx="100" cy="100" r="78" fill="var(--bg-primary)" opacity="0.55" />
+                                                    {pieSlices.map((s, idx) => {
+                                                        const d = describeDonutSlice(100, 100, 88, 52, s.startAngle, s.endAngle);
+                                                        const fill = chartPalette[idx % chartPalette.length];
+                                                        return (
+                                                            <path
+                                                                key={s.sector}
+                                                                d={d}
+                                                                fill={fill}
+                                                                className="pie-slice"
+                                                                onMouseMove={(e) => {
+                                                                    const rect = e.currentTarget.ownerSVGElement.getBoundingClientRect();
+                                                                    setHoverSlice({
+                                                                        sector: s.sector,
+                                                                        pct: s.pct,
+                                                                        x: e.clientX - rect.left,
+                                                                        y: e.clientY - rect.top,
+                                                                        stocks: s.stocks
+                                                                    });
+                                                                }}
+                                                            />
+                                                        );
+                                                    })}
+                                                </svg>
+
+                                                {hoverSlice && (
+                                                    <div
+                                                        className="chart-tooltip"
+                                                        style={{
+                                                            left: Math.min(hoverSlice.x + 12, 260),
+                                                            top: Math.max(hoverSlice.y - 10, 8)
+                                                        }}
+                                                    >
+                                                        <div className="tt-title">
+                                                            {hoverSlice.sector} · {hoverSlice.pct.toFixed(1)}%
+                                                        </div>
+                                                        <div className="tt-sub">Top overlap stocks</div>
+                                                        <div className="tt-list">
+                                                            {hoverSlice.stocks.slice(0, 6).map(st => (
+                                                                <div key={st.isin} className="tt-row">
+                                                                    <span className="tt-name">{cleanTicker(st.ticker || st.isin)}</span>
+                                                                    <span className="tt-sector">{st.sector || 'Unknown'}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        <div className="sector-details">
+                                            {overlapBySector.slice(0, 6).map((s, idx) => (
+                                                <div
+                                                    key={s.sector}
+                                                    className={`sector-row ${hoverSlice?.sector === s.sector ? 'active' : ''}`}
+                                                    onMouseEnter={() => setHoverSlice({ sector: s.sector, pct: s.pct, x: 0, y: 0, stocks: s.stocks })}
+                                                    onMouseLeave={() => setHoverSlice(null)}
+                                                >
+                                                    <span className="dot" style={{ background: chartPalette[idx % chartPalette.length] }} />
+                                                    <span className="sector-name">{s.sector}</span>
+                                                    <span className="sector-pct">{s.pct.toFixed(1)}%</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className={`status-bar ${calculating ? 'active' : ''} ${result ? `risk-${riskLevel}` : ''}`}>
                             {calculating ? 'STATUS: ANALYZING EXPOSURE' : result ? 'STATUS: CONCENTRATION DETECTED' : 'STATUS: SCANNER IDLE'}
                         </div>
 
@@ -231,8 +475,8 @@ export default function PortfolioApp() {
                                 </div>
                             ) : (
                                 <div className="verdict-result">
-                                    <div className={`huge-num ${isCritical ? 'risk' : ''}`}>{topPct.toFixed(1)}%</div>
-                                    <div className="judgment">{getJudgment()}</div>
+                                    <div className={`huge-num highlight risk-${riskLevel}`}>{topPct.toFixed(1)}%</div>
+                                    <div className={`judgment risk-${riskLevel}`}>{getJudgment()}</div>
                                     <p className="interpretation">
                                         {cleanTicker(topStock?.ticker)} represents {topPct.toFixed(1)}% of your total exposure, across a total portfolio size of ₹{totalValue.toLocaleString()}.
                                     </p>
@@ -243,12 +487,22 @@ export default function PortfolioApp() {
                         {result && result.stockExposure?.length > 0 && (
                             <div className="details-zone">
                                 <h4>TOP EXPOSURES</h4>
-                                {result.stockExposure.slice(0, 5).map(s => (
-                                    <div key={s.isin} className={`exposure-row ${s.exposurePct >= 15 ? 'danger' : ''}`}>
-                                        <span className="ticker">{cleanTicker(s.ticker)}</span>
-                                        <span className="pct">{s.exposurePct.toFixed(1)}%</span>
-                                    </div>
-                                ))}
+                                {result.stockExposure.slice(0, 5).map(s => {
+                                    const sRisk = s.exposurePct >= 15 ? 'high' : s.exposurePct >= 7 ? 'medium' : 'low';
+                                    const maxPct = result.stockExposure?.[0]?.exposurePct || 1;
+                                    const width = Math.max(2, Math.min(100, (s.exposurePct / maxPct) * 100));
+                                    return (
+                                        <div key={s.isin} className={`exposure-row risk-${sRisk}`}>
+                                            <span className="ticker">{cleanTicker(s.ticker)}</span>
+                                            <span className="pct">
+                                                {s.exposurePct.toFixed(1)}%
+                                                <span className="mini-bar" aria-hidden="true">
+                                                    <span className={`mini-fill risk-${sRisk}`} style={{ width: `${width}%` }} />
+                                                </span>
+                                            </span>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         )}
                     </>

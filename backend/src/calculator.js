@@ -29,6 +29,14 @@ function calculatePortfolioExposure(holdings) {
     let totalValue = 0;
     const exposureMap = new Map(); // isin -> exposure object
 
+    const instrumentLabelMap = new Map();
+    holdings.forEach(h => {
+        const key = `${h.type}:${h.instrumentId}`;
+        if (!instrumentLabelMap.has(key)) {
+            instrumentLabelMap.set(key, h.name || h.instrumentId);
+        }
+    });
+
     const getStockEntry = (isin) => {
         if (!exposureMap.has(isin)) {
             const stockInfo = STOCKS.find(s => s.isin === isin);
@@ -36,13 +44,29 @@ function calculatePortfolioExposure(holdings) {
                 isin: isin,
                 ticker: stockInfo ? stockInfo.ticker : isin,
                 name: stockInfo ? stockInfo.name : "Unknown Stock",
+                sector: stockInfo ? stockInfo.sector : "Unknown",
                 totalVal: 0,
                 directVal: 0,
                 mfVal: 0,
-                etfVal: 0
+                etfVal: 0,
+                sources: new Set()
             });
         }
         return exposureMap.get(isin);
+    };
+
+    const resolveEquityIsin = (holding) => {
+        if (holding.type !== 'EQUITY') return holding.instrumentId;
+        const byIsin = STOCKS.find(s => s.isin === holding.instrumentId);
+        if (byIsin) return byIsin.isin;
+        const byTicker = STOCKS.find(s =>
+            String(s.ticker).toUpperCase() === String(holding.instrumentId).toUpperCase()
+        );
+        if (byTicker) return byTicker.isin;
+        const byName = STOCKS.find(s =>
+            String(s.name).toLowerCase() === String(holding.name || '').toLowerCase()
+        );
+        return byName ? byName.isin : holding.instrumentId;
     };
 
     const getConstituents = (instrumentId, type) => {
@@ -91,9 +115,11 @@ function calculatePortfolioExposure(holdings) {
         totalValue += val;
 
         if (h.type === 'EQUITY') {
-            const entry = getStockEntry(h.instrumentId);
+            const resolvedIsin = resolveEquityIsin(h);
+            const entry = getStockEntry(resolvedIsin);
             entry.directVal += val;
             entry.totalVal += val;
+            entry.sources.add(`EQUITY:${resolvedIsin}`);
         } else {
             const constituents = getConstituents(h.instrumentId, h.type);
             constituents.forEach(c => {
@@ -102,6 +128,7 @@ function calculatePortfolioExposure(holdings) {
                 if (h.type === 'MF') entry.mfVal += indirectVal;
                 if (h.type === 'ETF') entry.etfVal += indirectVal;
                 entry.totalVal += indirectVal;
+                entry.sources.add(`${h.type}:${h.instrumentId}`);
             });
         }
     });
@@ -109,14 +136,80 @@ function calculatePortfolioExposure(holdings) {
     const stockExposure = Array.from(exposureMap.values())
         .map(s => ({
             ...s,
+            sourceCount: s.sources.size,
             exposurePct: (totalValue > 0) ? (s.totalVal / totalValue) * 100 : 0
         }))
         .filter(s => s.totalVal > 0.1)
         .sort((a, b) => b.totalVal - a.totalVal);
 
+    const maxSingleStockExposure = stockExposure.reduce((max, s) => Math.max(max, s.totalVal), 0);
+    const effectiveExposureCount = maxSingleStockExposure > 0
+        ? Math.floor(totalValue / maxSingleStockExposure)
+        : 0;
+
+    const overlapStocks = stockExposure.filter(s => s.sourceCount >= 2);
+    const overlapValue = overlapStocks.reduce((sum, s) => sum + s.totalVal, 0);
+    const overlapPercent = totalValue > 0 ? (overlapValue / totalValue) * 100 : 0;
+    const diversificationScore = totalValue > 0 ? 100 - overlapPercent : 0;
+    const overlapVerdict = overlapPercent < 20 ? 'LOW' : overlapPercent < 40 ? 'MEDIUM' : 'HIGH';
+
+    const sectorTotals = new Map();
+    stockExposure.forEach(s => {
+        if (!s.sector) return;
+        sectorTotals.set(s.sector, (sectorTotals.get(s.sector) || 0) + s.totalVal);
+    });
+    let largestSectorExposure = null;
+    if (sectorTotals.size > 0) {
+        const [sector, exposureValue] = Array.from(sectorTotals.entries())
+            .sort((a, b) => b[1] - a[1])[0];
+        largestSectorExposure = {
+            sector,
+            exposureValue,
+            exposurePct: totalValue > 0 ? (exposureValue / totalValue) * 100 : 0
+        };
+    }
+
+    const pairMap = new Map();
+    overlapStocks.forEach(stock => {
+        const sources = Array.from(stock.sources);
+        for (let i = 0; i < sources.length - 1; i++) {
+            for (let j = i + 1; j < sources.length; j++) {
+                const pairKey = [sources[i], sources[j]].sort().join('||');
+                const existing = pairMap.get(pairKey) || { pairKey, overlapValue: 0 };
+                existing.overlapValue += stock.totalVal;
+                pairMap.set(pairKey, existing);
+            }
+        }
+    });
+
+    const topOverlapPairs = Array.from(pairMap.values())
+        .map(pair => {
+            const [a, b] = pair.pairKey.split('||');
+            return {
+                pair: `${instrumentLabelMap.get(a) || a} × ${instrumentLabelMap.get(b) || b}`,
+                overlapValue: pair.overlapValue,
+                overlapPct: totalValue > 0 ? (pair.overlapValue / totalValue) * 100 : 0
+            };
+        })
+        .sort((a, b) => b.overlapValue - a.overlapValue)
+        .slice(0, 3);
+
+    const interpretation = totalValue > 0
+        ? `Effective exposure count is ${effectiveExposureCount}, based on your largest single-stock exposure.`
+        : '';
+
     return {
         totalValue,
-        stockExposure
+        stockExposure,
+        overlapValue,
+        overlapPercent,
+        diversificationScore,
+        overlapVerdict,
+        effectiveExposureCount,
+        overlapStocksCount: overlapStocks.length,
+        largestSectorExposure,
+        topOverlapPairs,
+        interpretation
     };
 }
 
