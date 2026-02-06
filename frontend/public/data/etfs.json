@@ -1,0 +1,6337 @@
+[
+  {
+    "ticker": "NIFTYBEES",
+    "name": "NIPINDETFNIFTYBEES",
+    "isin": "INF204KB14I2",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 10
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 10
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 10
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 10
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 10
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 10
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 10
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 10
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 10
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 10
+      }
+    ]
+  },
+  {
+    "ticker": "JUNIORBEES",
+    "name": "NIP IND ETF JUNIOR BEES",
+    "isin": "INF732E01045",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "LIQUIDBEES",
+    "name": "NIPINDETFLIQUIDBEES",
+    "isin": "INF732E01037",
+    "holdings": []
+  },
+  {
+    "ticker": "BANKBEES",
+    "name": "NIPINDETFBANKBEES",
+    "isin": "INF204KB15I9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 10
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 10
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 10
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 10
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 10
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 10
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 10
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 10
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 10
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 10
+      }
+    ]
+  },
+  {
+    "ticker": "GOLDBEES",
+    "name": "NIPINDETFGOLDBEES",
+    "isin": "INF204KB17I5",
+    "holdings": []
+  },
+  {
+    "ticker": "GOLDBETA",
+    "name": "UTIAMC -UTIGOLDBETA",
+    "isin": "INF789F1AUX7",
+    "holdings": []
+  },
+  {
+    "ticker": "GOLD1",
+    "name": "KotakMutualFund-Gold",
+    "isin": "INF174KA1HJ8",
+    "holdings": []
+  },
+  {
+    "ticker": "PSUBNKBEES",
+    "name": "NIPINDETFPSUBANKBEES",
+    "isin": "INF204KB16I7",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "PSUBANK",
+    "name": "KotakMahindraMutualFun",
+    "isin": "INF373I01023",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "QGOLDHALF",
+    "name": "QuantumGoldFund-Exchan",
+    "isin": "INF082J01408",
+    "holdings": []
+  },
+  {
+    "ticker": "QNIFTY",
+    "name": "QuantumNiftyETF",
+    "isin": "INF082J01028",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "SHARIABEES",
+    "name": "NIPINDETFSHARIAHBEES",
+    "isin": "INF732E01128",
+    "holdings": []
+  },
+  {
+    "ticker": "SETFGOLD",
+    "name": "SBI-ETFGold",
+    "isin": "INF200KA16D8",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTY1",
+    "name": "KotakNiftyETF",
+    "isin": "INF174K014P6",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "HNGSNGBEES",
+    "name": "NIPINDETFHANGSENGBEES",
+    "isin": "INF204KB19I1",
+    "holdings": []
+  },
+  {
+    "ticker": "IVZINGOLD",
+    "name": "InvescoIndiaGoldETF",
+    "isin": "INF205K01361",
+    "holdings": []
+  },
+  {
+    "ticker": "MOM50",
+    "name": "MotilalOswalM50ETF",
+    "isin": "INF247L01536",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCGOLD",
+    "name": "HDFCGoldETF",
+    "isin": "INF179KC1981",
+    "holdings": []
+  },
+  {
+    "ticker": "GOLDIETF",
+    "name": "ICICIPrudGoldETF",
+    "isin": "INF109KC1NT3",
+    "holdings": []
+  },
+  {
+    "ticker": "INFRABEES",
+    "name": "NIPINDETFINFRABEES",
+    "isin": "INF732E01268",
+    "holdings": [
+      {
+        "isin": "INE018A01030",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE481G01011",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE047A01021",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE117A01022",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE742F01042",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE752E01010",
+        "weight": 14.29
+      }
+    ]
+  },
+  {
+    "ticker": "AXISGOLD",
+    "name": "AxisMF-AxisGoldETF",
+    "isin": "INF846K01W80",
+    "holdings": []
+  },
+  {
+    "ticker": "MOM100",
+    "name": "MotilalOsMidcap100ETF",
+    "isin": "INF247L01023",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "MON100",
+    "name": "MotilalOsNASDAQ100ETF",
+    "isin": "INF247L01AP3",
+    "holdings": []
+  },
+  {
+    "ticker": "BSLGOLDETF",
+    "name": "ABSLGoldETF-GO",
+    "isin": "INF209KB18D3",
+    "holdings": []
+  },
+  {
+    "ticker": "IVZINNIFTY",
+    "name": "InvescoMF-NiftyETF",
+    "isin": "INF205K01DA9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "BSLNIFTY",
+    "name": "ABSLNiftyETF-GO",
+    "isin": "INF209KB19D1",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "LICMFGOLD",
+    "name": "LICMF LICGoldETF",
+    "isin": "INF397L01554",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTYIETF",
+    "name": "ICICIPruNiftyETF",
+    "isin": "INF109K012R6",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "NIF100BEES",
+    "name": "NIPINDETFNIFTY100",
+    "isin": "INF204K014N5",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "NIF100IETF",
+    "name": "ICICIPruNifty100ETF",
+    "isin": "INF109KC16V9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "CPSEETF",
+    "name": "CPSEETF",
+    "isin": "INF457M01133",
+    "holdings": []
+  },
+  {
+    "ticker": "CONSUMBEES",
+    "name": "NIPINDETFCONSUMPTION",
+    "isin": "INF204KA1LD7",
+    "holdings": [
+      {
+        "isin": "INE280A01028",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 11.11
+      },
+      {
+        "isin": "M_M",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE239A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "HUL",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "DIVOPPBEES",
+    "name": "NIPINDETFDIVOPP",
+    "isin": "INF204KA1MS3",
+    "holdings": []
+  },
+  {
+    "ticker": "SENSEXIETF",
+    "name": "ICICIPruSensexETF",
+    "isin": "INF346A01034",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "BANKNIFTY1",
+    "name": "KOTAKMAMC-KOTAKBKETF",
+    "isin": "INF174K01F59",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "LICNETFGSC",
+    "name": "LICNAMC-LICNMFET",
+    "isin": "INF767K01MV5",
+    "holdings": []
+  },
+  {
+    "ticker": "SETFNIFBK",
+    "name": "SBI-ETFNiftyBank",
+    "isin": "INF200KA1580",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "SETFNN50",
+    "name": "SBI-ETFNiftyNext50",
+    "isin": "INF200KA1598",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "NV20BEES",
+    "name": "NIPINDETFETFNV20",
+    "isin": "INF204KB18I3",
+    "holdings": []
+  },
+  {
+    "ticker": "SETFNIF50",
+    "name": "SBI-ETFNifty50",
+    "isin": "INF200KA1FS1",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "NIFTYBETA",
+    "name": "UTIAMC-NIFTYBETA",
+    "isin": "INF789F1AZC0",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "SENSEXBETA",
+    "name": "UTIAMC-SENSEXBETA",
+    "isin": "INF789FB1X58",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "LICNETFN50",
+    "name": "LICNAMC-LICNFENGP",
+    "isin": "INF767K01OS7",
+    "holdings": []
+  },
+  {
+    "ticker": "LICNETFSEN",
+    "name": "LICNAMC-LICNFESGP",
+    "isin": "INF767K01OT5",
+    "holdings": []
+  },
+  {
+    "ticker": "NV20",
+    "name": "KOTAKMAMC-KTKNV20ETF",
+    "isin": "INF174K01Z71",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCNIFTY",
+    "name": "HDFCAMC-HDFCNIFTY",
+    "isin": "INF179KC1965",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "HDFCSENSEX",
+    "name": "HDFCAMC-HDFCSENSEX",
+    "isin": "INF179KC1HX2",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "LICNFNHGP",
+    "name": "LICNAMC-LICNFNHGP",
+    "isin": "INF767K01PC8",
+    "holdings": []
+  },
+  {
+    "ticker": "SETF10GILT",
+    "name": "SBIAMC-SETF10GILT",
+    "isin": "INF200KA1JT1",
+    "holdings": []
+  },
+  {
+    "ticker": "NV20IETF",
+    "name": "ICICIPruNV20ETF",
+    "isin": "INF109KC11V0",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDSELIETF",
+    "name": "ICICIPruMidcapSelETF",
+    "isin": "INF109KC10W0",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "LTGILTBEES",
+    "name": "NIPINDETFLONGTERMGILT",
+    "isin": "INF204KB1882",
+    "holdings": []
+  },
+  {
+    "ticker": "IDFNIFTYET",
+    "name": "BANDHANAMC-IDFNIFTYET",
+    "isin": "INF194KA1U07",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "AXISNIFTY",
+    "name": "AXISAMC-AXISNIFTY",
+    "isin": "INF846K01W98",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "LOWVOLIETF",
+    "name": "ICICIPruNiftyLowvol30",
+    "isin": "INF109KC19U5",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "NEXT50BETA",
+    "name": "UTIAMC -NEXT50BETA",
+    "isin": "INF789F1AUW9",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "ICICIB22",
+    "name": "ICICIPRAMC-BHARATIWIN",
+    "isin": "INF109KB15Y7",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDETF",
+    "name": "DSPAMC-LIQUIDETF",
+    "isin": "INF740KA1EU7",
+    "holdings": []
+  },
+  {
+    "ticker": "BSE500IETF",
+    "name": "ICICIPRAMC-ICICI500",
+    "isin": "INF109KC1V59",
+    "holdings": []
+  },
+  {
+    "ticker": "NEXT50IETF",
+    "name": "ICICIPRAMC-ICICINXT50",
+    "isin": "INF109KC1NS5",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "LIQUIDIETF",
+    "name": "ICICIPRAMC-ICICILIQ",
+    "isin": "INF109KC1KT9",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTYETF",
+    "name": "MIRAEAMC-MAN50ETF",
+    "isin": "INF769K01EG9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "SBIETFQLTY",
+    "name": "SBIAMC-SBIETFQLTY",
+    "isin": "INF200KA1WX6",
+    "holdings": []
+  },
+  {
+    "ticker": "ABSLNN50ET",
+    "name": "BIRLASLAMC-ABSLNN50ET",
+    "isin": "INF209KB16D7",
+    "holdings": []
+  },
+  {
+    "ticker": "NETF",
+    "name": "TATAAML-NETF",
+    "isin": "INF277K015R5",
+    "holdings": []
+  },
+  {
+    "ticker": "MID150BEES",
+    "name": "NIPINDETFMIDCAP150",
+    "isin": "INF204KB1V68",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "SNXT50BETA",
+    "name": "UTIAMC-SNXT50BETA",
+    "isin": "INF789F1AUU3",
+    "holdings": []
+  },
+  {
+    "ticker": "BANKIETF",
+    "name": "ICICIPRAMC-IPRU5008",
+    "isin": "INF109KC15I8",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "PVTBANIETF",
+    "name": "ICICIPRAMC-ICICIBANKP",
+    "isin": "INF109KC18U7",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "NPBET",
+    "name": "TATAAML-NPBET",
+    "isin": "INF277K010X4",
+    "holdings": []
+  },
+  {
+    "ticker": "ABSLBANETF",
+    "name": "BIRLASLAMC-ABSLBANETF",
+    "isin": "INF209KB17D5",
+    "holdings": []
+  },
+  {
+    "ticker": "EBBETF0430",
+    "name": "EDELAMC-EBBETF0430",
+    "isin": "INF754K01KO2",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDCAPIETF",
+    "name": "ICICIPRAMC-ICICIM150",
+    "isin": "INF109KC11W8",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "NEXT50",
+    "name": "MIRAEAMC-MANXT50",
+    "isin": "INF769K01FN2",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "ITBEES",
+    "name": "NIPINDETFIT",
+    "isin": "INF204KB15V2",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "EBBETF0431",
+    "name": "EDELAMC-EBBETF0431",
+    "isin": "INF754K01LE1",
+    "holdings": []
+  },
+  {
+    "ticker": "ALPL30IETF",
+    "name": "ICICIPRAMC-ICICIALPLV",
+    "isin": "INF109KC17V7",
+    "holdings": []
+  },
+  {
+    "ticker": "ITIETF",
+    "name": "ICICIPRAMC-ICICITECH",
+    "isin": "INF109KC16I6",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "HDFCNIFBAN",
+    "name": "HDFCAMC-HDFCNIFBAN",
+    "isin": "INF179KC1HY0",
+    "holdings": []
+  },
+  {
+    "ticker": "BANKBETA",
+    "name": "UTIAMC-BANKBETA",
+    "isin": "INF789F1AUV1",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "SBIETFIT",
+    "name": "SBIAMC-SBIETFIT",
+    "isin": "INF200KA1S14",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "SBIETFPB",
+    "name": "SBIAMC-SBIETFPB",
+    "isin": "INF200KA1S22",
+    "holdings": []
+  },
+  {
+    "ticker": "AXISBNKETF",
+    "name": "AXISAMC-AXISBNKETF",
+    "isin": "INF846K01X63",
+    "holdings": []
+  },
+  {
+    "ticker": "ESG",
+    "name": "MIRAEAMC-MAESGETF",
+    "isin": "INF769K01GS9",
+    "holdings": []
+  },
+  {
+    "ticker": "MOGSEC",
+    "name": "MOTILALAMC-G5",
+    "isin": "INF247L01AK4",
+    "holdings": []
+  },
+  {
+    "ticker": "IT",
+    "name": "KOTAKMAMC-KOTAKIT",
+    "isin": "INF174KA1GC5",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "AXISTECETF",
+    "name": "AXISAMC-AXISTECETF",
+    "isin": "INF846K01Y96",
+    "holdings": []
+  },
+  {
+    "ticker": "SDL26BEES",
+    "name": "RELCAPAMC-SDL26BEES",
+    "isin": "INF204KC1022",
+    "holdings": []
+  },
+  {
+    "ticker": "GILT5YBEES",
+    "name": "RELCAPAMC-NETFGILT5Y",
+    "isin": "INF204KC1030",
+    "holdings": []
+  },
+  {
+    "ticker": "MAFANG",
+    "name": "MIRAEAMC-MAFANG",
+    "isin": "INF769K01HF4",
+    "holdings": []
+  },
+  {
+    "ticker": "AXISBPSETF",
+    "name": "AXISAMC-AXISBPSETF",
+    "isin": "INF846K01Z04",
+    "holdings": []
+  },
+  {
+    "ticker": "AXISHCETF",
+    "name": "AXISAMC-AXISHCETF",
+    "isin": "INF846K01Z12",
+    "holdings": []
+  },
+  {
+    "ticker": "HEALTHIETF",
+    "name": "ICICIPRAMC-ICICIPHARM",
+    "isin": "INF109KC1Q72",
+    "holdings": [
+      {
+        "isin": "INE044A01036",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE059A01026",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE361B01024",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE027H01010",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE089A01031",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE437A01024",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE326A01037",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE061F01013",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE947Q01028",
+        "weight": 9.5
+      },
+      {
+        "isin": "INE685A01028",
+        "weight": 9.5
+      }
+    ]
+  },
+  {
+    "ticker": "PHARMABEES",
+    "name": "NIPPONAMC-NETFPHARMA",
+    "isin": "INF204KC1089",
+    "holdings": [
+      {
+        "isin": "INE044A01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE089A01031",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE059A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE361B01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE326A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE406A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE540L01014",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE813H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE437A01024",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "SBIETFCON",
+    "name": "SBIAMC-SBIETFCON",
+    "isin": "INF200KA1X17",
+    "holdings": []
+  },
+  {
+    "ticker": "BFSI",
+    "name": "MIRAEAMC-MAFSETF",
+    "isin": "INF769K01HI8",
+    "holdings": []
+  },
+  {
+    "ticker": "FMCGIETF",
+    "name": "ICICIPRAMC-ICICIFMCG",
+    "isin": "INF109KC19V3",
+    "holdings": [
+      {
+        "isin": "INE154A01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "HUL",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE239A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE216A01030",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE192A01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE016A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE102D01028",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE196A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE259A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "AXISCETF",
+    "name": "AXISAMC-AXISCETF",
+    "isin": "INF846K016C7",
+    "holdings": []
+  },
+  {
+    "ticker": "MASPTOP50",
+    "name": "MIRAEAMC-MASPTOP50",
+    "isin": "INF769K01HP3",
+    "holdings": []
+  },
+  {
+    "ticker": "BSLSENETFG",
+    "name": "BIRLASLAMC-BSLSENETFG",
+    "isin": "INF209KB10E8",
+    "holdings": []
+  },
+  {
+    "ticker": "HEALTHY",
+    "name": "BIRLASLAMC-HEALTHY",
+    "isin": "INF209KB10C2",
+    "holdings": [
+      {
+        "isin": "INE044A01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE089A01031",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE059A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE361B01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE326A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE406A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE540L01014",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE813H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE437A01024",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "CONSUMIETF",
+    "name": "ICICIPRAMC-ICICICONSU",
+    "isin": "INF109KC1V42",
+    "holdings": [
+      {
+        "isin": "INE280A01028",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 11.11
+      },
+      {
+        "isin": "M_M",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE239A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "HUL",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "TECH",
+    "name": "BIRLASLAMC-TECH",
+    "isin": "INF209KB11D8",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "EQUAL50ADD",
+    "name": "DSPAMC-DSPNEWETF",
+    "isin": "INF740KA1QK2",
+    "holdings": []
+  },
+  {
+    "ticker": "MAHKTECH",
+    "name": "MIRAEAMC-MAHKTECH",
+    "isin": "INF769K01HS7",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "BBETF0432",
+    "name": "EDELAMC-BBETF0432",
+    "isin": "INF754K01OB1",
+    "holdings": []
+  },
+  {
+    "ticker": "ALPHA",
+    "name": "KOTAKMAMC-KOTAKALPHA",
+    "isin": "INF174KA1IA5",
+    "holdings": []
+  },
+  {
+    "ticker": "MONQ50",
+    "name": "MOTILALAMC-MONQ50",
+    "isin": "INF247L01AU3",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTYADD",
+    "name": "DSPAMC - DSPNIFTY",
+    "isin": "INF740KA1CL0",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "MIDQ50ADD",
+    "name": "DSPAMC-DSPQ50ETF",
+    "isin": "INF740KA1QL0",
+    "holdings": []
+  },
+  {
+    "ticker": "AUTOIETF",
+    "name": "ICICIPRAMC-ICICIAUTO",
+    "isin": "INF109KC10V2",
+    "holdings": [
+      {
+        "isin": "INE585B01010",
+        "weight": 12.5
+      },
+      {
+        "isin": "M_M",
+        "weight": 12.5
+      },
+      {
+        "isin": "TATAMOTORS",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE917I01010",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE066A01021",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE158A01026",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE208A01029",
+        "weight": 12.5
+      }
+    ]
+  },
+  {
+    "ticker": "AUTOBEES",
+    "name": "NIPPONAMC-NETFAUTO",
+    "isin": "INF204KC1337",
+    "holdings": [
+      {
+        "isin": "INE585B01010",
+        "weight": 12.5
+      },
+      {
+        "isin": "M_M",
+        "weight": 12.5
+      },
+      {
+        "isin": "TATAMOTORS",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE917I01010",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE066A01021",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE158A01026",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE208A01029",
+        "weight": 12.5
+      }
+    ]
+  },
+  {
+    "ticker": "SILVERIETF",
+    "name": "ICICIPRAMC-ICICISILVE",
+    "isin": "INF109KC1Y56",
+    "holdings": []
+  },
+  {
+    "ticker": "MAKEINDIA",
+    "name": "MIRAEAMC-MAMFGETF",
+    "isin": "INF769K01IB1",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVER",
+    "name": "BIRLASLAMC-SILVER",
+    "isin": "INF209KB19F6",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDCAP",
+    "name": "KOTAKMAMC-KOTAKMID50",
+    "isin": "INF174KA1IB3",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "SILVERBEES",
+    "name": "NIPPONAMC-SILVERBEES",
+    "isin": "INF204KC1402",
+    "holdings": []
+  },
+  {
+    "ticker": "MOMOMENTUM",
+    "name": "MOTILALAMC-MOMOMENTUM",
+    "isin": "INF247L01BK2",
+    "holdings": []
+  },
+  {
+    "ticker": "GSEC5IETF",
+    "name": "ICICIPRAMC-ICICI5GSEC",
+    "isin": "INF109KC14A8",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDCAPETF",
+    "name": "MIRAEAMC-MAM150ETF",
+    "isin": "INF769K01IC9",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "LOWVOL1",
+    "name": "KOTAKMAMC-KOTAKLOVOL",
+    "isin": "INF174KA1IY5",
+    "holdings": []
+  },
+  {
+    "ticker": "MOLOWVOL",
+    "name": "MOTILALAMC-MOLOWVOL",
+    "isin": "INF247L01BL0",
+    "holdings": []
+  },
+  {
+    "ticker": "TNIDETF",
+    "name": "TATAAML-TNIDETF",
+    "isin": "INF277KA1364",
+    "holdings": []
+  },
+  {
+    "ticker": "MOHEALTH",
+    "name": "MOTILALAMC-MOHEALTH",
+    "isin": "INF247L01BB1",
+    "holdings": [
+      {
+        "isin": "INE044A01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE089A01031",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE059A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE361B01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE326A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE406A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE540L01014",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE813H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE437A01024",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "CONS",
+    "name": "KOTAKMAMC-KOTAKCONS",
+    "isin": "INF174KA1JE5",
+    "holdings": []
+  },
+  {
+    "ticker": "MOM30IETF",
+    "name": "ICICIPRAMC-ICICIMOM30",
+    "isin": "INF109KC17C7",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCNEXT50",
+    "name": "HDFCAMC-HDFCNEXT50",
+    "isin": "INF179KC1HS2",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "HDFCNIF100",
+    "name": "HDFCAMC-HDFCNIF100",
+    "isin": "INF179KC1HR4",
+    "holdings": []
+  },
+  {
+    "ticker": "MNC",
+    "name": "KOTAKMAMC-KOTAKMNC",
+    "isin": "INF174KA1JF2",
+    "holdings": []
+  },
+  {
+    "ticker": "MOMENTUM",
+    "name": "BIRLASLAMC-MOMENTUM",
+    "isin": "INF209KB14K7",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTYQLITY",
+    "name": "BIRLASLAMC-NIFTYQLITY",
+    "isin": "INF209KB15K4",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "INFRAIETF",
+    "name": "ICICIPRAMC-ICICIINFRA",
+    "isin": "INF109KC16E5",
+    "holdings": [
+      {
+        "isin": "INE018A01030",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE481G01011",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE047A01021",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE117A01022",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE742F01042",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE752E01010",
+        "weight": 14.29
+      }
+    ]
+  },
+  {
+    "ticker": "SILVERADD",
+    "name": "DSPAMC-DSPSILVETF",
+    "isin": "INF740KA1RE3",
+    "holdings": []
+  },
+  {
+    "ticker": "MOQUALITY",
+    "name": "MOTILALAMC-MOQUALITY",
+    "isin": "INF247L01BH8",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "MOVALUE",
+    "name": "MOTILALAMC-MOVALUE",
+    "isin": "INF247L01BE5",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCSILVER",
+    "name": "HDFCAMC-HDFCSILVER",
+    "isin": "INF179KC1DI2",
+    "holdings": []
+  },
+  {
+    "ticker": "AXISILVER",
+    "name": "AXISAMC-AXISILVER",
+    "isin": "INF846K011K1",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCVALUE",
+    "name": "HDFCAMC-HDFCVALUE",
+    "isin": "INF179KC1DK8",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCGROWTH",
+    "name": "HDFCAMC-HDFCGROWTH",
+    "isin": "INF179KC1DJ0",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCQUAL",
+    "name": "HDFCAMC-HDFCQUAL",
+    "isin": "INF179KC1DL6",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCLOWVOL",
+    "name": "HDFCAMC-HDFCLOWVOL",
+    "isin": "INF179KC1HU8",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCMOMENT",
+    "name": "HDFCAMC-HDFCMOMENT",
+    "isin": "INF179KC1HV6",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCNIFIT",
+    "name": "HDFCAMC-HDFCNIFIT",
+    "isin": "INF179KC1IA8",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "HDFCPVTBAN",
+    "name": "HDFCAMC-HDFCPVTBAN",
+    "isin": "INF179KC1HZ7",
+    "holdings": []
+  },
+  {
+    "ticker": "FINIETF",
+    "name": "ICICIPRAMC-ICICIFIN",
+    "isin": "INF109KC17L8",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVER1",
+    "name": "KOTAKMAMC-KOTAKSILVE",
+    "isin": "INF174KA1KU9",
+    "holdings": []
+  },
+  {
+    "ticker": "GSEC10IETF",
+    "name": "ICICIPRAMC-ICICI10GS",
+    "isin": "INF109KC18O0",
+    "holdings": []
+  },
+  {
+    "ticker": "EBBETF0433",
+    "name": "EDELAMC-EBBETF0433",
+    "isin": "INF754K01QX0",
+    "holdings": []
+  },
+  {
+    "ticker": "COMMOIETF",
+    "name": "ICICIPRAMC-ICICICOMMO",
+    "isin": "INF109KC19O8",
+    "holdings": []
+  },
+  {
+    "ticker": "BANKADD",
+    "name": "DSPAMC-DSPBANK",
+    "isin": "INF740KA1RX3",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "LIQUID1",
+    "name": "KOTAKMAMC-KOTAKLIQ",
+    "isin": "INF174KA1LV5",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCSML250",
+    "name": "HDFCAMC-HDFCSML250",
+    "isin": "INF179KC1FB2",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCMID150",
+    "name": "HDFCAMC-HDFCMID150",
+    "isin": "INF179KC1HT0",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCBSE500",
+    "name": "HDFCAMC-HDFCBSE500",
+    "isin": "INF179KC1EZ4",
+    "holdings": []
+  },
+  {
+    "ticker": "GOLDETF",
+    "name": "MIRAEAMC-MAGOLDETF",
+    "isin": "INF769K01JP9",
+    "holdings": []
+  },
+  {
+    "ticker": "ABSLLIQUID",
+    "name": "BIRLASLAMC-ABSLLIQUID",
+    "isin": "INF209KB18T9",
+    "holdings": []
+  },
+  {
+    "ticker": "PSUBNKIETF",
+    "name": "ICICIPRAMC-PSUBANKICI",
+    "isin": "INF109KC10S8",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "AXSENSEX",
+    "name": "AXISAMC-AXSENSEX",
+    "isin": "INF846K010Q0",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "LOWVOL",
+    "name": "MIRAEAMC-MANV30F",
+    "isin": "INF769K01JU9",
+    "holdings": []
+  },
+  {
+    "ticker": "GSEC10YEAR",
+    "name": "MIRAEAMC-MAGS813ETF",
+    "isin": "INF769K01KF8",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVERBETA",
+    "name": "UTIAMC-SILVERBETA",
+    "isin": "INF789F1AYK6",
+    "holdings": []
+  },
+  {
+    "ticker": "GOLDADD",
+    "name": "DSPAMC - DSPGOLD",
+    "isin": "INF740KA1SW3",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVERAG",
+    "name": "MIRAEAMC-MASILVER",
+    "isin": "INF769K01KG6",
+    "holdings": []
+  },
+  {
+    "ticker": "ITADD",
+    "name": "DSPAMC - DSPIT",
+    "isin": "INF740KA1SX1",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "BANKETF",
+    "name": "MIRAEAMC-BANKETF",
+    "isin": "INF769K01KR3",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "LIQUID",
+    "name": "MIRAEAMC-LIQUID",
+    "isin": "INF769K01KS1",
+    "holdings": []
+  },
+  {
+    "ticker": "PVTBANKADD",
+    "name": "DSPAMC-DSPPVBKETF",
+    "isin": "INF740KA1TA7",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "PSUBANKADD",
+    "name": "DSPAMC-DSPPSBKETF",
+    "isin": "INF740KA1SY9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "SENSEXADD",
+    "name": "DSPAMC-DSPSENXETF",
+    "isin": "INF740KA1SZ6",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "QUAL30IETF",
+    "name": "ICICIPRAMC-ICICIQTY30",
+    "isin": "INF109KC18V5",
+    "holdings": []
+  },
+  {
+    "ticker": "HDFCLIQUID",
+    "name": "HDFCAMC-HDFCLIQUID",
+    "isin": "INF179KC1JG3",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDCAPBETA",
+    "name": "UTIAMC-MIDCAPBETA",
+    "isin": "INF789F1AYX9",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "SENSEXETF",
+    "name": "MIRAEAMC-SENSEXETF",
+    "isin": "INF769K01KT9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "MONIFTY500",
+    "name": "MOTILALAMC-MONIFTY500",
+    "isin": "INF247L01BU1",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "ITETF",
+    "name": "MIRAEAMC-ITETF",
+    "isin": "INF769K01KV5",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "ALPHAETF",
+    "name": "MIRAEAMC-ALPHAETF",
+    "isin": "INF769K01KU7",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDSBI",
+    "name": "SBIAMC-LIQUIDSBI",
+    "isin": "INF200KA13Z8",
+    "holdings": []
+  },
+  {
+    "ticker": "EGOLD",
+    "name": "EDELAMC-EGOLD",
+    "isin": "INF754K01SE6",
+    "holdings": []
+  },
+  {
+    "ticker": "ESILVER",
+    "name": "EDELAMC-Esilver",
+    "isin": "INF754K01SF3",
+    "holdings": []
+  },
+  {
+    "ticker": "BBNPPGOLD",
+    "name": "BARODABNP-BBNPPGOLD",
+    "isin": "INF251K01SU9",
+    "holdings": []
+  },
+  {
+    "ticker": "TATSILV",
+    "name": "TATAAML-TATSILV",
+    "isin": "INF277KA1984",
+    "holdings": []
+  },
+  {
+    "ticker": "TATAGOLD",
+    "name": "TATAAML-TATAGOLD",
+    "isin": "INF277KA1976",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDCASE",
+    "name": "ZERODHAAMC-LIQUIDCASE",
+    "isin": "INF0R8F01034",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTYBETF",
+    "name": "BFAM-NIFTYBETF",
+    "isin": "INF0QA701722",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "BANKBETF",
+    "name": "BFAM-BANKBETF",
+    "isin": "INF0QA701714",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "ITBETA",
+    "name": "UTIAMC -ITBETA",
+    "isin": "INF789F1AZD8",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "GILT10BETA",
+    "name": "UTIAMC-GILT10BETA",
+    "isin": "INF789F1AZF3",
+    "holdings": []
+  },
+  {
+    "ticker": "GILT5BETA",
+    "name": "UTIAMC-GILT5BETA",
+    "isin": "INF789F1AZE6",
+    "holdings": []
+  },
+  {
+    "ticker": "HEALTHADD",
+    "name": "DSPAMC-HEALTHADD",
+    "isin": "INF740KA1UF4",
+    "holdings": [
+      {
+        "isin": "INE044A01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE089A01031",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE059A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE361B01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE326A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE406A01037",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE540L01014",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE813H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE437A01024",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "HDFCPSUBK",
+    "name": "HDFCAMCHDFCPSUBK",
+    "isin": "INF179KC1HW4",
+    "holdings": [
+      {
+        "isin": "INE062A01020",
+        "weight": 10
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 10
+      },
+      {
+        "isin": "INE476A01022",
+        "weight": 10
+      },
+      {
+        "isin": "PUNJAB",
+        "weight": 10
+      },
+      {
+        "isin": "INE692A01016",
+        "weight": 10
+      },
+      {
+        "isin": "INE213A01029",
+        "weight": 10
+      },
+      {
+        "isin": "INE733E01010",
+        "weight": 10
+      },
+      {
+        "isin": "INE752E01010",
+        "weight": 10
+      },
+      {
+        "isin": "INE522F01014",
+        "weight": 10
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 10
+      }
+    ]
+  },
+  {
+    "ticker": "LICNMID100",
+    "name": "LICNAMC-LICNMID100",
+    "isin": "INF767K01RN1",
+    "holdings": []
+  },
+  {
+    "ticker": "SMALLCAP",
+    "name": "MIRAEAMC-SMALLCAP",
+    "isin": "INF769K01LC3",
+    "holdings": [
+      {
+        "isin": "INE736A01011",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE118H01025",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE040H01021",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE732I01013",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE745G01043",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE878B01027",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE136B01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE348B01021",
+        "weight": 12.5
+      }
+    ]
+  },
+  {
+    "ticker": "GOLDCASE",
+    "name": "ZERODHAAMC-GOLDCASE",
+    "isin": "INF0R8F01042",
+    "holdings": []
+  },
+  {
+    "ticker": "MOREALTY",
+    "name": "MOTILALAMC-MOREALTY",
+    "isin": "INF247L01CI4",
+    "holdings": []
+  },
+  {
+    "ticker": "MOSMALL250",
+    "name": "MOTILALAMC-MOSMALL250",
+    "isin": "INF247L01CH6",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDADD",
+    "name": "DSPAMC-LIQUIDADD",
+    "isin": "INF740KA1UM0",
+    "holdings": []
+  },
+  {
+    "ticker": "ABSLPSE",
+    "name": "BIRLASLAMC-ABSLPSE",
+    "isin": "INF209KB19Z4",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDSMALL",
+    "name": "MIRAEAMC-MIDSMALL",
+    "isin": "INF769K01LJ8",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDBETF",
+    "name": "BFAM-LIQUIDBETF",
+    "isin": "INF0QA701854",
+    "holdings": []
+  },
+  {
+    "ticker": "TOP100CASE",
+    "name": "ZERODHAAMC-TOP100CASE",
+    "isin": "INF0R8F01067",
+    "holdings": []
+  },
+  {
+    "ticker": "MID150CASE",
+    "name": "ZERODHAAMC-MID150CASE",
+    "isin": "INF0R8F01059",
+    "holdings": []
+  },
+  {
+    "ticker": "BBNPNBETF",
+    "name": "BARODABNP - BBNPNBETF",
+    "isin": "INF251K01TL6",
+    "holdings": []
+  },
+  {
+    "ticker": "SBISILVER",
+    "name": "SBIAMC - SBISILVER",
+    "isin": "INF200KB1217",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDSHRI",
+    "name": "SHRIRAM - LIQUIDSHRI",
+    "isin": "INF680P01422",
+    "holdings": []
+  },
+  {
+    "ticker": "ABGSEC",
+    "name": "BIRLASLAMC - ABGSEC",
+    "isin": "INF209KC1134",
+    "holdings": []
+  },
+  {
+    "ticker": "EVINDIA",
+    "name": "MIRAEAMC - EVINDIA",
+    "isin": "INF769K01LQ3",
+    "holdings": []
+  },
+  {
+    "ticker": "SBINEQWETF",
+    "name": "SBIAMC - SBINEQWETF",
+    "isin": "INF200KB1282",
+    "holdings": []
+  },
+  {
+    "ticker": "OILIETF",
+    "name": "ICICIPRAMC - OILIETF",
+    "isin": "INF109KC18W3",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWEV",
+    "name": "GROWWAMC - GROWWEV",
+    "isin": "INF666M01IH2",
+    "holdings": []
+  },
+  {
+    "ticker": "GSEC10ABSL",
+    "name": "BIRLASLAMC - GSEC10ABSL",
+    "isin": "INF209KC1142",
+    "holdings": []
+  },
+  {
+    "ticker": "METALIETF",
+    "name": "ICICIPRAMC - METALIETF",
+    "isin": "INF109KC19W1",
+    "holdings": [
+      {
+        "isin": "INE081A01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE038A01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE019A01038",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE749A01030",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE114A01011",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE584A01023",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE139A01034",
+        "weight": 12.5
+      }
+    ]
+  },
+  {
+    "ticker": "MODEFENCE",
+    "name": "MOTILALAMC - MODEFENCE",
+    "isin": "INF247L01DJ0",
+    "holdings": []
+  },
+  {
+    "ticker": "MULTICAP",
+    "name": "MIRAEAMC - MULTICAP",
+    "isin": "INF769K01LX9",
+    "holdings": []
+  },
+  {
+    "ticker": "TOP10ADD",
+    "name": "DSPAMC - TOP10ADD",
+    "isin": "INF740KA1UR9",
+    "holdings": []
+  },
+  {
+    "ticker": "EBANKNIFTY",
+    "name": "EDELAMC - EBANKNIFTY",
+    "isin": "INF754K01TE4",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "GROWWLIQID",
+    "name": "GROWWAMC - GROWWLIQID",
+    "isin": "INF666M01IP5",
+    "holdings": []
+  },
+  {
+    "ticker": "MOMENTUM50",
+    "name": "MOTILALAMC - MOMENTUM50",
+    "isin": "INF247L01DK8",
+    "holdings": []
+  },
+  {
+    "ticker": "BANKPSU",
+    "name": "MIRAEAMC - BANKPSU",
+    "isin": "INF769K01LZ4",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE095A01012",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE028A01039",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE160A01022",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE949L01017",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE092T01019",
+        "weight": 9.09
+      },
+      {
+        "isin": "INE171A01029",
+        "weight": 9.09
+      }
+    ]
+  },
+  {
+    "ticker": "METAL",
+    "name": "MIRAEAMC - METAL",
+    "isin": "INF769K01LY7",
+    "holdings": [
+      {
+        "isin": "INE081A01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE038A01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE019A01038",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE749A01030",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE114A01011",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE584A01023",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE139A01034",
+        "weight": 12.5
+      }
+    ]
+  },
+  {
+    "ticker": "GROWWDEFNC",
+    "name": "GROWWAMC - GROWWDEFNC",
+    "isin": "INF666M01IO8",
+    "holdings": []
+  },
+  {
+    "ticker": "VAL30IETF",
+    "name": "ICICIPRAMC - VAL30IETF",
+    "isin": "INF109KC16X5",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWGOLD",
+    "name": "GROWWAMC - GROWWGOLD",
+    "isin": "INF666M01IW1",
+    "holdings": []
+  },
+  {
+    "ticker": "EMULTIMQ",
+    "name": "EDELAMC - EMULTIMQ",
+    "isin": "INF754K01TF1",
+    "holdings": []
+  },
+  {
+    "ticker": "LIQUIDPLUS",
+    "name": "MIRAEAMC - LIQUIDPLUS",
+    "isin": "INF769K01MY5",
+    "holdings": []
+  },
+  {
+    "ticker": "CONSUMER",
+    "name": "MIRAEAMC - CONSUMER",
+    "isin": "INF769K01NS5",
+    "holdings": [
+      {
+        "isin": "INE280A01028",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 11.11
+      },
+      {
+        "isin": "M_M",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE239A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "HUL",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "ECAPINSURE",
+    "name": "EDELAMC - ECAPINSURE",
+    "isin": "INF754K01TX4",
+    "holdings": []
+  },
+  {
+    "ticker": "NEXT30ADD",
+    "name": "DSPAMC - NEXT30ADD",
+    "isin": "INF740KA1VE5",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWRAIL",
+    "name": "GROWWAMC - GROWWRAIL",
+    "isin": "INF666M01JJ6",
+    "holdings": []
+  },
+  {
+    "ticker": "UNIONGOLD",
+    "name": "UNIONAMC - UNIONGOLD",
+    "isin": "INF582M01KS4",
+    "holdings": []
+  },
+  {
+    "ticker": "MSCIINDIA",
+    "name": "KOTAKMAMC - MSCIINDIA",
+    "isin": "INF174KA1VD2",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWN200",
+    "name": "GROWWAMC - GROWWN200",
+    "isin": "INF666M01JV1",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTY100EW",
+    "name": "KOTAKMAMC - NIFTY100EW",
+    "isin": "INF174KA1UW4",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "AONETOTAL",
+    "name": "AONEAMC - AONETOTAL",
+    "isin": "INF1J2R01015",
+    "holdings": []
+  },
+  {
+    "ticker": "MOCAPITAL",
+    "name": "MOTILALAMC - MOCAPITAL",
+    "isin": "INF247L01EV3",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "GOLD360",
+    "name": "360ONEAMC - GOLD360",
+    "isin": "INF579M01BB5",
+    "holdings": []
+  },
+  {
+    "ticker": "SELECTIPO",
+    "name": "MIRAEAMC - SELECTIPO",
+    "isin": "INF769K01ON4",
+    "holdings": []
+  },
+  {
+    "ticker": "EQUAL200",
+    "name": "MIRAEAMC - EQUAL200",
+    "isin": "INF769K01OA1",
+    "holdings": []
+  },
+  {
+    "ticker": "CASHIETF",
+    "name": "ICICIPRAMC - CASHIETF",
+    "isin": "INF109K1A021",
+    "holdings": []
+  },
+  {
+    "ticker": "AXISVALUE",
+    "name": "AXISAMC - AXISVALUE",
+    "isin": "INF846KA1119",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVERCASE",
+    "name": "ZERODHAAMC - SILVERCASE",
+    "isin": "INF0R8F01091",
+    "holdings": []
+  },
+  {
+    "ticker": "SBIBPB",
+    "name": "SBIAMC - SBIBPB",
+    "isin": "INF200KB1712",
+    "holdings": []
+  },
+  {
+    "ticker": "MID150",
+    "name": "KOTAKMAMC - MID150",
+    "isin": "INF174KA1VW2",
+    "holdings": []
+  },
+  {
+    "ticker": "AONELIQUID",
+    "name": "AONEAMC - AONELIQUID",
+    "isin": "INF1J2R01056",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVER360",
+    "name": "360ONEAMC - SILVER360",
+    "isin": "INF579M01BC3",
+    "holdings": []
+  },
+  {
+    "ticker": "EVIETF",
+    "name": "ICICIPRAMC - EVIETF",
+    "isin": "INF109K1A153",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWMOM50",
+    "name": "GROWWAMC - GROWWMOM50",
+    "isin": "INF666M01KJ4",
+    "holdings": []
+  },
+  {
+    "ticker": "MON50EQUAL",
+    "name": "MOTILALAMC - MON50EQUAL",
+    "isin": "INF247L01FC0",
+    "holdings": []
+  },
+  {
+    "ticker": "MONEXT50",
+    "name": "MOTILALAMC - MONEXT50",
+    "isin": "INF247L01FD8",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "EQUAL50",
+    "name": "MIRAEAMC - EQUAL50",
+    "isin": "INF769K01OO2",
+    "holdings": []
+  },
+  {
+    "ticker": "MOINFRA",
+    "name": "MOTILALAMC - MOINFRA",
+    "isin": "INF247L01FL1",
+    "holdings": [
+      {
+        "isin": "INE018A01030",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE481G01011",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE047A01021",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE117A01022",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE742F01042",
+        "weight": 14.29
+      },
+      {
+        "isin": "INE752E01010",
+        "weight": 14.29
+      }
+    ]
+  },
+  {
+    "ticker": "GROWWSLVR",
+    "name": "GROWWAMC - GROWWSLVR",
+    "isin": "INF666M01LA1",
+    "holdings": []
+  },
+  {
+    "ticker": "AONENIFTY",
+    "name": "AONEAMC - AONENIFTY",
+    "isin": "INF1J2R01064",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "MOMGF",
+    "name": "MOTILALAMC - MOMGF",
+    "isin": "INF247L01FK3",
+    "holdings": []
+  },
+  {
+    "ticker": "MOPSE",
+    "name": "MOTILALAMC - MOPSE",
+    "isin": "INF247L01FO5",
+    "holdings": []
+  },
+  {
+    "ticker": "MOTOUR",
+    "name": "MOTILALAMC - MOTOUR",
+    "isin": "INF247L01FP2",
+    "holdings": []
+  },
+  {
+    "ticker": "SNXT30BEES",
+    "name": "NIPPONAMC - SNXT30BEES",
+    "isin": "INF204KC1EZ3",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWLOVOL",
+    "name": "GROWWAMC - GROWWLOVOL",
+    "isin": "INF666M01LB9",
+    "holdings": []
+  },
+  {
+    "ticker": "TOP15IETF",
+    "name": "ICICIPRAMC - TOP15IETF",
+    "isin": "INF109K1A344",
+    "holdings": []
+  },
+  {
+    "ticker": "MOMIDMTM",
+    "name": "MOTILALAMC - MOMIDMTM",
+    "isin": "INF247L01FQ0",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWNET",
+    "name": "GROWWAMC - GROWWNET",
+    "isin": "INF666M01LI4",
+    "holdings": []
+  },
+  {
+    "ticker": "INTERNET",
+    "name": "MIRAEAMC - INTERNET",
+    "isin": "INF769K01PB6",
+    "holdings": []
+  },
+  {
+    "ticker": "MOALPHA50",
+    "name": "MOTILALAMC - MOALPHA50",
+    "isin": "INF247L01FR8",
+    "holdings": []
+  },
+  {
+    "ticker": "QUALITY30",
+    "name": "KOTAKMAMC - QUALITY30",
+    "isin": "INF174KA1WT6",
+    "holdings": [
+      {
+        "isin": "INE467B01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE075A01022",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE669C01036",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE214T01019",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE262H01021",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE591G01025",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE356A01018",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "GROWWNIFTY",
+    "name": "GROWWAMC - GROWWNIFTY",
+    "isin": "INF666M01LL8",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "LIQGRWBEES",
+    "name": "NIPPONAMC - LIQGRWBEES",
+    "isin": "INF204KC1FU1",
+    "holdings": []
+  },
+  {
+    "ticker": "MOGOLD",
+    "name": "MOTILALAMC - MOGOLD",
+    "isin": "INF247L01FY4",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWPOWER",
+    "name": "GROWWAMC - GROWWPOWER",
+    "isin": "INF666M01LM6",
+    "holdings": []
+  },
+  {
+    "ticker": "SBILIQETF",
+    "name": "SBIAMC - SBILIQETF",
+    "isin": "INF200KB1969",
+    "holdings": []
+  },
+  {
+    "ticker": "MOSILVER",
+    "name": "MOTILALAMC - MOSILVER",
+    "isin": "INF247L01FZ1",
+    "holdings": []
+  },
+  {
+    "ticker": "LTGILTCASE",
+    "name": "ZERODHAAMC - LTGILTCASE",
+    "isin": "INF0R8F01133",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWNXT50",
+    "name": "GROWWAMC - GROWWNXT50",
+    "isin": "INF666M01LZ8",
+    "holdings": []
+  },
+  {
+    "ticker": "MANUFGBEES",
+    "name": "NIPPONAMC - MANUFGBEES",
+    "isin": "INF204KC1GH6",
+    "holdings": []
+  },
+  {
+    "ticker": "ELM250",
+    "name": "EDELAMC - ELM250",
+    "isin": "INF754K01VV4",
+    "holdings": []
+  },
+  {
+    "ticker": "AONEGOLD",
+    "name": "AONEAMC - AONEGOLD",
+    "isin": "INF1J2R01114",
+    "holdings": []
+  },
+  {
+    "ticker": "SML100CASE",
+    "name": "ZERODHAAMC - SML100CASE",
+    "isin": "INF0R8F01141",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWRLTY",
+    "name": "GROWWAMC - GROWWRLTY",
+    "isin": "INF666M01MN2",
+    "holdings": []
+  },
+  {
+    "ticker": "ELIQUID",
+    "name": "EDELAMC - ELIQUID",
+    "isin": "INF754K01VW2",
+    "holdings": []
+  },
+  {
+    "ticker": "FLEXIADD",
+    "name": "DSPAMC - FLEXIADD",
+    "isin": "INF740KA1WU9",
+    "holdings": []
+  },
+  {
+    "ticker": "MONIFTY100",
+    "name": "MOTILALAMC - MONIFTY100",
+    "isin": "INF247L01GG9",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "MOENERGY",
+    "name": "MOTILALAMC - MOENERGY",
+    "isin": "INF247L01GH7",
+    "holdings": []
+  },
+  {
+    "ticker": "MOMENTUM30",
+    "name": "KOTAKMAMC - MOMENTUM30",
+    "isin": "INF174KA1XS6",
+    "holdings": []
+  },
+  {
+    "ticker": "NIFTYCASE",
+    "name": "ZERODHAAMC - NIFTYCASE",
+    "isin": "INF0R8F01166",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "GROWWSC250",
+    "name": "GROWWAMC - GROWWSC250",
+    "isin": "INF666M01MO0",
+    "holdings": []
+  },
+  {
+    "ticker": "CHOICEGOLD",
+    "name": "ChoiceAMC - CHOICEGOLD",
+    "isin": "INF2KCX01012",
+    "holdings": []
+  },
+  {
+    "ticker": "ENERGY",
+    "name": "MIRAEAMC - ENERGY",
+    "isin": "INF769K01PR2",
+    "holdings": []
+  },
+  {
+    "ticker": "SMALL250",
+    "name": "MIRAEAMC - SMALL250",
+    "isin": "INF769K01PQ4",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWMC150",
+    "name": "GROWWAMC - GROWWMC150",
+    "isin": "INF666M01MV5",
+    "holdings": []
+  },
+  {
+    "ticker": "CHEMICAL",
+    "name": "KOTAKMAMC - CHEMICAL",
+    "isin": "INF174KA1XV0",
+    "holdings": []
+  },
+  {
+    "ticker": "MOIPO",
+    "name": "MOTILALAMC - MOIPO",
+    "isin": "INF247L01GI5",
+    "holdings": []
+  },
+  {
+    "ticker": "AONETMMQ50",
+    "name": "AONEAMC - AONETMMQ50",
+    "isin": "INF1J2R01148",
+    "holdings": []
+  },
+  {
+    "ticker": "ESENSEX",
+    "name": "EDELAMC - ESENSEX",
+    "isin": "INF754K01VY8",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "ENIFTY",
+    "name": "EDELAMC - ENIFTY",
+    "isin": "INF754K01VX0",
+    "holdings": [
+      {
+        "isin": "INE040A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE002A01018",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE090A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE009A01021",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE154A01025",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE467B01029",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE018A01030",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE238A01034",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE237A01036",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE062A01020",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE397D01024",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE296A01032",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE021A01026",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE585B01010",
+        "weight": 6.67
+      },
+      {
+        "isin": "INE860A01027",
+        "weight": 6.67
+      }
+    ]
+  },
+  {
+    "ticker": "MOSERVICE",
+    "name": "MOTILALAMC - MOSERVICE",
+    "isin": "INF247L01GJ3",
+    "holdings": []
+  },
+  {
+    "ticker": "MSCIADD",
+    "name": "DSPAMC - MSCIADD",
+    "isin": "INF740KA1WV7",
+    "holdings": []
+  },
+  {
+    "ticker": "MOMNC",
+    "name": "MOTILALAMC - MOMNC",
+    "isin": "INF247L01GK1",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWCAPM",
+    "name": "GROWWAMC - GROWWCAPM",
+    "isin": "INF666M01MM4",
+    "holdings": []
+  },
+  {
+    "ticker": "GOLDBND",
+    "name": "BANDHANAMC - GOLDBND",
+    "isin": "INF194KB1KJ7",
+    "holdings": []
+  },
+  {
+    "ticker": "SILVERBND",
+    "name": "BANDHANAMC - SILVERBND",
+    "isin": "INF194KB1KI9",
+    "holdings": []
+  },
+  {
+    "ticker": "SMALLADD",
+    "name": "DSPAMC - SMALLADD",
+    "isin": "INF740KA1WX3",
+    "holdings": []
+  },
+  {
+    "ticker": "MIDCAPADD",
+    "name": "DSPAMC - MIDCAPADD",
+    "isin": "INF740KA1WW5",
+    "holdings": [
+      {
+        "isin": "INE849A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE263A01024",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE494B01023",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE053A01029",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE298A01020",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE211B01039",
+        "weight": 11.11
+      },
+      {
+        "isin": "INE438A01022",
+        "weight": 11.11
+      }
+    ]
+  },
+  {
+    "ticker": "DIVIDEND",
+    "name": "MIRAEAMC - DIVIDEND",
+    "isin": "INF769K01PY8",
+    "holdings": []
+  },
+  {
+    "ticker": "TOP20",
+    "name": "MIRAEAMC - TOP20",
+    "isin": "INF769K01PZ5",
+    "holdings": []
+  },
+  {
+    "ticker": "GROWWMETAL",
+    "name": "GROWWAMC - GROWWMETAL",
+    "isin": "INF666M01NI0",
+    "holdings": [
+      {
+        "isin": "INE081A01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE038A01020",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE019A01038",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE749A01030",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE114A01011",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE584A01023",
+        "weight": 12.5
+      },
+      {
+        "isin": "INE139A01034",
+        "weight": 12.5
+      }
+    ]
+  },
+  {
+    "ticker": "TWCGOLDETF",
+    "name": "WEALTH - TWCGOLDETF",
+    "isin": "INF2F0001370",
+    "holdings": []
+  },
+  {
+    "ticker": "NEXT50ADD",
+    "name": "DSPAMC - NEXT50ADD",
+    "isin": "INF740KA1XU7",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "NEXT50ETF",
+    "name": "KOTAKMAMC - NEXT50ETF",
+    "isin": "INF174KA1YO3",
+    "holdings": [
+      {
+        "isin": "INE263A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE066F01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "ZOMATO",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE849A01020",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE003A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE271C01023",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE200M01039",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE121A01024",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE084A01016",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE242A01010",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE205A01025",
+        "weight": 8.33
+      },
+      {
+        "isin": "INE079A01024",
+        "weight": 8.33
+      }
+    ]
+  },
+  {
+    "ticker": "GROWWCHEM",
+    "name": "GROWWAMC - GROWWCHEM",
+    "isin": "INF666M01NP5",
+    "holdings": []
+  }
+]

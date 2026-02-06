@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { calculatePortfolioExposure } = require('./calculator');
-const { STOCKS, FUNDS } = require('./mock-db');
+const { STOCKS, ETFS, FUNDS } = require('./mock-db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,7 +30,7 @@ app.post('/api/calculate', (req, res) => {
 });
 
 app.get('/api/market-data', (req, res) => {
-    res.json({ stocks: STOCKS, funds: FUNDS });
+    res.json({ stocks: STOCKS, etfs: ETFS, funds: FUNDS });
 });
 
 app.listen(PORT, () => {

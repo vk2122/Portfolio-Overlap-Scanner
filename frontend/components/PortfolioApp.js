@@ -7,9 +7,12 @@ const API_BASE = typeof window !== 'undefined' && window.location.hostname === '
     ? 'http://localhost:5000/api'
     : '/api';
 
+const STORAGE_KEY = 'unstacked_holdings';
+
 export default function PortfolioApp() {
     const [holdings, setHoldings] = useState([]);
-    const [marketData, setMarketData] = useState({ stocks: [], funds: [] });
+    const [isHydrated, setIsHydrated] = useState(false);
+    const [marketData, setMarketData] = useState({ stocks: [], etfs: [], funds: [] });
     const [result, setResult] = useState(null);
     const [calculating, setCalculating] = useState(false);
     const [activeTab, setActiveTab] = useState('manual');
@@ -44,7 +47,34 @@ export default function PortfolioApp() {
 
     useEffect(() => {
         fetchMarketData().then(setMarketData).catch(console.error);
+        // Load holdings from localStorage on mount
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    setHoldings(parsed);
+                }
+            }
+        } catch (e) {
+            console.error('Failed to load holdings from localStorage:', e);
+        }
+        setIsHydrated(true);
     }, []);
+
+    // Save holdings to localStorage whenever they change
+    useEffect(() => {
+        if (!isHydrated) return; // Don't save until initial load is complete
+        try {
+            if (holdings.length > 0) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(holdings));
+            } else {
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        } catch (e) {
+            console.error('Failed to save holdings to localStorage:', e);
+        }
+    }, [holdings, isHydrated]);
 
     useEffect(() => {
         if (holdings.length === 0) { setResult(null); return; }
@@ -66,7 +96,12 @@ export default function PortfolioApp() {
     useEffect(() => {
         if (!searchQuery || searchQuery.length < 2) { setSearchResults([]); return; }
         const q = searchQuery.toLowerCase();
-        const list = (type === 'EQUITY' ? marketData.stocks : marketData.funds)
+        let source = [];
+        if (type === 'EQUITY') source = marketData.stocks || [];
+        else if (type === 'ETF') source = marketData.etfs || [];
+        else source = marketData.funds || [];
+
+        const list = source
             .filter(i => (i.ticker || i.name || '').toLowerCase().includes(q))
             .slice(0, 8)
             .map(i => ({ id: i.isin || i.id, main: i.ticker || i.name, sub: i.name || '' }));
@@ -82,6 +117,17 @@ export default function PortfolioApp() {
 
     const removeHolding = (id) => {
         setHoldings(prev => prev.filter(h => h.id !== id));
+    };
+
+    const clearAllHoldings = () => {
+        if (window.confirm('Are you sure you want to clear all holdings? This will also remove your saved data.')) {
+            setHoldings([]);
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+            } catch (e) {
+                console.error('Failed to clear localStorage:', e);
+            }
+        }
     };
 
     const processImport = () => {
@@ -217,6 +263,17 @@ export default function PortfolioApp() {
                 <div className="brand">
                     UNSTACKED <span className="tagline">— Diversified? Check again.</span>
                 </div>
+                <button
+                    type="button"
+                    className="header-clear-btn"
+                    onClick={clearAllHoldings}
+                    title="Clear all portfolio data from this device"
+                >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+                    </svg>
+                    RESET DATA
+                </button>
             </header>
 
             <main className="main-flow">
@@ -314,7 +371,9 @@ export default function PortfolioApp() {
                     <>
                         {holdings.length > 0 && (
                             <div className="details-zone holdings-zone">
-                                <h4>HOLDINGS</h4>
+                                <div className="holdings-header">
+                                    <h4>HOLDINGS</h4>
+                                </div>
                                 {holdings.map(h => (
                                     <div key={h.id} className="exposure-row">
                                         <span className="ticker">{cleanTicker(h.name)}</span>

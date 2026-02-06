@@ -1,4 +1,4 @@
-const { STOCKS, FUNDS } = require('./mock-db');
+const { STOCKS, FUNDS, ETFS } = require('./mock-db');
 
 /**
  * Deterministic PRNG based on string seed.
@@ -70,9 +70,28 @@ function calculatePortfolioExposure(holdings) {
     };
 
     const getConstituents = (instrumentId, type) => {
-        // 1. Check curated DB
-        const found = FUNDS.find(f => String(f.id) === String(instrumentId));
-        if (found && found.constituents) return found.constituents;
+        // 1. Check curated DB based on type
+        let found = null;
+
+        if (type === 'ETF') {
+            // Check ETFs by ticker or ISIN
+            found = ETFS.find(e =>
+                String(e.ticker).toUpperCase() === String(instrumentId).toUpperCase() ||
+                String(e.isin) === String(instrumentId) ||
+                String(e.name).toUpperCase().includes(String(instrumentId).toUpperCase())
+            );
+        } else if (type === 'MF') {
+            // Check Funds by ID or ISIN
+            found = FUNDS.find(f =>
+                String(f.id) === String(instrumentId) ||
+                String(f.isin) === String(instrumentId)
+            );
+        }
+
+        if (found) {
+            if (found.holdings && found.holdings.length > 0) return found.holdings;
+            if (found.constituents && found.constituents.length > 0) return found.constituents;
+        }
 
         // 2. UNIVERSAL ENGINE: Generate deterministic constituents for ANY fund ID.
         // This ensures the USER's request "I want all funds working" is physically 100% true.

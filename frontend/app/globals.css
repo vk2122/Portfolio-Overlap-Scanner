@@ -82,7 +82,7 @@ body {
 .header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: var(--space-component) 20px;
     border-bottom: 1.6px solid #2a2d35;
     min-height: 56px;
@@ -105,6 +105,33 @@ body {
     text-transform: none;
     letter-spacing: normal;
     opacity: .8;
+}
+
+.header-clear-btn {
+    display: flex;
+    align-items: center;
+    background: rgba(232, 65, 66, 0.05);
+    border: 1px solid rgba(232, 65, 66, 0.2);
+    color: var(--color-risk);
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-radius: var(--button-radius);
+}
+
+.header-clear-btn:hover {
+    background: rgba(232, 65, 66, 0.15);
+    border-color: var(--color-risk);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(232, 65, 66, 0.15);
+}
+
+.header-clear-btn:active {
+    transform: translateY(0);
 }
 
 /* Theme Toggle */
@@ -178,7 +205,7 @@ body {
     display: flex;
     gap: 0.5rem;
     align-items: flex-end;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
     padding: .75rem 1rem;
     border: 1px solid var(--border-subtle);
     border-radius: 0;
@@ -211,7 +238,7 @@ body {
 .field input,
 .field select,
 .technical-select {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-subtle);
     color: var(--text-primary);
     padding: .85rem 1rem;
@@ -231,7 +258,7 @@ body {
 .technical-select:focus {
     outline: none;
     border-color: var(--color-info);
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 /* Remove number input spinners */
@@ -285,13 +312,13 @@ input[type=number] {
     letter-spacing: .15em;
     cursor: pointer;
     white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(245,166,35,.2);
+    box-shadow: 0 4px 10px rgba(245, 166, 35, .2);
     transition: all .2s ease;
 }
 
 .cta-reveal:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(245,166,35,.3);
+    box-shadow: 0 6px 15px rgba(245, 166, 35, .3);
 }
 
 .cta-reveal:active {
@@ -318,7 +345,9 @@ input[type=number] {
     color: var(--color-action);
 }
 
-.status-bar.danger { color: var(--color-risk); }
+.status-bar.danger {
+    color: var(--color-risk);
+}
 
 /* ================================================
    VERDICT ZONE
@@ -332,7 +361,7 @@ input[type=number] {
     text-align: center;
     padding: 1rem 0;
     min-height: 200px;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0, transparent 70%);
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 0, transparent 70%);
     border-radius: 0;
     margin: .5rem 0;
 }
@@ -374,7 +403,7 @@ input[type=number] {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 20px rgba(255,255,255,.05));
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, .05));
 }
 
 .verdict-result .huge-num.highlight {
@@ -411,7 +440,7 @@ input[type=number] {
 
 .details-zone {
     border: 1px solid var(--border-subtle);
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
     padding: 1rem;
     border-radius: 0;
     margin-top: var(--space-component);
@@ -494,7 +523,7 @@ input[type=number] {
     position: absolute;
     min-width: 220px;
     max-width: 280px;
-    background: rgba(21,24,32,.55);
+    background: rgba(21, 24, 32, .55);
     border: 1px solid var(--border-subtle);
     border-radius: 10px;
     padding: 10px 12px;
@@ -582,6 +611,7 @@ input[type=number] {
     .insights-grid {
         grid-template-columns: 1fr;
     }
+
     .insights-chart {
         border-left: none;
         padding-left: 0;
@@ -609,9 +639,17 @@ input[type=number] {
     background: var(--color-action);
 }
 
-.mini-fill.risk-high { background: var(--color-risk); }
-.mini-fill.risk-medium { background: var(--color-action); }
-.mini-fill.risk-low { background: var(--color-info); }
+.mini-fill.risk-high {
+    background: var(--color-risk);
+}
+
+.mini-fill.risk-medium {
+    background: var(--color-action);
+}
+
+.mini-fill.risk-low {
+    background: var(--color-info);
+}
 
 .details-zone h4 {
     font-size: var(--text-label-size);
@@ -626,19 +664,32 @@ input[type=number] {
     border-bottom: 1px solid var(--border-subtle);
 }
 
+.holdings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.holdings-header h4 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
 .exposure-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1rem;
-    background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), transparent);
     border-left: 2px solid var(--border-subtle);
     margin-bottom: .5rem;
     font-size: .95rem;
 }
 
 .exposure-row:hover {
-    background: linear-gradient(90deg, rgba(255,255,255,0.04), transparent);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent);
     border-left-color: var(--color-info);
 }
 
@@ -668,7 +719,7 @@ input[type=number] {
     top: calc(100% + 4px);
     left: 0;
     right: 0;
-    background: rgba(21,24,32,.25);
+    background: rgba(21, 24, 32, .25);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-subtle);
@@ -676,11 +727,13 @@ input[type=number] {
     z-index: 1000;
     max-height: 240px;
     overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0,0,0,.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
 }
 
 /* Fix: .btn no longer used; keep mobile rule from breaking CTAs */
-.btn { width: auto; }
+.btn {
+    width: auto;
+}
 
 .result-item {
     padding: var(--space-inline) var(--space-component);
@@ -691,7 +744,7 @@ input[type=number] {
 }
 
 .result-item:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .result-item:last-child {
@@ -720,7 +773,7 @@ input[type=number] {
     display: flex;
     align-items: center;
     gap: var(--space-inline);
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-subtle);
     color: var(--text-primary);
     padding: .85rem 1rem;
@@ -732,7 +785,7 @@ input[type=number] {
 }
 
 .file-label:hover {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-color: var(--color-info);
 }
 
@@ -840,7 +893,9 @@ input[type=number] {
         width: 100%;
     }
 
-    .verdict-result .huge-num { font-size: 4.5rem; }
+    .verdict-result .huge-num {
+        font-size: 4.5rem;
+    }
 
     .disclaimer-section {
         flex-direction: column;
@@ -849,5 +904,8 @@ input[type=number] {
     }
 
     .disclaimer-label,
-    .disclaimer-text { white-space: normal; font-size: .65rem; }
+    .disclaimer-text {
+        white-space: normal;
+        font-size: .65rem;
+    }
 }

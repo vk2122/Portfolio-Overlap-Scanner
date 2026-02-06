@@ -2,8 +2,6 @@
 
 **UNSTACKED** is a high-end, institutional-grade diagnostic instrument designed to reveal hidden concentration risks in Indian investment portfolios. It provides a clinical, single-axis analysis of equity and mutual fund holdings to ensure your diversification isn't just an illusion.
 
-![Unstacked Preview](https://via.placeholder.com/1200x600/0B0D10/E8EAED?text=UNSTACKED+DIAGNOSTIC+SCANNER)
-
 ## 💎 Core Philosophy
 Most investors "stack" funds thinking they are diversifying, only to realize their underlying stock exposure is identical across multiple products. **UNSTACKED** deconstructs your portfolio to find the truth.
 
