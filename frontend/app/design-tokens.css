@@ -21,9 +21,11 @@
     --border-default: #1c1f26;
 
     /* Accents */
-    --accent-primary: #f5a623; /* action */
+    --accent-primary: #f5a623;
+    /* action */
     --accent-primary-hover: #f7b44a;
-    --accent-secondary: #2e8b8b; /* info */
+    --accent-secondary: #2e8b8b;
+    /* info */
     --accent-gradient: linear-gradient(135deg, #f5a623 0%, #2e8b8b 100%);
 
     /* Extra semantic aliases (to match deployed naming) */
@@ -36,13 +38,25 @@
     --danger: #d64545;
     --warning: #f5a623;
 
-    /* Charts */
-    --chart-1: #f5a623;
-    --chart-2: #2e8b8b;
-    --chart-3: #38BDF8;
-    --chart-4: #A78BFA;
-    --chart-5: #F472B6;
-    --chart-6: #F97316;
+    /* Charts - Technical Pro Palette (High Contrast) */
+    --chart-1: #60A5FA;
+    /* Sky Blue */
+    --chart-2: #34D399;
+    /* Emerald */
+    --chart-3: #A180FB;
+    /* Medium Purple */
+    --chart-4: #F472B6;
+    /* Pink */
+    --chart-5: #FBBF24;
+    /* Amber */
+    --chart-6: #22D3EE;
+    /* Cyan */
+    --chart-7: #FB7185;
+    /* Rose */
+    --chart-8: #818CF8;
+    /* Indigo */
+
+    --chart-glow: rgba(96, 165, 250, 0.15);
 
     /* Risk Semantic Colors */
     --risk-high: var(--danger);
@@ -92,7 +106,7 @@
     --input-radius: 6px;
     --input-padding-x: 12px;
     --input-border: 1px solid var(--border-default);
-    --max-content-width: 960px;
+    --max-content-width: 1280px;
     --transition-instant: 150ms ease;
     --transition-fast: 200ms ease;
     --transition-base: 300ms ease;
@@ -142,12 +156,22 @@
     --state-info: #0EA5E9;
 
     /* Charts */
-    --chart-1: #F59E0B;
-    --chart-2: #0EA5E9;
-    --chart-3: #10B981;
-    --chart-4: #8B5CF6;
-    --chart-5: #EC4899;
-    --chart-6: #F97316;
+    --chart-1: #D97706;
+    /* Deep Amber */
+    --chart-2: #0891B2;
+    /* Deep Cyan */
+    --chart-3: #4F46E5;
+    /* Indigo */
+    --chart-4: #0EA5E9;
+    /* Sky Blue */
+    --chart-5: #9333EA;
+    /* Purple */
+    --chart-6: #DB2777;
+    /* Pink */
+    --chart-7: #E11D48;
+    /* Crimson */
+    --chart-8: #059669;
+    /* Green */
 }
 
 /* Responsive Padding */
