@@ -575,6 +575,7 @@ function buildClarityReport(holdings, goal) {
             topDriverStock: analysis.stockExposure[0]?.ticker || null,
             topDriverStockPct: parseFloat((analysis.stockExposure[0]?.exposurePct || 0).toFixed(1)),
             effectiveExposureCount: analysis.effectiveExposureCount,
+            uniqueStockCount: analysis.uniqueStockCount,
             redundancyScore: parseFloat(redundancyScore.toFixed(1)),
             topDriverConcentration: parseFloat(topDriverConcentration.toFixed(1)),
             totalValue: analysis.totalValue,

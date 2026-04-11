@@ -23,6 +23,7 @@ export default function PortfolioApp() {
     // UI state
     const [hoverSlice, setHoverSlice] = useState(null);
     const [expandedScenario, setExpandedScenario] = useState(null);
+    const [activeCard, setActiveCard] = useState(null); // { type, result }
 
     // Form State
     const [type, setType] = useState('EQUITY');
@@ -101,6 +102,8 @@ export default function PortfolioApp() {
     useEffect(() => {
         if (holdings.length === 0) { setResult(null); return; }
         setCalculating(true);
+        // Clear stale result immediately so we don't show old data while fetching
+        setResult(null);
         const timer = setTimeout(async () => {
             try {
                 const res = await fetch(`${API_BASE}/calculate`, {
@@ -111,6 +114,9 @@ export default function PortfolioApp() {
                 const data = await res.json();
                 if (!res.ok) {
                     console.error('[UNSTACKED] API Error:', res.status, data);
+                } else if (!data.summary) {
+                    // Backend returned old v1 format — server needs restart
+                    console.error('[UNSTACKED] Old API format detected. Please restart the backend server.');
                 } else {
                     console.log('[UNSTACKED] Report received:', data.summary);
                     setResult(data);
@@ -219,8 +225,210 @@ export default function PortfolioApp() {
 
     const goalIsSet = goal.investmentGoal && goal.timeHorizon;
 
+    // ─── Health Score Calculation ─────────────────────────────────────────────
+    const healthScore = useMemo(() => {
+        if (!result || !result.summary) return null;
+        
+        let concScore = 0;
+        const ens = result.summary.effectiveExposureCount || 0;
+        if (ens >= 50) concScore = 95;
+        else if (ens >= 25) concScore = 75;
+        else concScore = 40;
+        
+        const top5 = result.stockExposure?.slice(0, 5).reduce((sum, s) => sum + (s.exposurePct || 0), 0) || 0;
+        if (top5 > 50) concScore -= 20;
+        
+        const top1 = result.summary.topDriverStockPct || 0;
+        if (top1 > 10) concScore -= 15;
+        concScore = Math.max(0, concScore);
+
+        let overlapScore = 0;
+        const ovp = result.summary.overlapPct || 0;
+        if (ovp < 20) overlapScore = 95;
+        else if (ovp <= 40) overlapScore = 75;
+        else overlapScore = 40;
+
+        let sectScore = 0;
+        const maxSect = result.sectorExposure?.[0]?.value || 0;
+        const totalSect = result.sectorExposure?.reduce((sum, s) => sum + s.value, 0) || 1;
+        const maxSectPct = (maxSect / totalSect) * 100;
+        if (maxSectPct < 30) sectScore = 95;
+        else if (maxSectPct <= 50) sectScore = 75;
+        else sectScore = 40;
+
+        const riskScore = 70;
+        const corrScore = 65;
+
+        const finalScore = Math.round((0.30 * concScore) + (0.20 * overlapScore) + (0.20 * sectScore) + (0.20 * riskScore) + (0.10 * corrScore));
+        
+        let interp = "FRAGILE";
+        let interpFull = "FRAGILE – High vulnerability";
+        if (finalScore >= 80) { interp = "ELITE"; interpFull = "ELITE – Institutional grade"; }
+        else if (finalScore >= 65) { interp = "GOOD"; interpFull = "GOOD – Minor inefficiencies"; }
+        else if (finalScore >= 50) { interp = "RISKY"; interpFull = "RISKY – Hidden bottlenecks"; }
+        
+        return { finalScore, interp, interpFull, concScore, overlapScore, sectScore, riskScore, corrScore, ens, top5, ovp, maxSectPct };
+    }, [result]);
+
+    // ─── Card Drawer ──────────────────────────────────────────────────────────
+    const CARD_META = {
+        overlap: {
+            title: 'Portfolio Overlap',
+            icon: '⟳',
+            explain: 'Overlap is the percentage of your total portfolio value that is held by more than one instrument simultaneously. A stock appearing in both a mutual fund and your direct equity holdings counts as overlap.',
+            scale: [{ label: 'Low  (0–20%)', color: 'var(--success)' }, { label: 'Medium  (20–40%)', color: 'var(--warning)' }, { label: 'High  (40%+)', color: 'var(--danger)' }],
+            getData: (r) => r?.stockExposure?.filter(s => s.sourceCount >= 2).slice(0, 5).map(s => ({
+                label: s.ticker, value: `${s.exposurePct?.toFixed(1)}%`, sub: s.name
+            })) || []
+        },
+        redundancy: {
+            title: 'Redundancy Score',
+            icon: '⊗',
+            explain: 'Redundancy Score equals the overlap percentage — it reflects how much of your invested capital is duplicated across funds. A high score means multiple instruments are giving you the same underlying exposure.',
+            scale: [{ label: 'Healthy (0–20%)', color: 'var(--success)' }, { label: 'Review  (20–40%)', color: 'var(--warning)' }, { label: 'Concern (40%+)', color: 'var(--danger)' }],
+            getData: (r) => r?.stockExposure?.filter(s => s.sourceCount >= 2).slice(0, 5).map(s => ({
+                label: s.ticker, value: `×${s.sourceCount} funds`, sub: `₹${s.totalVal?.toLocaleString()} duplicated`
+            })) || []
+        },
+        topDriver: {
+            title: 'Top Concentration Driver',
+            icon: '◎',
+            explain: 'The single stock with the largest share of your total portfolio. A concentrated position can amplify both gains and losses from one company.',
+            scale: [],
+            getData: () => [] // List disabled to give full space to the chart
+        },
+        top3: {
+            title: 'Top 3 Concentration',
+            icon: '▲',
+            explain: 'The combined exposure of your top 3 stocks as a percentage of your total portfolio. Values above 50% indicate high dependency on three names regardless of how many instruments you hold.',
+            scale: [{ label: 'Spread  (<40%)', color: 'var(--success)' }, { label: 'Moderate (40–60%)', color: 'var(--warning)' }, { label: 'Concentrated (60%+)', color: 'var(--danger)' }],
+            getData: (r) => r?.stockExposure?.slice(0, 3).map(s => ({
+                label: s.ticker, value: `${s.exposurePct?.toFixed(1)}%`, sub: s.sector || 'Equity'
+            })) || []
+        },
+        effective: {
+            title: 'Unified Portfolio Health Score',
+            icon: '◈',
+            explain: 'A comprehensive evaluation of your portfolio’s true risk, blending concentration, overlap, and sector metrics into a unified institution-grade health score.',
+            scale: [ { label: '<50 (Fragile)', color: 'var(--danger)' }, { label: '50-65 (Risky)', color: '#f5a623' }, { label: '65-80 (Good)', color: '#a0aec0' }, { label: '80+ (Elite)', color: 'var(--success)' } ],
+            getData: () => {
+                const hs = healthScore;
+                if (!hs) return [];
+
+                return [
+                    { label: 'Unified Health Score', sub: hs.interpFull, value: `${hs.finalScore} / 100` },
+                    { label: '1. Concentration', sub: `ENS: ${hs.ens.toFixed(1)} | Top 5: ${hs.top5.toFixed(1)}%`, value: hs.concScore },
+                    { label: '2. Overlap', sub: `Common Holdings: ${hs.ovp.toFixed(1)}%`, value: hs.overlapScore },
+                    { label: '3. Sector Balance', sub: `Max Sector: ${hs.maxSectPct.toFixed(1)}%`, value: hs.sectScore },
+                    { label: '4. Risk-Adjusted Perf.', sub: 'Requires return history', value: hs.riskScore },
+                    { label: '5. Correlation', sub: 'Requires matrix analysis', value: hs.corrScore }
+                ];
+            }
+        },
+        verdict: {
+            title: 'Overlap Verdict',
+            icon: '⬡',
+            explain: 'A simple summary of your overlap level. LOW means your instruments are mostly complementary. HIGH means significant duplication — you may be paying for the same exposure multiple times.',
+            scale: [{ label: 'LOW  — Complementary', color: 'var(--success)' }, { label: 'MEDIUM — Some duplication', color: 'var(--warning)' }, { label: 'HIGH  — Significant overlap', color: 'var(--danger)' }],
+            getData: () => []
+        }
+    };
+
+    function CardDrawer({ activeCard, result, onClose }) {
+        const chartRef = useRef(null);
+        const meta = CARD_META[activeCard];
+        const ticker = result?.summary?.topDriverStock;
+
+        // Close on Escape
+        useEffect(() => {
+            const handler = (e) => { if (e.key === 'Escape') onClose(); };
+            document.addEventListener('keydown', handler);
+            return () => document.removeEventListener('keydown', handler);
+        }, [onClose]);
+
+        if (!meta) return null;
+        const rows = meta.getData(result);
+
+        // Generate TradingView iframe URL
+        const getChartUrl = (sym) => {
+            const cleanSym = String(sym).replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+            // BSE is often safer for strict widget matching without EQ suffixes
+            const tvSymbol = encodeURIComponent(`BSE:${cleanSym}`);
+            return `https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=${tvSymbol}&interval=D&hidesidetoolbar=1&symboledit=0&saveimage=0&toolbarbg=2b3139&studies=%5B%5D&theme=dark&style=2&timezone=Asia%2FKolkata&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=in`;
+        };
+
+        return (
+            <div className="card-drawer-overlay" onClick={onClose}>
+                <div className={`card-drawer ${activeCard === 'topDriver' ? 'drawer-large' : ''}`} onClick={e => e.stopPropagation()}>
+                    <div className="card-drawer-header">
+                        <span className="card-drawer-icon">{meta.icon}</span>
+                        <span className="card-drawer-title">{meta.title}</span>
+                        <button className="card-drawer-close" onClick={onClose} aria-label="Close">✕</button>
+                    </div>
+
+                    <p className="card-drawer-explain">{meta.explain}</p>
+
+                    {/* TradingView chart for Top Driver */}
+                    {activeCard === 'topDriver' && ticker && (
+                        <div className="card-drawer-chart">
+                            <iframe 
+                                src={getChartUrl(ticker)}
+                                width="100%" 
+                                height="100%" 
+                                frameBorder="0" 
+                                allowTransparency="true" 
+                                scrolling="no" 
+                                allowFullScreen
+                            />
+                        </div>
+                    )}
+
+                    {/* Scale legend */}
+                    {meta.scale.length > 0 && (
+                        <div className="card-drawer-scale">
+                            {meta.scale.map((s, i) => (
+                                <div key={i} className="scale-row">
+                                    <span className="scale-dot" style={{ background: s.color }} />
+                                    <span className="scale-label">{s.label}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Data rows */}
+                    {rows.length > 0 && (
+                        <div className="card-drawer-data">
+                            <span className="card-drawer-data-title">
+                                {activeCard === 'topDriver' ? 'Top Stock Exposures' :
+                                 activeCard === 'overlap' || activeCard === 'redundancy' ? 'Overlapping Stocks' : 'Breakdown'}
+                            </span>
+                            {rows.map((row, i) => (
+                                <div key={i} className="drawer-data-row">
+                                    <div className="drawer-data-left">
+                                        <span className="drawer-data-label">{row.label}</span>
+                                        {row.sub && <span className="drawer-data-sub">{row.sub}</span>}
+                                    </div>
+                                    <span className="drawer-data-value">{row.value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    <p className="card-drawer-disclaimer">
+                        This analysis is informational only. Not investment advice.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <>
+            {/* Card Drawer Portal */}
+            {activeCard && result && (
+                <CardDrawer activeCard={activeCard} result={result} onClose={() => setActiveCard(null)} />
+            )}
+
             <header className="header">
                 <div className="brand">
                     UNSTACKED <span className="tagline">— Know what you own.</span>
@@ -243,7 +451,7 @@ export default function PortfolioApp() {
                     GOAL CAPTURE (Mandatory - PRD §5.1)
                     ============================================ */}
                 <section className="goal-capture" id="goal-capture">
-                    <h4>DEFINE YOUR OBJECTIVE</h4>
+                    <h4>Define Your Objective</h4>
                     <div className="goal-row">
                         <div className="goal-group">
                             <label className="goal-label">INVESTMENT GOAL</label>
@@ -302,7 +510,7 @@ export default function PortfolioApp() {
                         <label>INSTRUMENT</label>
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="Search stocks, funds, ETFs..."
                             value={searchQuery}
                             onChange={(e) => { setSearchQuery(e.target.value); setShowResults(true); }}
                             autoComplete="off"
@@ -333,7 +541,7 @@ export default function PortfolioApp() {
                     STATUS BAR
                     ============================================ */}
                 <div className={`status-bar ${calculating ? 'active' : ''} ${result ? 'has-result' : ''}`}>
-                    {calculating ? 'STATUS: ANALYZING PORTFOLIO' : result ? 'STATUS: CLARITY REPORT READY' : 'STATUS: ENGINE IDLE'}
+                    {calculating ? 'ANALYZING PORTFOLIO' : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
                 </div>
 
                 {/* ============================================
@@ -342,7 +550,7 @@ export default function PortfolioApp() {
                 {holdings.length > 0 && (
                     <div className="details-zone holdings-zone" id="holdings-zone">
                         <div className="holdings-header">
-                            <h4>HOLDINGS</h4>
+                            <h4 style={{marginBottom:0, paddingBottom:0, borderBottom:'none'}}>Holdings</h4>
                             <span className="holdings-count">{holdings.length} instrument{holdings.length !== 1 ? 's' : ''} · ₹{totalValue.toLocaleString()}</span>
                         </div>
                         {holdings.map(h => {
@@ -360,7 +568,15 @@ export default function PortfolioApp() {
                                         </div>
                                     </div>
                                     <div className="holding-actions">
-                                        <span className="pct">₹{Number(h.value).toLocaleString()}</span>
+                                        <div className="holding-value-col">
+                                            <span className="pct">₹{Number(h.value).toLocaleString()}</span>
+                                            <div className="holding-weight-bar">
+                                                <div
+                                                    className="holding-weight-fill"
+                                                    style={{ width: `${totalValue > 0 ? Math.min((h.value / totalValue) * 100, 100) : 0}%` }}
+                                                />
+                                            </div>
+                                        </div>
                                         <button
                                             type="button"
                                             className="icon-btn"
@@ -384,32 +600,34 @@ export default function PortfolioApp() {
                     <>
                         {/* SUMMARY BLOCK (PRD §11.1) */}
                         <div className="details-zone summary-block" id="summary-block">
-                            <h4>PORTFOLIO SUMMARY</h4>
+                            <h4>Portfolio Summary</h4>
                             <div className="metrics-grid">
-                                <div className="metric-card">
-                                    <span className="metric-label">Overlap</span>
+                                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('overlap')} title="Click for explanation">
+                                    <span className="metric-label">Overlap <span className="metric-info-icon">?</span></span>
                                     <span className="metric-value">{result.summary?.overlapPct ?? 0}%</span>
                                 </div>
-                                <div className="metric-card">
-                                    <span className="metric-label">Redundancy Score</span>
+                                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('redundancy')} title="Click for explanation">
+                                    <span className="metric-label">Redundancy Score <span className="metric-info-icon">?</span></span>
                                     <span className="metric-value">{result.summary?.redundancyScore ?? 0}%</span>
                                 </div>
-                                <div className="metric-card">
-                                    <span className="metric-label">Top Driver</span>
+                                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('topDriver')} title="Click to view chart">
+                                    <span className="metric-label">Top Driver <span className="metric-info-icon">↗</span></span>
                                     <span className="metric-value metric-highlight">{cleanTicker(result.summary?.topDriverStock) || '—'}</span>
                                     <span className="metric-sub">{result.summary?.topDriverStockPct ?? 0}% exposure</span>
                                 </div>
-                                <div className="metric-card">
-                                    <span className="metric-label">Top 3 Concentration</span>
+                                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('top3')} title="Click for explanation">
+                                    <span className="metric-label">Top 3 Concentration <span className="metric-info-icon">?</span></span>
                                     <span className="metric-value">{result.summary?.topDriverConcentration ?? 0}%</span>
                                 </div>
-                                <div className="metric-card">
-                                    <span className="metric-label">Effective Exposures</span>
-                                    <span className="metric-value">{result.summary?.effectiveExposureCount ?? 0}</span>
-                                    <span className="metric-sub">of {result.summary?.totalStocks ?? 0} stocks</span>
+                                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('effective')} title="Click for explanation">
+                                    <span className="metric-label">Portfolio Health <span className="metric-info-icon">?</span></span>
+                                    <span className={`metric-value verdict-${(healthScore?.interp || 'fragile').toLowerCase()}`}>
+                                        {healthScore?.finalScore ?? 0}
+                                    </span>
+                                    <span className="metric-sub">{healthScore?.interp ?? '—'}</span>
                                 </div>
-                                <div className="metric-card">
-                                    <span className="metric-label">Overlap Verdict</span>
+                                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('verdict')} title="Click for explanation">
+                                    <span className="metric-label">Overlap Verdict <span className="metric-info-icon">?</span></span>
                                     <span className={`metric-value verdict-${(result.summary?.overlapVerdict || 'low').toLowerCase()}`}>
                                         {result.summary?.overlapVerdict || 'LOW'}
                                     </span>

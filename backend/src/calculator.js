@@ -161,9 +161,11 @@ function calculatePortfolioExposure(holdings) {
         .filter(s => s.totalVal > 0.1)
         .sort((a, b) => b.totalVal - a.totalVal);
 
+    const uniqueStockCount = stockExposure.length;
+    // Herfindahl-equivalent: reflects concentration (1 = fully concentrated, N = equally spread)
     const maxSingleStockExposure = stockExposure.reduce((max, s) => Math.max(max, s.totalVal), 0);
     const effectiveExposureCount = maxSingleStockExposure > 0
-        ? Math.floor(totalValue / maxSingleStockExposure)
+        ? Math.round(totalValue / maxSingleStockExposure)
         : 0;
 
     const overlapStocks = stockExposure.filter(s => s.sourceCount >= 2);
@@ -225,6 +227,7 @@ function calculatePortfolioExposure(holdings) {
         diversificationScore,
         overlapVerdict,
         effectiveExposureCount,
+        uniqueStockCount,
         overlapStocksCount: overlapStocks.length,
         largestSectorExposure,
         topOverlapPairs,
