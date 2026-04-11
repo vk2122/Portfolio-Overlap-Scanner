@@ -1,75 +1,64 @@
-# UNSTACKED — Portfolio Concentration Scanner 🔬
+# UNSTACKED — Portfolio Clarity Engine 🔬
 
-**UNSTACKED** is a high-end, institutional-grade diagnostic instrument designed to reveal hidden concentration risks in Indian investment portfolios. It provides a clinical, single-axis analysis of equity and mutual fund holdings to ensure your diversification isn't just an illusion.
+**UNSTACKED** is a high-end, institutional-grade diagnostic instrument designed to reveal hidden concentration risks in Indian investment portfolios. It deconstructs your portfolio to find the truth behind mutual fund overlap and stock duplication.
 
 ## 💎 Core Philosophy
-Most investors "stack" funds thinking they are diversifying, only to realize their underlying stock exposure is identical across multiple products. **UNSTACKED** deconstructs your portfolio to find the truth.
+Most investors "stack" funds thinking they are diversifying, only to realize their underlying stock exposure is identical across multiple products. **UNSTACKED** exposes fake diversification.
 
-## 🚀 Key Features
+## 🚀 What's New in v2.0
+We completely overhauled the engine to focus on **interactive, dynamic diagnostics** rather than static reports:
 
-### 1. Clinical Diagnostic Interface
-- **Single-Axis Vertical Flow**: A streamlined UX that moves from input to insight without distraction.
-- **Glassmorphic Depth**: High-end UI textures with 20px frosted-glass blurs for a premium "technical instrument" feel.
-- **Dynamic Verdicts**: Large-scale visual feedback that updates in real-time as you add holdings.
+### 1. Unified Portfolio Health Score 📊
+Replaced simple metric counters with an institutional-grade algorithmic health framework.
+- **5-Pillar Analysis**: Evaluates and weights *Concentration (30%)*, *Overlap (20%)*, *Sector Balance (20%)*, *Risk-Adjusted Performance (20%)*, and *Correlation (10%)*.
+- **Dynamic Penalties**: Hard-coded alerts trigger if your top 5 holdings dominate >50% of the portfolio.
+- **Interpretation Matrix**: Outputs your portfolio as *Elite*, *Good*, *Risky*, or *Fragile*.
 
-### 2. Dual-Mode Analysis
-- **Manual Entry**: Intelligent, auto-closing search dropdowns for Stocks, Mutual Funds, and ETFs (Indian Market).
-- **CAS Import (PDF)**: Technical select-mode for PDF statements with real-time file feedback (Ready for parsing engine integration).
+### 2. Interactive Analytical Drawers 🪄
+The traditional flat dashboard has been upgraded into an interactive workspace.
+- **Metric Expansion**: Clicking any Metric Card on the dashboard scales open a beautifully centered, perfectly constrained overlay drawer identifying the exact subset of holdings responsible for that specific metric.
+- **No Scroll Context**: Data lists actively cap off to prevent UI scrolling, offering an immaculately tight presentation.
 
-### 3. Precision Risk Engine
-- **7.0% Moderate Risk**: Threshold for initial concentration alerts.
-- **15.0% Critical Risk**: High-intensity alert state with "Risk Red" branding.
-- **Portfolio Context**: Exposure metrics are grounded against your total capital size (₹) for actionable insight.
+### 3. Integrated TradingView Technicals 📈
+- **Live Embed**: Investigating your "Top Concentration Driver" leverages a dynamically embedded TradingView Advanced Chart within the modal.
+- **Sanitized Precision**: Automatically parses BSE/NSE ticker equivalents with robust fallback protection against API desyncs, giving live price data right alongside your risk metrics.
 
 ## 🛠 Tech Stack
-- **Frontend**: Next.js 14, React, Vanilla CSS3 (Custom Design System).
+- **Frontend**: Next.js 14, React, Vanilla CSS3 (Custom Design System with Dark-mode semantics).
 - **Backend**: Node.js, Express.js.
+- **Integrations**: TradingView Widget Embeds (`BSE` / `NSE`).
 - **Deployment**: Vercel Serverless Architecture (Monorepo Optimized).
-- **Data**: Curated Database of Indian Blue-chip Stocks & Top Mutual Funds.
 
 ## 📦 Project Structure
 ```bash
 ├── frontend/          # Next.js Application
-│   ├── app/           # App router & Global styles (Refined CSS)
-│   ├── components/    # Core UI logic (PortfolioApp.js)
+│   ├── app/           # App router & Global styles (globals.css contains Drawer logic)
+│   ├── components/    # Core UI logic (PortfolioApp.js containing the Health algorithm)
 │   └── lib/           # Data loaders & Mock DB
 ├── backend/           # Node.js API
-│   ├── src/           # Calculator logic & Express Server
+│   ├── src/           # Calculator logic & Clarity Engine
 │   └── tests/         # Unit testing suite
 ├── vercel.json        # Production Deployment Orchestrator
-└── .gitignore         # Optimized for GitHub/Vercel
+└── README.md
 ```
 
 ## 🏗 Local Development
 
-1. **Clone the Repo**
+1. **Clone & Install**
    ```bash
    git clone https://github.com/your-username/portfolio-overlap-scanner.git
    cd portfolio-overlap-scanner
+   npm install && cd frontend && npm install && cd ../backend && npm install
    ```
 
-2. **Install Dependencies**
+2. **Run Application Services**
    ```bash
-   # Root, Frontend, and Backend
-   npm install
-   cd frontend && npm install
-   cd ../backend && npm install
-   ```
-
-3. **Run Locally**
-   ```bash
-   # Terminal 1: Backend (Port 5000)
+   # Terminal 1: Backend API
    cd backend && npm start
 
-   # Terminal 2: Frontend (Port 3000)
+   # Terminal 2: Frontend Client
    cd frontend && npm run dev
    ```
-
-## 🌐 Deployment
-This project is pre-configured for **Vercel**. 
-- The `vercel.json` at the root handles the routing and builds.
-- The backend automatically scales as Serverless Functions.
-- The frontend dynamically detects the environment and routes API calls to the correct production proxy.
 
 ---
 
