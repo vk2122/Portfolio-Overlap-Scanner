@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import { fetchMarketData } from '../lib/loader';
 
 const API_BASE = typeof window !== 'undefined' && window.location.hostname === 'localhost'
@@ -24,6 +24,7 @@ export default function PortfolioApp() {
     const [hoverSlice, setHoverSlice] = useState(null);
     const [expandedScenario, setExpandedScenario] = useState(null);
     const [activeCard, setActiveCard] = useState(null); // { type, result }
+    const [selectedSector, setSelectedSector] = useState(null);
 
     // Form State
     const [type, setType] = useState('EQUITY');
@@ -33,7 +34,20 @@ export default function PortfolioApp() {
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [showTypeResults, setShowTypeResults] = useState(false);
+    const [kbIndex, setKbIndex] = useState(-1); // keyboard nav index
+    const searchInputRef = useRef(null);
+    const resultsRef = useRef(null);
     const formRef = useRef(null);
+
+    // Bulk Import State
+    const [showBulkImport, setShowBulkImport] = useState(false);
+    const [bulkText, setBulkText] = useState('');
+    const [bulkPreview, setBulkPreview] = useState([]);
+
+    // URL & What-If State
+    const [isWhatIfMode, setIsWhatIfMode] = useState(false);
+    const [hypoResult, setHypoResult] = useState(null);
+    const [hypoCalculating, setHypoCalculating] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -47,27 +61,64 @@ export default function PortfolioApp() {
     }, []);
 
     useEffect(() => {
-        fetchMarketData().then(setMarketData).catch(console.error);
-        // Load holdings from localStorage on mount
-        try {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    setHoldings(parsed);
+        let loadedMarketData = null;
+        fetchMarketData()
+            .then(data => {
+                loadedMarketData = data;
+                setMarketData(data);
+                
+                // Try to hydrate from URL first
+                if (window.location.search.includes('p=')) {
+                    const params = new URLSearchParams(window.location.search);
+                    const pStr = params.get('p');
+                    const gStr = params.get('g');
+                    
+                    try {
+                        const hList = pStr.split(',').map(item => {
+                            const [id, t, v] = item.split(':');
+                            const matched = (data.stocks || []).concat(data.etfs || []).concat(data.funds || []).find(m => String(m.isin || m.id) === id || m.ticker === id);
+                            return {
+                                id: Date.now() + Math.random(),
+                                instrumentId: id,
+                                type: t || 'EQUITY',
+                                name: matched ? (matched.ticker || matched.name) : id,
+                                value: parseFloat(v) || 0
+                            };
+                        });
+                        setHoldings(hList);
+                        if (gStr) {
+                            const [ig, th] = gStr.split(':');
+                            setGoal({ investmentGoal: ig, timeHorizon: th });
+                        }
+                        setIsHydrated(true);
+                        return; // Done hydrating from URL
+                    } catch (e) {
+                        console.error("Failed to decode URL portfolio", e);
+                    }
                 }
-            }
-            const savedGoal = localStorage.getItem(GOAL_KEY);
-            if (savedGoal) {
-                const parsedGoal = JSON.parse(savedGoal);
-                if (parsedGoal.investmentGoal) {
-                    setGoal(parsedGoal);
+
+                // Fallback to localStorage
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEY);
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            setHoldings(parsed);
+                        }
+                    }
+                    const savedGoal = localStorage.getItem(GOAL_KEY);
+                    if (savedGoal) {
+                        const parsedGoal = JSON.parse(savedGoal);
+                        if (parsedGoal.investmentGoal) {
+                            setGoal(parsedGoal);
+                        }
+                    }
+                } catch (e) {
+                    console.error('Failed to load from localStorage:', e);
                 }
-            }
-        } catch (e) {
-            console.error('Failed to load from localStorage:', e);
-        }
-        setIsHydrated(true);
+                setIsHydrated(true);
+            })
+            .catch(console.error);
     }, []);
 
     // Save holdings to localStorage whenever they change
@@ -115,7 +166,6 @@ export default function PortfolioApp() {
                 if (!res.ok) {
                     console.error('[UNSTACKED] API Error:', res.status, data);
                 } else if (!data.summary) {
-                    // Backend returned old v1 format — server needs restart
                     console.error('[UNSTACKED] Old API format detected. Please restart the backend server.');
                 } else {
                     console.log('[UNSTACKED] Report received:', data.summary);
@@ -123,25 +173,244 @@ export default function PortfolioApp() {
                 }
             } catch (e) { console.error('[UNSTACKED] Fetch failed:', e); }
             setCalculating(false);
+            
+            // Clean up URL parameters if they exist but we've edited standard holdings
+            if (window.location.search) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
         }, 300);
         return () => clearTimeout(timer);
     }, [holdings, goal]);
 
-    // Search logic
+    // ─── What-If Hypothetical Calculation ──────────────────────────────────
     useEffect(() => {
-        if (!searchQuery || searchQuery.length < 2) { setSearchResults([]); return; }
+        if (!isWhatIfMode || holdings.length === 0 || !selectedInstrument || !value || isNaN(parseFloat(value))) {
+            setHypoResult(null);
+            return;
+        }
+
+        const targetHoldings = [...holdings, {
+            id: 'hypothetical-trade',
+            instrumentId: selectedInstrument.id,
+            type: type,
+            name: selectedInstrument.main,
+            value: parseFloat(value)
+        }];
+
+        const timer = setTimeout(async () => {
+            setHypoCalculating(true);
+            try {
+                const res = await fetch(`${API_BASE}/calculate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ holdings: targetHoldings, goal: goal.investmentGoal ? goal : null })
+                });
+                const data = await res.json();
+                if (res.ok && data.summary) {
+                    setHypoResult(data);
+                }
+            } catch (e) { console.error("Hypo Calc error:", e); }
+            setHypoCalculating(false);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [holdings, goal, isWhatIfMode, selectedInstrument, value, type]);
+
+    // ─── Fuzzy Search Logic ──────────────────────────────────────────────────
+    const fuzzyScore = useCallback((item, query) => {
+        const q = query.toLowerCase();
+        const ticker = (item.ticker || item.name || '').toLowerCase();
+        const name = (item.name || '').toLowerCase();
+
+        // Exact ticker match
+        if (ticker === q) return 100;
+        // Ticker starts with query
+        if (ticker.startsWith(q)) return 80;
+        // Ticker contains query
+        if (ticker.includes(q)) return 60;
+        // Name starts with query
+        if (name.startsWith(q)) return 50;
+        // Name contains query
+        if (name.includes(q)) return 40;
+        // No match
+        return 0;
+    }, []);
+
+    const highlightMatch = useCallback((text, query) => {
+        if (!query || query.length < 2) return text;
+        const idx = text.toLowerCase().indexOf(query.toLowerCase());
+        if (idx === -1) return text;
+        const before = text.slice(0, idx);
+        const match = text.slice(idx, idx + query.length);
+        const after = text.slice(idx + query.length);
+        return <>{before}<mark>{match}</mark>{after}</>;
+    }, []);
+
+    useEffect(() => {
+        if (!searchQuery || searchQuery.length < 2) { setSearchResults([]); setKbIndex(-1); return; }
         const q = searchQuery.toLowerCase();
         let source = [];
         if (type === 'EQUITY') source = marketData.stocks || [];
         else if (type === 'ETF') source = marketData.etfs || [];
         else source = marketData.funds || [];
 
-        const list = source
-            .filter(i => (i.ticker || i.name || '').toLowerCase().includes(q))
-            .slice(0, 8)
-            .map(i => ({ id: i.isin || i.id, main: i.ticker || i.name, sub: i.name || '' }));
-        setSearchResults(list);
-    }, [searchQuery, type, marketData]);
+        const scored = source
+            .map(i => ({ item: i, score: fuzzyScore(i, q) }))
+            .filter(s => s.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10)
+            .map(s => ({
+                id: s.item.isin || s.item.id,
+                main: s.item.ticker || s.item.name,
+                sub: s.item.name || '',
+                exchange: s.item.exchange || (type === 'EQUITY' ? 'NSE' : null),
+                score: s.score
+            }));
+        setSearchResults(scored);
+        setKbIndex(-1);
+    }, [searchQuery, type, marketData, fuzzyScore]);
+
+    // Keyboard navigation for search dropdown
+    const handleSearchKeyDown = useCallback((e) => {
+        if (!showResults || searchResults.length === 0) return;
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setKbIndex(prev => Math.min(prev + 1, searchResults.length - 1));
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setKbIndex(prev => Math.max(prev - 1, 0));
+        } else if (e.key === 'Enter' && kbIndex >= 0) {
+            e.preventDefault();
+            const r = searchResults[kbIndex];
+            setSelectedInstrument(r);
+            setSearchQuery(r.main);
+            setShowResults(false);
+            setKbIndex(-1);
+        } else if (e.key === 'Escape') {
+            setShowResults(false);
+            setKbIndex(-1);
+        }
+    }, [showResults, searchResults, kbIndex]);
+
+    // Scroll active keyboard item into view
+    useEffect(() => {
+        if (kbIndex >= 0 && resultsRef.current) {
+            const items = resultsRef.current.querySelectorAll('.result-item-enhanced');
+            if (items[kbIndex]) {
+                items[kbIndex].scrollIntoView({ block: 'nearest' });
+            }
+        }
+    }, [kbIndex]);
+
+    // ─── Bulk Import Logic ──────────────────────────────────────────────────
+    const parseBulkText = useCallback((text) => {
+        if (!text.trim()) { setBulkPreview([]); return; }
+        const lines = text.split('\n').filter(l => l.trim());
+        const allSources = [
+            ...(marketData.stocks || []).map(s => ({ ...s, _type: 'EQUITY' })),
+            ...(marketData.etfs || []).map(e => ({ ...e, _type: 'ETF' })),
+            ...(marketData.funds || []).map(f => ({ ...f, _type: 'MF' }))
+        ];
+
+        const parsed = lines.map(line => {
+            // Normalize numbers containing commas BEFORE splitting (e.g., "50,000" -> "50000")
+            const normalizedLine = line.replace(/(\d),(\d)/g, '$1$2').replace(/"/g, '');
+            
+            // Try splitting by tab first, fallback to comma
+            let parts = normalizedLine.split('\t').map(p => p.trim()).filter(Boolean);
+            if (parts.length < 2) {
+                parts = normalizedLine.split(',').map(p => p.trim()).filter(Boolean);
+            }
+
+            if (parts.length < 2) return { raw: line, valid: false, name: line.trim(), type: '?', value: 0 };
+
+            const nameOrTicker = parts[0];
+            // Try to detect type from 2nd column or auto-detect
+            let lineType = (parts.length >= 3 ? parts[1] : '').toUpperCase();
+            // Handle edgecases where type is specified as EQ or FUND
+            if (lineType === 'EQ') lineType = 'EQUITY';
+            if (lineType === 'FUND') lineType = 'MF';
+            
+            const valStr = parts.length >= 3 ? parts[2] : parts[1];
+            const val = parseFloat(valStr.replace(/[^0-9.]/g, ''));
+
+            // Validate type
+            if (!['EQUITY', 'MF', 'ETF'].includes(lineType)) {
+                // If no type column, default to EQUITY and shift
+                lineType = 'EQUITY';
+            }
+
+            // Try to find in market data
+            const q = nameOrTicker.toLowerCase();
+            const match = allSources.find(s =>
+                (s.ticker || '').toLowerCase() === q ||
+                (s.name || '').toLowerCase() === q ||
+                (s.isin || '') === nameOrTicker
+            );
+
+            if (match && !isNaN(val) && val > 0) {
+                return {
+                    raw: line,
+                    valid: true,
+                    id: match.isin || match.id,
+                    name: match.ticker || match.name,
+                    fullName: match.name,
+                    type: match._type || lineType,
+                    value: val
+                };
+            }
+
+            return {
+                raw: line,
+                valid: !isNaN(val) && val > 0,
+                id: nameOrTicker,
+                name: nameOrTicker,
+                fullName: nameOrTicker,
+                type: lineType,
+                value: isNaN(val) ? 0 : val
+            };
+        });
+        setBulkPreview(parsed);
+    }, [marketData]);
+
+    useEffect(() => {
+        parseBulkText(bulkText);
+    }, [bulkText, parseBulkText]);
+
+    const addBulkHoldings = useCallback(() => {
+        const validItems = bulkPreview.filter(p => p.valid && p.value > 0);
+        const newHoldings = validItems.map(item => ({
+            id: Date.now() + Math.random(),
+            instrumentId: item.id,
+            type: item.type,
+            name: item.name,
+            value: item.value
+        }));
+        setHoldings(prev => [...prev, ...newHoldings]);
+        setShowBulkImport(false);
+        setBulkText('');
+        setBulkPreview([]);
+    }, [bulkPreview]);
+
+    // ─── Encode / Decode Portfolio URL ────────────────────────────────────────
+    const handleShare = useCallback(() => {
+        if (holdings.length === 0) return;
+        const hString = holdings.map(h => `${h.instrumentId}:${h.type}:${h.value}`).join(',');
+        const gString = (goal.investmentGoal && goal.timeHorizon) ? `${goal.investmentGoal}:${goal.timeHorizon}` : '';
+        const params = new URLSearchParams();
+        params.set('p', hString);
+        if (gString) params.set('g', gString);
+        
+        const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        navigator.clipboard.writeText(url);
+        
+        const btn = document.getElementById('share-btn');
+        if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✓ COPIED';
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }
+    }, [holdings, goal]);
 
     const addHolding = (e) => {
         e.preventDefault();
@@ -422,8 +691,82 @@ export default function PortfolioApp() {
         );
     }
 
+    // ─── Bulk Import Modal ──────────────────────────────────────────────────
+    function BulkImportModal({ onClose, onAdd }) {
+        const validCount = bulkPreview.filter(p => p.valid && p.value > 0).length;
+
+        useEffect(() => {
+            const handler = (e) => { if (e.key === 'Escape') onClose(); };
+            document.addEventListener('keydown', handler);
+            return () => document.removeEventListener('keydown', handler);
+        }, [onClose]);
+
+        return (
+            <div className="card-drawer-overlay" onClick={onClose}>
+                <div className="bulk-import-modal" onClick={e => e.stopPropagation()}>
+                    <div className="bulk-import-header">
+                        <h3><span>📋</span> Bulk Import</h3>
+                        <button className="card-drawer-close" onClick={onClose} aria-label="Close">✕</button>
+                    </div>
+
+                    <div className="bulk-import-format-hint">
+                        Paste your holdings, one per line.<br />
+                        Format: <code>Ticker, Type, Value</code><br />
+                        Example: <code>RELIANCE, EQUITY, 50000</code> or <code>HDFC Top 100, MF, 100000</code>
+                    </div>
+
+                    <textarea
+                        className="bulk-import-textarea"
+                        placeholder={`RELIANCE, EQUITY, 50000\nNIFTY BEES, ETF, 25000\nHDFC Top 100, MF, 100000`}
+                        value={bulkText}
+                        onChange={(e) => setBulkText(e.target.value)}
+                        autoFocus
+                    />
+
+                    {bulkPreview.length > 0 && (
+                        <div className="bulk-import-preview">
+                            {bulkPreview.map((row, i) => (
+                                <div key={i} className={`bulk-preview-row ${row.valid ? 'valid' : 'invalid'}`}>
+                                    <span className="bulk-preview-status">{row.valid ? '✓' : '✗'}</span>
+                                    <span className="bulk-preview-name" title={row.fullName || row.name}>{row.name}</span>
+                                    <span className="bulk-preview-type">{row.type}</span>
+                                    <span className="bulk-preview-value">
+                                        {row.value > 0 ? `₹${row.value.toLocaleString()}` : '—'}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    <div className="bulk-import-actions">
+                        <span className="bulk-import-count">
+                            {validCount > 0 && <><strong>{validCount}</strong> valid holding{validCount !== 1 ? 's' : ''} ready</>}
+                            {validCount === 0 && bulkPreview.length > 0 && 'No valid holdings detected'}
+                        </span>
+                        <button className="bulk-btn-cancel" onClick={onClose}>Cancel</button>
+                        <button
+                            className="bulk-btn-add"
+                            disabled={validCount === 0}
+                            onClick={() => { onAdd(); }}
+                        >
+                            Add {validCount} Holding{validCount !== 1 ? 's' : ''}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <>
+            {/* Bulk Import Modal */}
+            {showBulkImport && (
+                <BulkImportModal
+                    onClose={() => { setShowBulkImport(false); setBulkText(''); setBulkPreview([]); }}
+                    onAdd={addBulkHoldings}
+                />
+            )}
+
             {/* Card Drawer Portal */}
             {activeCard && result && (
                 <CardDrawer activeCard={activeCard} result={result} onClose={() => setActiveCard(null)} />
@@ -433,17 +776,36 @@ export default function PortfolioApp() {
                 <div className="brand">
                     UNSTACKED <span className="tagline">— Know what you own.</span>
                 </div>
-                <button
-                    type="button"
-                    className="header-clear-btn"
-                    onClick={clearAllHoldings}
-                    title="Clear all portfolio data from this device"
-                >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
-                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
-                    </svg>
-                    RESET
-                </button>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                        id="share-btn"
+                        type="button"
+                        className="header-clear-btn"
+                        onClick={handleShare}
+                        title="Copy a shareable link of this portfolio"
+                        style={{ color: 'var(--color-info)', borderColor: 'var(--color-info)' }}
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                        SHARE
+                    </button>
+                    <button
+                        type="button"
+                        className="header-clear-btn"
+                        onClick={clearAllHoldings}
+                        title="Clear all portfolio data from this device"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+                        </svg>
+                        RESET
+                    </button>
+                </div>
             </header>
 
             <main className="main-flow">
@@ -509,22 +871,42 @@ export default function PortfolioApp() {
                     <div className="field instrument-field">
                         <label>INSTRUMENT</label>
                         <input
+                            ref={searchInputRef}
                             type="text"
                             placeholder="Search stocks, funds, ETFs..."
                             value={searchQuery}
                             onChange={(e) => { setSearchQuery(e.target.value); setShowResults(true); }}
+                            onKeyDown={handleSearchKeyDown}
                             autoComplete="off"
                         />
                         {showResults && searchResults.length > 0 && (
-                            <div className="search-results">
-                                {searchResults.map(r => (
-                                    <div key={r.id} className="result-item" onClick={() => {
-                                        setSelectedInstrument(r);
-                                        setSearchQuery(r.main);
-                                        setShowResults(false);
-                                    }}>
-                                        <strong>{r.main}</strong>
-                                        {r.sub && <span style={{ marginLeft: '0.5rem', opacity: 0.5, fontSize: '0.75rem' }}>{r.sub}</span>}
+                            <div className="search-results-enhanced" ref={resultsRef}>
+                                {searchResults.map((r, idx) => (
+                                    <div
+                                        key={r.id}
+                                        className={`result-item-enhanced ${idx === kbIndex ? 'keyboard-active' : ''}`}
+                                        onClick={() => {
+                                            setSelectedInstrument(r);
+                                            setSearchQuery(r.main);
+                                            setShowResults(false);
+                                            setKbIndex(-1);
+                                        }}
+                                    >
+                                        <div className="result-item-left">
+                                            <span className="result-item-ticker">
+                                                {highlightMatch(r.main, searchQuery)}
+                                                {r.exchange && (
+                                                    <span className={`exchange-badge ${r.exchange.toLowerCase()}`}>
+                                                        {r.exchange}
+                                                    </span>
+                                                )}
+                                            </span>
+                                            {r.sub && r.sub !== r.main && (
+                                                <span className="result-item-name">
+                                                    {highlightMatch(r.sub, searchQuery)}
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -534,8 +916,86 @@ export default function PortfolioApp() {
                         <label>VALUE (₹)</label>
                         <input type="number" placeholder="50000" value={value} onChange={(e) => setValue(e.target.value)} />
                     </div>
-                    <button type="submit" className="cta-reveal" disabled={!selectedInstrument || !value}>ADD</button>
+                    <div className="input-strip-actions">
+                        <button type="button" className={`bulk-import-trigger ${isWhatIfMode ? 'active' : ''}`} onClick={() => setIsWhatIfMode(!isWhatIfMode)} title="Toggle Budget Impact Mode">
+                            <span style={{ marginRight: '4px' }}>🔮</span> 
+                            WHAT-IF
+                        </button>
+                        <button type="submit" className="cta-reveal" disabled={!selectedInstrument || !value}>ADD</button>
+                        <button type="button" className="bulk-import-trigger" onClick={() => setShowBulkImport(true)} title="Bulk paste CSV data">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <path d="M14 2v6h6" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                            </svg>
+                            BULK
+                        </button>
+                    </div>
                 </form>
+
+                {/* ============================================
+                    WHAT-IF / BUDGET IMPACT PREVIEW
+                    ============================================ */}
+                {isWhatIfMode && holdings.length > 0 && selectedInstrument && value && !isNaN(parseFloat(value)) && (
+                    <div className="what-if-panel" style={{ marginTop: '1rem', padding: '1rem 1.5rem', background: 'rgba(245, 166, 35, 0.05)', borderRadius: '12px', border: '1px dashed var(--color-action)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-action)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                                🔮 Budget Impact Preview
+                            </div>
+                            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                                Adding ₹{parseFloat(value).toLocaleString()} of {selectedInstrument.main}
+                            </div>
+                        </div>
+                        
+                        {hypoCalculating ? (
+                            <div style={{ padding: '0.5rem', color: 'var(--text-muted)', fontSize: '0.8rem' }}>Simulating impact...</div>
+                        ) : hypoResult ? (
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
+                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.2rem' }}>Overlap</div>
+                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{hypoResult.summary.overlapPct.toFixed(1)}%</span>
+                                        {(() => {
+                                            const diff = hypoResult.summary.overlapPct - (result?.summary?.overlapPct || 0);
+                                            const isWorse = diff > 0.5;
+                                            return <span style={{ fontSize: '0.75rem', fontWeight: 700, color: isWorse ? 'var(--danger)' : diff < -0.5 ? 'var(--success)' : 'var(--text-muted)' }}>
+                                                {diff > 0 ? '+' : ''}{diff.toFixed(1)}%
+                                            </span>
+                                        })()}
+                                    </div>
+                                </div>
+                                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
+                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.2rem' }}>Top Concent.</div>
+                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{hypoResult.summary.topConcentrationPct?.toFixed(1)}%</span>
+                                        {(() => {
+                                            const diff = (hypoResult.summary.topConcentrationPct || 0) - (result?.summary?.topConcentrationPct || 0);
+                                            const isWorse = diff > 0.5;
+                                            return <span style={{ fontSize: '0.75rem', fontWeight: 700, color: isWorse ? 'var(--danger)' : diff < -0.5 ? 'var(--success)' : 'var(--text-muted)' }}>
+                                                {diff > 0 ? '+' : ''}{diff.toFixed(1)}%
+                                            </span>
+                                        })()}
+                                    </div>
+                                </div>
+                                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
+                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.2rem' }}>Portfolio Health</div>
+                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{hypoResult.goalAlignment?.healthScore || 'N/A'}</span>
+                                        {(() => {
+                                            const n = hypoResult.goalAlignment?.healthScore || 0;
+                                            const o = result?.goalAlignment?.healthScore || 0;
+                                            const diff = n - o;
+                                            return <span style={{ fontSize: '0.75rem', fontWeight: 700, color: diff < 0 ? 'var(--danger)' : diff > 0 ? 'var(--success)' : 'var(--text-muted)' }}>
+                                                {diff > 0 ? '+' : ''}{diff}
+                                            </span>
+                                        })()}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : null}
+                    </div>
+                )}
 
                 {/* ============================================
                     STATUS BAR
@@ -775,7 +1235,7 @@ export default function PortfolioApp() {
                             </div>
                         )}
 
-                        {/* SECTOR DONUT CHART (retained from v1) */}
+                        {/* SECTOR DONUT CHART (Enhanced v2.1) */}
                         {pieSlices.length > 0 && (
                             <div className="details-zone chart-section" id="sector-chart">
                                 <h4>SECTOR EXPOSURE</h4>
@@ -794,17 +1254,24 @@ export default function PortfolioApp() {
                                                 {pieSlices.map((s, idx) => {
                                                     const d = describeDonutSlice(100, 100, 88, 52, s.startAngle, s.endAngle);
                                                     const fill = chartPalette[idx % chartPalette.length];
+                                                    const isActive = selectedSector === s.sector;
                                                     return (
                                                         <path
                                                             key={s.sector}
                                                             d={d}
                                                             fill={fill}
-                                                            className="pie-slice"
+                                                            className={`pie-slice ${isActive ? 'active-slice' : ''}`}
+                                                            style={{ animationDelay: `${idx * 60}ms` }}
+                                                            onClick={() => setSelectedSector(selectedSector === s.sector ? null : s.sector)}
                                                             onMouseMove={(e) => {
                                                                 const rect = e.currentTarget.ownerSVGElement.getBoundingClientRect();
+                                                                const sectorStocks = (result?.stockExposure || []).filter(st => st.sector === s.sector);
                                                                 setHoverSlice({
                                                                     sector: s.sector,
                                                                     pct: s.pct,
+                                                                    value: s.value,
+                                                                    stockCount: sectorStocks.length,
+                                                                    color: fill,
                                                                     x: e.clientX - rect.left,
                                                                     y: e.clientY - rect.top
                                                                 });
@@ -832,13 +1299,30 @@ export default function PortfolioApp() {
 
                                             {hoverSlice && (
                                                 <div
-                                                    className="chart-tooltip"
+                                                    className="chart-tooltip-enhanced"
                                                     style={{
-                                                        left: Math.min(hoverSlice.x + 12, 260),
+                                                        left: Math.min(hoverSlice.x + 12, 200),
                                                         top: Math.max(hoverSlice.y - 10, 8)
                                                     }}
                                                 >
-                                                    <div className="tt-title">{hoverSlice.sector} · {hoverSlice.pct.toFixed(1)}%</div>
+                                                    <div className="tt-header">
+                                                        <span className="tt-dot" style={{ background: hoverSlice.color }} />
+                                                        <span className="tt-sector-name">{hoverSlice.sector}</span>
+                                                    </div>
+                                                    <div className="tt-stats">
+                                                        <div className="tt-stat">
+                                                            <span className="tt-stat-label">Weight</span>
+                                                            <span className="tt-stat-value">{hoverSlice.pct?.toFixed(1)}%</span>
+                                                        </div>
+                                                        <div className="tt-stat">
+                                                            <span className="tt-stat-label">Value</span>
+                                                            <span className="tt-stat-value">₹{Math.round(hoverSlice.value || 0).toLocaleString()}</span>
+                                                        </div>
+                                                        <div className="tt-stat">
+                                                            <span className="tt-stat-label">Stocks</span>
+                                                            <span className="tt-stat-value">{hoverSlice.stockCount || 0}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
@@ -847,9 +1331,14 @@ export default function PortfolioApp() {
                                         {(result?.sectorExposure || []).slice(0, 8).map((s, idx) => (
                                             <div
                                                 key={s.sector}
-                                                className={`sector-row ${hoverSlice?.sector === s.sector ? 'active' : ''}`}
-                                                onMouseEnter={() => setHoverSlice({ sector: s.sector, pct: s.pct, x: 0, y: 0 })}
+                                                className={`sector-row ${hoverSlice?.sector === s.sector ? 'active' : ''} ${selectedSector === s.sector ? 'active' : ''}`}
+                                                onClick={() => setSelectedSector(selectedSector === s.sector ? null : s.sector)}
+                                                onMouseEnter={() => {
+                                                    const sectorStocks = (result?.stockExposure || []).filter(st => st.sector === s.sector);
+                                                    setHoverSlice({ sector: s.sector, pct: s.pct, value: s.value, stockCount: sectorStocks.length, color: chartPalette[idx % chartPalette.length], x: 0, y: 0 });
+                                                }}
                                                 onMouseLeave={() => setHoverSlice(null)}
+                                                style={{ cursor: 'pointer' }}
                                             >
                                                 <span className="dot" style={{ background: chartPalette[idx % chartPalette.length] }} />
                                                 <span className="sector-name">{s.sector}</span>
@@ -858,6 +1347,33 @@ export default function PortfolioApp() {
                                         ))}
                                     </div>
                                 </div>
+
+                                {/* Sector Drill-Down Panel */}
+                                {selectedSector && (() => {
+                                    const sectorStocks = (result?.stockExposure || []).filter(s => s.sector === selectedSector);
+                                    const sectorIdx = (result?.sectorExposure || []).findIndex(s => s.sector === selectedSector);
+                                    const sectorColor = chartPalette[sectorIdx % chartPalette.length];
+                                    return (
+                                        <div className="sector-expanded-panel">
+                                            <div className="sector-expanded-title">
+                                                <span className="sector-expanded-name">
+                                                    <span className="dot" style={{ background: sectorColor }} />
+                                                    {selectedSector}
+                                                    <span style={{ opacity: 0.5, fontSize: '0.6rem', fontWeight: 600 }}>
+                                                        {sectorStocks.length} stock{sectorStocks.length !== 1 ? 's' : ''}
+                                                    </span>
+                                                </span>
+                                                <button className="sector-expanded-close" onClick={() => setSelectedSector(null)}>✕</button>
+                                            </div>
+                                            {sectorStocks.slice(0, 8).map(st => (
+                                                <div key={st.isin} className="sector-stock-row">
+                                                    <span className="sector-stock-ticker">{cleanTicker(st.ticker)}</span>
+                                                    <span className="sector-stock-pct">{st.exposurePct?.toFixed(1)}%</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    );
+                                })()}
                             </div>
                         )}
 

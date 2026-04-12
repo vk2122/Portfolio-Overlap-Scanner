@@ -183,12 +183,14 @@ function buildFocusZone(stockExposure) {
             ticker: d.ticker,
             name: d.name,
             exposurePct: d.exposurePct,
-            sourceCount: d.sourceCount
+            sourceCount: d.sourceCount,
+            overlapPaths: d.overlapPaths
         })),
         topConcentrationDriver: concentrationDriver ? {
             ticker: concentrationDriver.ticker,
             name: concentrationDriver.name,
-            exposurePct: concentrationDriver.exposurePct
+            exposurePct: concentrationDriver.exposurePct,
+            overlapPaths: concentrationDriver.overlapPaths
         } : null,
         focusStatement
     };

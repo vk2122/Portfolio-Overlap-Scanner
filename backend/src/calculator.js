@@ -49,7 +49,8 @@ function calculatePortfolioExposure(holdings) {
                 directVal: 0,
                 mfVal: 0,
                 etfVal: 0,
-                sources: new Set()
+                sources: new Set(),
+                sourceMap: new Map()
             });
         }
         return exposureMap.get(isin);
@@ -138,7 +139,9 @@ function calculatePortfolioExposure(holdings) {
             const entry = getStockEntry(resolvedIsin);
             entry.directVal += val;
             entry.totalVal += val;
-            entry.sources.add(`EQUITY:${resolvedIsin}`);
+            const srcKey = `EQUITY:${resolvedIsin}`;
+            entry.sources.add(srcKey);
+            entry.sourceMap.set(srcKey, (entry.sourceMap.get(srcKey) || 0) + val);
         } else {
             const constituents = getConstituents(h.instrumentId, h.type);
             constituents.forEach(c => {
@@ -147,7 +150,9 @@ function calculatePortfolioExposure(holdings) {
                 if (h.type === 'MF') entry.mfVal += indirectVal;
                 if (h.type === 'ETF') entry.etfVal += indirectVal;
                 entry.totalVal += indirectVal;
-                entry.sources.add(`${h.type}:${h.instrumentId}`);
+                const srcKey = `${h.type}:${h.instrumentId}`;
+                entry.sources.add(srcKey);
+                entry.sourceMap.set(srcKey, (entry.sourceMap.get(srcKey) || 0) + indirectVal);
             });
         }
     });
@@ -156,7 +161,13 @@ function calculatePortfolioExposure(holdings) {
         .map(s => ({
             ...s,
             sourceCount: s.sources.size,
-            exposurePct: (totalValue > 0) ? (s.totalVal / totalValue) * 100 : 0
+            exposurePct: (totalValue > 0) ? (s.totalVal / totalValue) * 100 : 0,
+            overlapPaths: Array.from(s.sourceMap.entries()).map(([k, v]) => ({
+                id: k,
+                name: instrumentLabelMap.get(k) || k.split(':')[1],
+                value: v,
+                pct: (totalValue > 0) ? (v / totalValue) * 100 : 0
+            })).sort((a, b) => b.value - a.value)
         }))
         .filter(s => s.totalVal > 0.1)
         .sort((a, b) => b.totalVal - a.totalVal);
