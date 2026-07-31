@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { fetchMarketData } from '../loader';
 import { storageService } from '../services/storage.service';
 
@@ -9,7 +9,7 @@ export function useHydration(setHoldings, setGoal) {
     const [dbLoading, setDbLoading] = useState(false);
 
     // Defer database fetching to focus or search trigger
-    const loadMarketDatabase = async () => {
+    const loadMarketDatabase = useCallback(async () => {
         if (dbLoaded || dbLoading) return;
         setDbLoading(true);
         try {
@@ -22,7 +22,7 @@ export function useHydration(setHoldings, setGoal) {
         } finally {
             setDbLoading(false);
         }
-    };
+    }, [dbLoaded, dbLoading]);
 
     useEffect(() => {
         // Hydrate configuration

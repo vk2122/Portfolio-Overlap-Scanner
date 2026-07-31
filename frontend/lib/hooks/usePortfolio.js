@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { storageService } from '../services/storage.service';
 
-export function usePortfolio(marketData, isHydrated, setResult) {
-    const [holdings, setHoldings] = useState([]);
-    const [goal, setGoal] = useState({ investmentGoal: null, timeHorizon: null });
+export function usePortfolio(holdings, setHoldings, goal, setGoal, marketData, isHydrated, setResult) {
 
     // Bulk Import States
     const [showBulkImport, setShowBulkImport] = useState(false);
@@ -114,7 +112,7 @@ export function usePortfolio(marketData, isHydrated, setResult) {
         if (isNaN(numericVal) || numericVal <= 0) return;
 
         setHoldings(prev => [...prev, {
-            id: Date.now(),
+            id: Date.now() + Math.random(),
             instrumentId: selectedInstrument.id,
             type,
             name: selectedInstrument.main,
@@ -183,10 +181,14 @@ export function usePortfolio(marketData, isHydrated, setResult) {
     }, [holdings, allSources]);
 
     return {
-        holdings, setHoldings,
-        goal, setGoal,
-        showBulkImport, setShowBulkImport,
-        bulkText, setBulkText,
+        holdings,
+        setHoldings,
+        goal,
+        setGoal,
+        showBulkImport,
+        setShowBulkImport,
+        bulkText,
+        setBulkText,
         bulkPreview,
         addHolding,
         removeHolding,

@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-overlap-scanner",
+  "version": "2.0.0",
+  "description": "Root quality gate pipeline for UNSTACKED",
+  "scripts": {
+    "test:e2e": "playwright test tests/e2e",
+    "test:smoke": "playwright test tests/smoke",
+    "test:regression": "playwright test tests/regression",
+    "test:visual": "playwright test tests/regression --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.2"
+  }
+}

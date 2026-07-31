@@ -74,7 +74,7 @@ export default function PortfolioApp() {
         bulkText, setBulkText, bulkPreview,
         addHolding, removeHolding, clearAllHoldings, addBulkHoldings,
         handleShare, validationErrors
-    } = usePortfolio(marketData, isHydrated, setResult);
+    } = usePortfolio(holdings, setHoldings, goal, setGoal, marketData, isHydrated, setResult);
 
     const { isWhatIfMode, setIsWhatIfMode, hypoResult, hypoCalculating } = useSimulation(
         holdings, goal, selectedInstrument, value, type
