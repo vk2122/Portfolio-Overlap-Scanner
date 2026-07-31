@@ -7,8 +7,13 @@ export default function ScenarioPanel({
     hypoCalculating,
     hypoResult,
     expandedScenario,
-    setExpandedScenario
+    setExpandedScenario,
+    validationErrors
 }) {
+    // Check if any holdings are simulated to dynamically rate recommendation confidence
+    const hasSimulatedHoldings = validationErrors?.some(e => e.type === 'SIMULATED');
+    const scenarioConfidence = hasSimulatedHoldings ? "Estimated (Simulated Data)" : "High Confidence (Verified Data)";
+
     return (
         <>
             {/* What-If Simulation Sandbox Panel */}
@@ -51,7 +56,6 @@ export default function ScenarioPanel({
                                     <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Before: {healthScore?.finalScore || 'N/A'}</div>
                                     <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                                         ➜ After: {hypoResult.summary?.healthScore || 'N/A'}
-                                        {/* Fallback to calculating Health Score inline for hypothetical results if needed */}
                                     </div>
                                 </div>
                             </div>
@@ -63,8 +67,8 @@ export default function ScenarioPanel({
             {/* Explore Scenarios Recommendations */}
             {result && result.scenarios?.length > 0 && (
                 <div className="details-zone scenarios-zone fadeIn" id="scenarios-zone">
-                    <h4>EXPLORE SCENARIOS</h4>
-                    <p className="scenarios-intro">
+                    <h4 style={{ borderBottom: 'none', paddingBottom: 0 }}>EXPLORE SCENARIOS</h4>
+                    <p className="scenarios-intro" style={{ marginBottom: '1.2rem' }}>
                         See how your portfolio metrics change if a specific holding is removed.
                     </p>
                     <div className="scenario-cards">
@@ -73,14 +77,43 @@ export default function ScenarioPanel({
                                 key={sc.id}
                                 className={`scenario-card ${expandedScenario === idx ? 'expanded' : ''}`}
                                 onClick={() => setExpandedScenario(expandedScenario === idx ? null : idx)}
+                                style={{ borderLeft: '3px solid var(--color-action)' }}
                             >
                                 <div className="scenario-header">
-                                    <span className="scenario-num">Scenario {idx + 1}</span>
-                                    <span className="scenario-reason">{sc.reason}</span>
+                                    <span className="scenario-num" style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--color-action)' }}>
+                                        Scenario {idx + 1}
+                                    </span>
+                                    <span className="scenario-reason" style={{ fontSize: '0.75rem', opacity: 0.8 }}>
+                                        {sc.reason}
+                                    </span>
                                 </div>
-                                <p className="scenario-desc">{sc.description}</p>
+
+                                <div className="scenario-story-layout" style={{ margin: '0.5rem 0', fontSize: '0.85rem' }}>
+                                    <div style={{ marginBottom: '0.4rem' }}>
+                                        <strong style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block' }}>Observation</strong>
+                                        <span>Current overlap exposure is {sc.before.overlapPct}%.</span>
+                                    </div>
+                                    <div style={{ marginBottom: '0.4rem' }}>
+                                        <strong style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block' }}>Reason</strong>
+                                        <span>High stock overlap inside {sc.holdingRemoved}.</span>
+                                    </div>
+                                    <div>
+                                        <strong style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block' }}>Expected Benefit</strong>
+                                        <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>
+                                            If removed, portfolio overlap is simulated to drop from {sc.before.overlapPct}% ➜ {sc.after.overlapPct}%.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <p className="scenario-desc" style={{ fontSize: '0.75rem', margin: '0.4rem 0', color: 'var(--text-muted)' }}>
+                                    {sc.description}
+                                </p>
+
                                 {expandedScenario === idx && (
-                                    <div className="scenario-detail">
+                                    <div className="scenario-detail" style={{ borderTop: '1px solid #1c1f26', paddingTop: '0.6rem', marginTop: '0.6rem' }}>
+                                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.6rem' }}>
+                                            Confidence Level: <strong style={{ color: 'var(--text-primary)' }}>{scenarioConfidence}</strong>
+                                        </div>
                                         <div className="scenario-metrics">
                                             <div className="scenario-metric">
                                                 <span className="scenario-metric-label">Overlap</span>

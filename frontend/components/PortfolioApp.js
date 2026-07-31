@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useRef, useCallback } from 'react';
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 
 // Custom Hooks
@@ -16,14 +16,24 @@ import PortfolioInput from './PortfolioInput';
 import HoldingsList from './HoldingsList';
 import AnalyticsCards from './AnalyticsCards';
 import ScenarioPanel from './ScenarioPanel';
+import PortfolioStory from './PortfolioStory';
 
 // Dynamic imports for optimized bundle size (Epic 4)
 const BulkImportModal = dynamic(() => import('./BulkImportModal'), { ssr: false });
 const CardDrawer = dynamic(() => import('./CardDrawer'), { ssr: false });
+const MethodologyDrawer = dynamic(() => import('./MethodologyDrawer'), { ssr: false });
 
 const chartPalette = [
     'var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)',
     'var(--chart-5)', 'var(--chart-6)', 'var(--chart-7)', 'var(--chart-8)'
+];
+
+const LOADING_PHASES = [
+    'Loading market data...',
+    'Analyzing holdings...',
+    'Calculating overlap...',
+    'Building recommendations...',
+    'Generating portfolio story...'
 ];
 
 export default function PortfolioApp() {
@@ -40,8 +50,12 @@ export default function PortfolioApp() {
     const [hoverSlice, setHoverSlice] = useState(null);
     const [expandedScenario, setExpandedScenario] = useState(null);
     const [activeCard, setActiveCard] = useState(null);
+    const [openMethodology, setOpenMethodology] = useState(null);
     const [selectedSector, setSelectedSector] = useState(null);
     const [showTypeResults, setShowTypeResults] = useState(false);
+
+    // Loading Experience (Initiative 9)
+    const [loadingIndex, setLoadingIndex] = useState(0);
 
     // Search ref bindings
     const searchInputRef = useRef(null);
@@ -65,6 +79,15 @@ export default function PortfolioApp() {
     const { isWhatIfMode, setIsWhatIfMode, hypoResult, hypoCalculating } = useSimulation(
         holdings, goal, selectedInstrument, value, type
     );
+
+    // Loading animation cycle
+    useEffect(() => {
+        if (!calculating) return;
+        const interval = setInterval(() => {
+            setLoadingIndex(prev => (prev + 1) % LOADING_PHASES.length);
+        }, 600);
+        return () => clearInterval(interval);
+    }, [calculating]);
 
     // 2. Health Score engine calculation
     const healthScore = useMemo(() => {
@@ -110,6 +133,14 @@ export default function PortfolioApp() {
     // 3. UI Helpers
     const totalValue = useMemo(() => holdings.reduce((sum, h) => sum + Number(h.value), 0), [holdings]);
     const cleanTicker = (ticker) => ticker?.replace('INE_SYNTH_', '').replace('INE_', '');
+
+    // Confidence indicator (Initiative 4)
+    const confidenceRating = useMemo(() => {
+        const hasSimulated = validationErrors?.some(e => e.type === 'SIMULATED');
+        if (holdings.length === 0) return { label: 'Idle', color: 'var(--text-secondary)' };
+        if (hasSimulated) return { label: 'Estimated (Simulation Used)', color: 'var(--warning)' };
+        return { label: 'High Confidence (Verified Data)', color: 'var(--success)' };
+    }, [validationErrors, holdings]);
 
     const handleAddHoldingWrapper = (e) => {
         addHolding(selectedInstrument, type, value, clearSearch);
@@ -193,7 +224,11 @@ export default function PortfolioApp() {
                 <CardDrawer activeCard={activeCard} result={result} healthScore={healthScore} onClose={() => setActiveCard(null)} />
             )}
 
-            <header className="header">
+            {openMethodology && (
+                <MethodologyDrawer activeTopic={openMethodology} onClose={() => setOpenMethodology(null)} />
+            )}
+
+            <header className="header" role="banner">
                 <div className="brand">UNSTACKED <span className="tagline">— Know what you own.</span></div>
                 <div style={{ display: 'flex', gap: '8px' }}>
                     <button id="export-btn" type="button" className="header-clear-btn" onClick={handleExportImage} disabled={holdings.length < 2 || !result}>⬇ EXPORT</button>
@@ -202,7 +237,15 @@ export default function PortfolioApp() {
                 </div>
             </header>
 
-            <main className="main-flow">
+            <main className="main-flow" role="main">
+                {/* Confidence indicator header bar */}
+                {holdings.length > 0 && (
+                    <div style={{ padding: '0.4rem 1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', fontSize: '0.7rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span>Confidence Indicator:</span>
+                        <strong style={{ color: confidenceRating.color }}>{confidenceRating.label}</strong>
+                    </div>
+                )}
+
                 <GoalSelector goal={goal} setGoal={setGoal} />
 
                 <PortfolioInput
@@ -232,23 +275,48 @@ export default function PortfolioApp() {
                     hypoResult={hypoResult}
                     expandedScenario={expandedScenario}
                     setExpandedScenario={setExpandedScenario}
+                    validationErrors={validationErrors}
                 />
 
+                {/* Structured recovery-focused Error Panel (Initiative 8) */}
                 {error && (
-                    <div className="portfolio-validation-errors" style={{ padding: '1rem', background: 'rgba(214, 69, 69, 0.05)', border: '1px solid var(--color-risk)', borderRadius: '12px', color: 'var(--color-risk)', fontSize: '0.8rem' }}>
-                        {error}
+                    <div className="portfolio-validation-errors" style={{ padding: '1.2rem', background: 'rgba(214, 69, 69, 0.05)', border: '1px solid var(--color-risk)', borderRadius: '12px', color: 'var(--text-primary)', fontSize: '0.8rem' }}>
+                        <strong style={{ color: 'var(--color-risk)', display: 'block', marginBottom: '0.4rem' }}>⚠️ API Calculation Failure</strong>
+                        <p style={{ margin: 0, opacity: 0.8, fontSize: '0.75rem', lineHeight: '1.5' }}>
+                            <strong>Problem:</strong> {error}<br />
+                            <strong>Cause:</strong> Connection timeout or unresolvable payload.<br />
+                            <strong>Recovery:</strong> Verify backend is running (<code>npm start</code> in backend folder) and click below to retry calculation.
+                        </p>
+                        <button 
+                            type="button" 
+                            onClick={() => setGoal(prev => ({ ...prev }))} // Triggers calculation recalculation trigger
+                            style={{ marginTop: '0.8rem', background: 'var(--color-risk)', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold' }}
+                        >
+                            Retry Calculation
+                        </button>
                     </div>
                 )}
 
+                {/* Animated progress states in loading bar */}
                 <div className={`status-bar ${calculating ? 'active' : ''} ${result ? 'has-result' : ''}`}>
-                    {calculating ? 'ANALYZING PORTFOLIO' : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
+                    {calculating ? LOADING_PHASES[loadingIndex] : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
                 </div>
+
+                {result && holdings.length >= 2 && (
+                    <PortfolioStory result={result} healthScore={healthScore} />
+                )}
 
                 <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} />
 
                 {result && holdings.length >= 2 && (
                     <>
-                        <AnalyticsCards result={result} healthScore={healthScore} setActiveCard={setActiveCard} />
+                        <AnalyticsCards 
+                            result={result} 
+                            healthScore={healthScore} 
+                            setActiveCard={setActiveCard} 
+                            setOpenMethodology={setOpenMethodology} 
+                            validationErrors={validationErrors}
+                        />
 
                         {result.focusZone?.focusStatement && (
                             <div className="details-zone focus-zone fadeIn" id="focus-zone">
@@ -508,9 +576,21 @@ export default function PortfolioApp() {
                 )}
             </main>
 
-            <footer className="disclaimer-section">
-                <span className="disclaimer-label">DISCLAIMER</span>
-                <span className="disclaimer-text">This is for informational and analytical purposes only. Not investment advice. Past data does not guarantee future outcomes.</span>
+            {/* Structured Trust Signals Footer Links (Initiative 7) */}
+            <footer className="disclaimer-section" role="contentinfo" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', borderTop: '1px solid #1c1f26', paddingTop: '1.5rem', marginTop: '3rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1.2rem', fontSize: '0.7rem', flexWrap: 'wrap' }}>
+                    <button type="button" onClick={() => setOpenMethodology('effective')} style={{ background: 'none', border: 'none', color: 'var(--color-info)', cursor: 'pointer', fontWeight: 'bold' }}>Methodology</button>
+                    <span style={{ color: 'var(--text-secondary)' }}>|</span>
+                    <span style={{ color: 'var(--text-muted)' }}>Last Updated: August 2026</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>|</span>
+                    <span style={{ color: 'var(--text-muted)' }}>Engine Version: 2.0.0</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>|</span>
+                    <span style={{ color: 'var(--text-muted)' }}>Data Source: BSE/NSE/AMFI</span>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                    <span className="disclaimer-label" style={{ display: 'block', marginBottom: '0.2rem' }}>DISCLAIMER</span>
+                    <span className="disclaimer-text">This is for informational and analytical purposes only. Not investment advice. Past data does not guarantee future outcomes.</span>
+                </div>
             </footer>
         </>
     );
