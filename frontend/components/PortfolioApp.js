@@ -231,7 +231,7 @@ export default function PortfolioApp() {
             <header className="header" role="banner">
                 <div className="brand">UNSTACKED <span className="tagline">— Know what you own.</span></div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                    <button id="export-btn" type="button" className="header-clear-btn" onClick={handleExportImage} disabled={holdings.length < 2 || !result}>⬇ EXPORT</button>
+                    <button id="export-btn" type="button" className="header-clear-btn" onClick={handleExportImage} disabled={holdings.length < 1 || !result}>⬇ EXPORT</button>
                     <button id="share-btn" type="button" className="header-clear-btn" onClick={handleShare} style={{ color: 'var(--color-info)', borderColor: 'var(--color-info)' }}>SHARE</button>
                     <button type="button" className="header-clear-btn" onClick={clearAllHoldings}>RESET</button>
                 </div>
@@ -302,13 +302,13 @@ export default function PortfolioApp() {
                     {calculating ? LOADING_PHASES[loadingIndex] : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
                 </div>
 
-                {result && holdings.length >= 2 && (
+                {result && holdings.length >= 1 && (
                     <PortfolioStory result={result} healthScore={healthScore} />
                 )}
 
                 <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} />
 
-                {result && holdings.length >= 2 && (
+                {result && holdings.length >= 1 && (
                     <>
                         <AnalyticsCards 
                             result={result} 
@@ -565,11 +565,11 @@ export default function PortfolioApp() {
                     </>
                 )}
 
-                {!result && holdings.length < 2 && (
+                {!result && holdings.length === 0 && (
                     <div className="verdict-zone">
                         <div className="verdict-empty">
                             <h2>NO CLARITY REPORT YET.</h2>
-                            <p className="sub">Select a goal and add at least 2 holdings to generate your portfolio clarity report.</p>
+                            <p className="sub">Select a goal and add at least one holding to generate your portfolio clarity report.</p>
                             <span className="system-note">The clarity engine is currently idle.</span>
                         </div>
                     </div>

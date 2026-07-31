@@ -91,16 +91,26 @@ export default function ScenarioPanel({
                                 <div className="scenario-story-layout" style={{ margin: '0.5rem 0', fontSize: '0.85rem' }}>
                                     <div style={{ marginBottom: '0.4rem' }}>
                                         <strong style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block' }}>Observation</strong>
-                                        <span>Current overlap exposure is {sc.before.overlapPct}%.</span>
+                                        <span>{sc.id === 'remove_overlap'
+                                            ? `Current overlap exposure is ${sc.before.overlapPct}%.`
+                                            : sc.id === 'remove_concentration'
+                                                ? `Current concentration redundancy is ${sc.before.redundancyScore}%.`
+                                                : `Current portfolio redundancy is ${sc.before.redundancyScore}%.`
+                                        }</span>
                                     </div>
                                     <div style={{ marginBottom: '0.4rem' }}>
                                         <strong style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block' }}>Reason</strong>
-                                        <span>High stock overlap inside {sc.holdingRemoved}.</span>
+                                        <span>{sc.reason || 'Holding contributor'}.</span>
                                     </div>
                                     <div>
                                         <strong style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block' }}>Expected Benefit</strong>
                                         <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>
-                                            If removed, portfolio overlap is simulated to drop from {sc.before.overlapPct}% ➜ {sc.after.overlapPct}%.
+                                            {sc.before.overlapPct > sc.after.overlapPct
+                                                ? `If removed, portfolio overlap is simulated to drop from ${sc.before.overlapPct}% ➜ ${sc.after.overlapPct}%.`
+                                                : sc.before.redundancyScore > sc.after.redundancyScore
+                                                    ? `If removed, portfolio redundancy is simulated to drop from ${sc.before.redundancyScore}% ➜ ${sc.after.redundancyScore}%.`
+                                                    : `Removing ${sc.holdingRemoved} simplifies the portfolio without impacting core exposure.`
+                                            }
                                         </span>
                                     </div>
                                 </div>

@@ -37,7 +37,7 @@ export function useAnalytics(holdings, goal) {
             }
 
             // Fast smooth scroll after render
-            if (holdings.length >= 2) {
+            if (holdings.length >= 1) {
                 setTimeout(() => {
                     document.getElementById('summary-block')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 200);

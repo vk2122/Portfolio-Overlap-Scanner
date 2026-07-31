@@ -26,11 +26,11 @@ export default function PortfolioStory({ result, healthScore }) {
     }
 
     return (
-        <section className="details-zone fadeIn" style={{ borderLeft: `4px solid ${alertColor}`, padding: '1.2rem 1.5rem', background: 'rgba(255, 255, 255, 0.01)' }}>
+        <section className="details-zone fadeIn" style={{ borderLeft: `4px solid ${alertColor}`, padding: '1.2rem 1.5rem', background: 'rgba(255, 255, 255, 0.01)', overflow: 'visible', wordWrap: 'break-word', overflowWrap: 'break-word', minHeight: 'fit-content' }}>
             <h4 style={{ color: alertColor, borderBottom: 'none', paddingBottom: 0, marginBottom: '0.4rem', fontSize: '1rem', fontWeight: '800' }}>
                 {storyTitle}
             </h4>
-            <p style={{ fontSize: '0.85rem', lineHeight: '1.6', color: 'var(--text-primary)', margin: 0 }}>
+            <p style={{ fontSize: '0.85rem', lineHeight: '1.7', color: 'var(--text-primary)', margin: 0, wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                 {storyBody} {result.scenarios?.[0] ? `Removing ${result.scenarios[0].holdingRemoved} is simulated to reduce your overlap to ${result.scenarios[0].after.overlapPct}%.` : ""}
             </p>
         </section>
