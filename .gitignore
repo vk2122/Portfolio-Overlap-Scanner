@@ -45,6 +45,7 @@ Thumbs.db
 # Documentation
 documentation/
 docs/
+rap/
 
 # Ignore all markdown files except README.md
 **/*.md
