@@ -178,6 +178,13 @@ export default function PortfolioApp() {
             if (window.location.search) {
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
+            
+            // Fast smooth scroll after render
+            if (holdings.length >= 2) {
+                setTimeout(() => {
+                    document.getElementById('summary-block')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+            }
         }, 300);
         return () => clearTimeout(timer);
     }, [holdings, goal]);
@@ -411,6 +418,29 @@ export default function PortfolioApp() {
             setTimeout(() => { btn.innerHTML = originalText; }, 2000);
         }
     }, [holdings, goal]);
+
+    const handleExportImage = useCallback(() => {
+        const btn = document.getElementById('export-btn');
+        if (btn) btn.innerHTML = '⏳ EXPORTING...';
+        
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        script.onload = () => {
+            const elm = document.querySelector('.main-flow');
+            if (elm && window.html2canvas) {
+                window.html2canvas(elm, { backgroundColor: '#131720', scale: 2 }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'UNSTACKED_Portfolio_Report.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    if (btn) btn.innerHTML = '⬇ EXPORT';
+                });
+            } else if (btn) {
+                btn.innerHTML = '⬇ EXPORT';
+            }
+        };
+        document.body.appendChild(script);
+    }, []);
 
     const addHolding = (e) => {
         e.preventDefault();
@@ -712,12 +742,12 @@ export default function PortfolioApp() {
                     <div className="bulk-import-format-hint">
                         Paste your holdings, one per line.<br />
                         Format: <code>Ticker, Type, Value</code><br />
-                        Example: <code>RELIANCE, EQUITY, 50000</code> or <code>HDFC Top 100, MF, 100000</code>
+                        Example: <code style={{color: 'var(--color-info)'}}>TCS, 5000</code> or <code>RELIANCE, EQUITY, 50000</code>
                     </div>
 
                     <textarea
                         className="bulk-import-textarea"
-                        placeholder={`RELIANCE, EQUITY, 50000\nNIFTY BEES, ETF, 25000\nHDFC Top 100, MF, 100000`}
+                        placeholder={`TCS, 5000\nRELIANCE, 2000\nHDFC Top 100, MF, 100000`}
                         value={bulkText}
                         onChange={(e) => setBulkText(e.target.value)}
                         autoFocus
@@ -757,6 +787,48 @@ export default function PortfolioApp() {
         );
     }
 
+    function HoldingDonutChart({ holdings, totalValue }) {
+        if (holdings.length === 0 || totalValue === 0) return null;
+        let currentOffset = 0;
+        const size = 100;
+        const radius = 35;
+        const circumference = 2 * Math.PI * radius;
+        const sorted = [...holdings].sort((a,b) => b.value - a.value);
+        const colors = ['#f5a623', '#25a581', '#3b82f6', '#9333ea', '#ec4899', '#f87171', '#4ade80', '#fbbf24', '#2dd4bf'];
+        
+        return (
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px' }}>
+                <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ transform: 'rotate(-90deg)' }}>
+                    {sorted.map((h, i) => {
+                        const pct = h.value / totalValue;
+                        if (pct <= 0) return null;
+                        const strokeDasharray = `${pct * circumference} ${circumference}`;
+                        const strokeDashoffset = -currentOffset;
+                        currentOffset += pct * circumference;
+                        return (
+                            <circle
+                                key={h.id}
+                                cx={size/2} cy={size/2} r={radius}
+                                fill="transparent"
+                                stroke={colors[i % colors.length]}
+                                strokeWidth="20"
+                                strokeDasharray={strokeDasharray}
+                                strokeDashoffset={strokeDashoffset}
+                            />
+                        );
+                    })}
+                </svg>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Holding Composition</strong>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                        {sorted.slice(0, 3).map(s => s.name).join(', ')}
+                        {sorted.length > 3 ? ` + ${sorted.length - 3} more` : ''}
+                    </span>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <>
             {/* Bulk Import Modal */}
@@ -777,6 +849,16 @@ export default function PortfolioApp() {
                     UNSTACKED <span className="tagline">— Know what you own.</span>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                        id="export-btn"
+                        type="button"
+                        className="header-clear-btn"
+                        onClick={handleExportImage}
+                        title="Download report as PNG image"
+                        disabled={holdings.length < 2 || !result}
+                    >
+                        ⬇ EXPORT
+                    </button>
                     <button
                         id="share-btn"
                         type="button"
@@ -953,43 +1035,30 @@ export default function PortfolioApp() {
                         ) : hypoResult ? (
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                                 <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
-                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.2rem' }}>Overlap</div>
-                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{hypoResult.summary.overlapPct.toFixed(1)}%</span>
-                                        {(() => {
-                                            const diff = hypoResult.summary.overlapPct - (result?.summary?.overlapPct || 0);
-                                            const isWorse = diff > 0.5;
-                                            return <span style={{ fontSize: '0.75rem', fontWeight: 700, color: isWorse ? 'var(--danger)' : diff < -0.5 ? 'var(--success)' : 'var(--text-muted)' }}>
-                                                {diff > 0 ? '+' : ''}{diff.toFixed(1)}%
-                                            </span>
-                                        })()}
+                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.4rem' }}>Overlap</div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Before: {result?.summary?.overlapPct?.toFixed(1) || 0}%</div>
+                                        <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                                            ➜ After: {hypoResult.summary.overlapPct.toFixed(1)}%
+                                        </div>
                                     </div>
                                 </div>
                                 <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
-                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.2rem' }}>Top Concent.</div>
-                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{hypoResult.summary.topConcentrationPct?.toFixed(1)}%</span>
-                                        {(() => {
-                                            const diff = (hypoResult.summary.topConcentrationPct || 0) - (result?.summary?.topConcentrationPct || 0);
-                                            const isWorse = diff > 0.5;
-                                            return <span style={{ fontSize: '0.75rem', fontWeight: 700, color: isWorse ? 'var(--danger)' : diff < -0.5 ? 'var(--success)' : 'var(--text-muted)' }}>
-                                                {diff > 0 ? '+' : ''}{diff.toFixed(1)}%
-                                            </span>
-                                        })()}
+                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.4rem' }}>Top Concent.</div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Before: {result?.summary?.topConcentrationPct?.toFixed(1) || 0}%</div>
+                                        <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                                            ➜ After: {hypoResult.summary.topConcentrationPct?.toFixed(1) || 0}%
+                                        </div>
                                     </div>
                                 </div>
                                 <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
-                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.2rem' }}>Portfolio Health</div>
-                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{hypoResult.goalAlignment?.healthScore || 'N/A'}</span>
-                                        {(() => {
-                                            const n = hypoResult.goalAlignment?.healthScore || 0;
-                                            const o = result?.goalAlignment?.healthScore || 0;
-                                            const diff = n - o;
-                                            return <span style={{ fontSize: '0.75rem', fontWeight: 700, color: diff < 0 ? 'var(--danger)' : diff > 0 ? 'var(--success)' : 'var(--text-muted)' }}>
-                                                {diff > 0 ? '+' : ''}{diff}
-                                            </span>
-                                        })()}
+                                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '0.4rem' }}>Portfolio Health</div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Before: {result?.goalAlignment?.healthScore || 'N/A'}</div>
+                                        <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                                            ➜ After: {hypoResult.goalAlignment?.healthScore || 'N/A'}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1013,6 +1082,7 @@ export default function PortfolioApp() {
                             <h4 style={{marginBottom:0, paddingBottom:0, borderBottom:'none'}}>Holdings</h4>
                             <span className="holdings-count">{holdings.length} instrument{holdings.length !== 1 ? 's' : ''} · ₹{totalValue.toLocaleString()}</span>
                         </div>
+                        <HoldingDonutChart holdings={holdings} totalValue={totalValue} />
                         {holdings.map(h => {
                             const fundRole = result?.fundRoles?.find(r => r.instrumentId === h.instrumentId);
                             return (
@@ -1059,7 +1129,7 @@ export default function PortfolioApp() {
                 {result && holdings.length >= 2 && (
                     <>
                         {/* SUMMARY BLOCK (PRD §11.1) */}
-                        <div className="details-zone summary-block" id="summary-block">
+                        <div className="details-zone summary-block fadeIn" id="summary-block">
                             <h4>Portfolio Summary</h4>
                             <div className="metrics-grid">
                                 <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('overlap')} title="Click for explanation">
@@ -1097,7 +1167,7 @@ export default function PortfolioApp() {
 
                         {/* FOCUS ZONE (PRD §11.2) */}
                         {result.focusZone?.focusStatement && (
-                            <div className="details-zone focus-zone" id="focus-zone">
+                            <div className="details-zone focus-zone fadeIn" id="focus-zone">
                                 <h4>FOCUS ZONE</h4>
                                 <p className="focus-statement">{result.focusZone.focusStatement}</p>
                                 <div className="focus-drivers">
@@ -1138,7 +1208,7 @@ export default function PortfolioApp() {
 
                         {/* ALIGNMENT (PRD §11.4) */}
                         {result.alignment?.statement && (
-                            <div className="details-zone alignment-section" id="alignment-section">
+                            <div className="details-zone alignment-section fadeIn" id="alignment-section">
                                 <h4>GOAL ALIGNMENT</h4>
                                 <div className="alignment-header">
                                     <p className="alignment-statement">{result.alignment.statement}</p>
@@ -1237,7 +1307,7 @@ export default function PortfolioApp() {
 
                         {/* SECTOR DONUT CHART (Enhanced v2.1) */}
                         {pieSlices.length > 0 && (
-                            <div className="details-zone chart-section" id="sector-chart">
+                            <div className="details-zone chart-section fadeIn" id="sector-chart">
                                 <h4>SECTOR EXPOSURE</h4>
                                 <div className="insights-grid">
                                     <div className="insights-chart">
@@ -1379,7 +1449,7 @@ export default function PortfolioApp() {
 
                         {/* TOP EXPOSURES */}
                         {result.stockExposure?.length > 0 && (
-                            <div className="details-zone exposures-zone" id="exposures-zone">
+                            <div className="details-zone exposures-zone fadeIn" id="exposures-zone">
                                 <h4>TOP EXPOSURES</h4>
                                 {result.stockExposure.slice(0, 5).map(s => {
                                     const sRisk = s.exposurePct >= 15 ? 'high' : s.exposurePct >= 7 ? 'medium' : 'low';
@@ -1405,7 +1475,7 @@ export default function PortfolioApp() {
 
                         {/* SCENARIOS (PRD §11.5) — Max 3 */}
                         {result.scenarios?.length > 0 && (
-                            <div className="details-zone scenarios-zone" id="scenarios-zone">
+                            <div className="details-zone scenarios-zone fadeIn" id="scenarios-zone">
                                 <h4>EXPLORE SCENARIOS</h4>
                                 <p className="scenarios-intro">
                                     See how your portfolio metrics change if a specific holding is removed.

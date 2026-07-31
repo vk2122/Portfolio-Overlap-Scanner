@@ -2430,3 +2430,60 @@ input[type=number] {
     color: var(--text-secondary);
     font-variant-numeric: tabular-nums;
 }
+
+/* ================================================
+   NEW SPRINT ENHANCEMENTS: Priority B Mobile Stacking & Animations 
+   ================================================ */
+
+.input-strip-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .input-strip {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.25rem 1rem;
+    }
+    
+    .input-strip-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+    
+    .input-strip-actions > button {
+        width: 100%;
+        padding: 0.75rem 0.25rem;
+        font-size: 0.65rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .bulk-import-trigger {
+        margin-left: 0 !important;
+    }
+    
+    .field {
+        flex: 1 1 100% !important;
+    }
+    
+    .field.type-field, .field.value-field {
+        flex: 1 1 100% !important;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+}
