@@ -43,13 +43,27 @@ Thumbs.db
 *.swo
 
 # Documentation
-documentation/
 docs/
-rap/
 
 # Ignore all markdown files except README.md
 **/*.md
 !**/README.md
+
+# RAP & Playwright Temporary outputs
+rap/
+playwright-report/
+test-results/
+coverage/
+screenshots/
+videos/
+*.har
+*.zip
+*.trace
+*.webm
+*.png
+*.jpg
+performance/
+lighthouse/
 
 
 
