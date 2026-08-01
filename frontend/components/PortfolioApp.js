@@ -18,6 +18,13 @@ import AnalyticsCards from './AnalyticsCards';
 import ScenarioPanel from './ScenarioPanel';
 import PortfolioStory from './PortfolioStory';
 
+// Phase 3.1 Presentation Components
+import PortfolioHealthSummary from './PortfolioHealthSummary';
+import RecommendedActions from './RecommendedActions';
+import IntelligenceSummary from './IntelligenceSummary';
+import EmptyState from './EmptyState';
+import SkeletonLoader from './SkeletonLoader';
+
 // Dynamic imports for optimized bundle size (Epic 4)
 const BulkImportModal = dynamic(() => import('./BulkImportModal'), { ssr: false });
 const CardDrawer = dynamic(() => import('./CardDrawer'), { ssr: false });
@@ -247,27 +254,84 @@ export default function PortfolioApp() {
             </header>
 
             <main className="main-flow" role="main">
-                {/* 20-Second Onboarding Banner for new users */}
-                {holdings.length === 0 && (
-                    <div className="onboarding-hero-banner" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-subtle)', borderRadius: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                        <div>
-                            <strong style={{ color: 'var(--color-action)', display: 'block', marginBottom: '0.2rem', fontSize: '0.85rem' }}>💡 How UNSTACKED Works</strong>
-                            <span>Add your stocks, MFs, or ETFs above. We calculate hidden overlapping constituent stocks, top concentration drivers, and structural risk score.</span>
-                        </div>
-                        <button type="button" onClick={loadDemoPortfolio} style={{ background: 'rgba(245, 166, 35, 0.15)', border: '1px solid var(--color-action)', color: 'var(--color-action)', padding: '0.45rem 0.9rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                            ⚡ Try Demo Portfolio
+                {/* 1. Educational Onboarding Empty State */}
+                {holdings.length === 0 && !calculating && (
+                    <EmptyState onSelectDemo={loadDemoPortfolio} />
+                )}
+
+                {/* 2. Skeleton Loading State */}
+                {calculating && (
+                    <SkeletonLoader phase={LOADING_PHASES[loadingIndex]} />
+                )}
+
+                {/* Status Bar */}
+                <div className={`status-bar ${calculating ? 'active' : ''} ${result ? 'has-result' : ''}`}>
+                    {calculating ? LOADING_PHASES[loadingIndex] : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
+                </div>
+
+                {/* Error Panel */}
+                {error && (
+                    <div className="portfolio-validation-errors" style={{ padding: '1.2rem', background: 'rgba(244, 63, 94, 0.08)', border: '1px solid var(--accent-rose)', borderRadius: '12px', color: 'var(--text-primary)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>
+                        <strong style={{ color: 'var(--accent-rose)', display: 'block', marginBottom: '0.4rem' }}>⚠️ API Calculation Failure</strong>
+                        <p style={{ margin: 0, opacity: 0.8, fontSize: '0.75rem', lineHeight: '1.5' }}>
+                            <strong>Problem:</strong> {error}<br />
+                            <strong>Recovery:</strong> Verify backend is running and click below to retry.
+                        </p>
+                        <button 
+                            type="button" 
+                            onClick={() => setGoal(prev => ({ ...prev }))}
+                            style={{ marginTop: '0.8rem', background: 'var(--accent-rose)', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold' }}
+                        >
+                            Retry Calculation
                         </button>
                     </div>
                 )}
 
                 {/* Confidence indicator header bar */}
                 {holdings.length > 0 && (
-                    <div style={{ padding: '0.4rem 1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', fontSize: '0.7rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ padding: '0.4rem 1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', fontSize: '0.7rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <span>Confidence Indicator:</span>
                         <strong style={{ color: confidenceRating.color }}>{confidenceRating.label}</strong>
                     </div>
                 )}
 
+                {/* 3. Portfolio Story (IA §1) */}
+                {result && holdings.length >= 1 && (
+                    <PortfolioStory result={result} healthScore={healthScore} />
+                )}
+
+                {/* 4. Portfolio Health Summary (IA §2) */}
+                {result && holdings.length >= 1 && (
+                    <PortfolioHealthSummary 
+                        healthScore={healthScore} 
+                        interpretation={result?.healthInterpretation || 'Evaluated'} 
+                        result={result} 
+                        onOpenMethodology={() => setOpenMethodology('engine')} 
+                    />
+                )}
+
+                {/* 5. Top 3 Recommended Actions (IA §3) */}
+                {result && holdings.length >= 1 && (
+                    <RecommendedActions result={result} holdings={holdings} />
+                )}
+
+                {/* 6. Portfolio Intelligence Summary (IA §4) */}
+                {result && holdings.length >= 1 && (
+                    <IntelligenceSummary result={result} />
+                )}
+
+                {/* 7. Analytics Metric Cards (IA §5) */}
+                {result && holdings.length >= 1 && (
+                    <AnalyticsCards 
+                        result={result} 
+                        healthScore={healthScore} 
+                        setActiveCard={setActiveCard} 
+                        setOpenMethodology={setOpenMethodology} 
+                        validationErrors={validationErrors}
+                    />
+                )}
+
+                {/* 8. Holdings Input & Selected List (IA §6) */}
                 <GoalSelector goal={goal} setGoal={setGoal} />
 
                 <PortfolioInput
@@ -287,6 +351,9 @@ export default function PortfolioApp() {
                     formRef={formRef} searchInputRef={searchInputRef} resultsRef={resultsRef}
                 />
 
+                <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} setOpenMethodology={setOpenMethodology} />
+
+                {/* 9. Deep Dive & What-If Sandbox (IA §7) */}
                 <ScenarioPanel
                     isWhatIfMode={isWhatIfMode}
                     selectedInstrument={selectedInstrument}
@@ -300,46 +367,8 @@ export default function PortfolioApp() {
                     validationErrors={validationErrors}
                 />
 
-                {/* Structured recovery-focused Error Panel (Initiative 8) */}
-                {error && (
-                    <div className="portfolio-validation-errors" style={{ padding: '1.2rem', background: 'rgba(214, 69, 69, 0.05)', border: '1px solid var(--color-risk)', borderRadius: '12px', color: 'var(--text-primary)', fontSize: '0.8rem' }}>
-                        <strong style={{ color: 'var(--color-risk)', display: 'block', marginBottom: '0.4rem' }}>⚠️ API Calculation Failure</strong>
-                        <p style={{ margin: 0, opacity: 0.8, fontSize: '0.75rem', lineHeight: '1.5' }}>
-                            <strong>Problem:</strong> {error}<br />
-                            <strong>Cause:</strong> Connection timeout or unresolvable payload.<br />
-                            <strong>Recovery:</strong> Verify backend is running (<code>npm start</code> in backend folder) and click below to retry calculation.
-                        </p>
-                        <button 
-                            type="button" 
-                            onClick={() => setGoal(prev => ({ ...prev }))} // Triggers calculation recalculation trigger
-                            style={{ marginTop: '0.8rem', background: 'var(--color-risk)', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold' }}
-                        >
-                            Retry Calculation
-                        </button>
-                    </div>
-                )}
-
-                {/* Animated progress states in loading bar */}
-                <div className={`status-bar ${calculating ? 'active' : ''} ${result ? 'has-result' : ''}`}>
-                    {calculating ? LOADING_PHASES[loadingIndex] : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
-                </div>
-
-                {result && holdings.length >= 1 && (
-                    <PortfolioStory result={result} healthScore={healthScore} />
-                )}
-
-                <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} setOpenMethodology={setOpenMethodology} />
-
                 {result && holdings.length >= 1 && (
                     <>
-                        <AnalyticsCards 
-                            result={result} 
-                            healthScore={healthScore} 
-                            setActiveCard={setActiveCard} 
-                            setOpenMethodology={setOpenMethodology} 
-                            validationErrors={validationErrors}
-                        />
-
                         {result.focusZone?.focusStatement && (
                             <div className="details-zone focus-zone fadeIn" id="focus-zone">
                                 <h4>FOCUS ZONE</h4>
@@ -585,37 +614,6 @@ export default function PortfolioApp() {
                             </div>
                         )}
                     </>
-                )}
-
-                {!result && holdings.length === 0 && (
-                    <div className="verdict-zone">
-                        <div className="verdict-empty">
-                            <h2>NO CLARITY REPORT YET.</h2>
-                            <p className="sub">Select a goal and add at least one holding to generate your portfolio clarity report.</p>
-                            <div style={{ marginTop: '1.2rem' }}>
-                                <button
-                                    type="button"
-                                    onClick={loadDemoPortfolio}
-                                    style={{
-                                        background: 'var(--color-action)',
-                                        color: '#000',
-                                        border: 'none',
-                                        padding: '0.65rem 1.4rem',
-                                        borderRadius: '6px',
-                                        fontWeight: '800',
-                                        fontSize: '0.75rem',
-                                        cursor: 'pointer',
-                                        letterSpacing: '0.05em',
-                                        boxShadow: '0 4px 14px rgba(245, 166, 35, 0.25)',
-                                        transition: 'transform 0.15s ease'
-                                    }}
-                                >
-                                    ⚡ TRY DEMO PORTFOLIO
-                                </button>
-                            </div>
-                            <span className="system-note" style={{ marginTop: '1rem', display: 'block' }}>Instant report with 3 sample holdings & goal configuration.</span>
-                        </div>
-                    </div>
                 )}
             </main>
 

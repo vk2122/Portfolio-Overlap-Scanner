@@ -47,7 +47,16 @@ System design, calculations, data flows, and technical contracts:
 ---
 
 ### 3. 🎯 Product (`documentation/product/`)
-Product roadmap, status, vision, and user experience specs:
+Product blueprint, roadmap, status, vision, UX v2, design system, and intelligence specs:
+- **[platform_assessment.md](product/platform_assessment.md)** — Phase 1 Product Discovery & platform assessment.
+- **[prd_phase3.md](product/prd_phase3.md)** — Phase 3 Product Requirements Document (PRD).
+- **[intelligence_framework.md](product/intelligence_framework.md)** — 11-category Portfolio Intelligence Framework.
+- **[ui_v2.md](product/ui_v2.md)** — UX Modernization & SaaS benchmark principles.
+- **[design_system_v2.md](product/design_system_v2.md)** — Design System v2 token & component specifications.
+- **[dashboard_ia.md](product/dashboard_ia.md)** — Dashboard Information Architecture & 10-second rule hierarchy.
+- **[component_strategy.md](product/component_strategy.md)** — Component disposition & primitive strategy.
+- **[moat_strategy.md](product/moat_strategy.md)** — Product differentiation & competitive moat strategy.
+- **[phase3_roadmap.md](product/phase3_roadmap.md)** — Phase 3 feature roadmap (3.1, 3.2, 3.3).
 - **[status_report.md](product/status_report.md)** — Authoritative current status report.
 - **[vision.md](product/vision.md)** — Long-term product vision.
 - **[roadmap.md](product/roadmap.md)** — Release roadmap and phase history.

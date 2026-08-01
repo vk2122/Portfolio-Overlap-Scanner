@@ -1,203 +1,104 @@
 :root {
     /* ================================================
-       THEME SYSTEM - SEMANTIC COLOR ROLES
-       DO NOT USE RAW HEX IN COMPONENTS
+       DESIGN SYSTEM V2 - SEMANTIC COLOR ROLES & TOKENS
        ================================================ */
 
     /* Default: Dark Mode */
     --theme: 'dark';
 
-    /* Deployed UI palette */
-    --bg-primary: #0b0d10;
-    --bg-surface: rgba(255, 255, 255, 0.02);
+    /* Background Hierarchy */
+    --bg-primary: #0a0f1d;
+    --bg-surface: #111827;
+    --bg-surface-elevated: #1f2937;
+    --bg-glass: rgba(17, 24, 39, 0.75);
+    --bg-glass-card: rgba(31, 41, 55, 0.45);
 
-    /* Text */
-    --text-primary: #e8eaed;
-    --text-secondary: #6b7280;
+    /* Text Hierarchy */
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
     --text-muted: #6b7280;
+    --text-inverse: #030712;
 
-    /* Borders */
-    --border-subtle: #1c1f26;
-    --border-default: #1c1f26;
+    /* Border Hierarchy */
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-default: rgba(255, 255, 255, 0.12);
+    --border-highlight: rgba(16, 185, 129, 0.35);
 
-    /* Accents */
-    --accent-primary: #f5a623;
-    /* action */
-    --accent-primary-hover: #f7b44a;
-    --accent-secondary: #2e8b8b;
-    /* info */
-    --accent-gradient: linear-gradient(135deg, #f5a623 0%, #2e8b8b 100%);
+    /* Brand & Accent Tokens */
+    --accent-emerald: #10b981;
+    --accent-cyan: #06b6d4;
+    --accent-indigo: #6366f1;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+    
+    --accent-primary: #10b981;
+    --accent-primary-hover: #059669;
+    --accent-secondary: #06b6d4;
+    --accent-gradient: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    --accent-gradient-warm: linear-gradient(135deg, #6366f1 0%, #10b981 100%);
 
-    /* Extra semantic aliases (to match deployed naming) */
-    --color-action: var(--accent-primary);
-    --color-info: var(--accent-secondary);
-    --color-risk: #d64545;
-
-    /* Semantic */
-    --success: #2e8b8b;
-    --danger: #d64545;
-    --warning: #f5a623;
-
-    /* Charts - Technical Pro Palette (High Contrast) */
-    --chart-1: #60A5FA;
-    /* Sky Blue */
-    --chart-2: #34D399;
-    /* Emerald */
-    --chart-3: #A180FB;
-    /* Medium Purple */
-    --chart-4: #F472B6;
-    /* Pink */
-    --chart-5: #FBBF24;
-    /* Amber */
-    --chart-6: #22D3EE;
-    /* Cyan */
-    --chart-7: #FB7185;
-    /* Rose */
-    --chart-8: #818CF8;
-    /* Indigo */
-
-    --chart-glow: rgba(96, 165, 250, 0.15);
+    /* Semantic Status Roles */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #f43f5e;
+    --info: #06b6d4;
 
     /* Risk Semantic Colors */
     --risk-high: var(--danger);
     --risk-medium: var(--warning);
     --risk-low: var(--success);
 
-    /* State Colors */
-    --state-success: var(--success);
-    --state-warning: var(--warning);
-    --state-error: var(--danger);
-    --state-info: #38BDF8;
+    /* Chart Palette */
+    --chart-1: #38bdf8;
+    --chart-2: #34d399;
+    --chart-3: #a855f7;
+    --chart-4: #f472b6;
+    --chart-5: #fbbf24;
+    --chart-6: #22d3ee;
+    --chart-7: #fb7185;
+    --chart-8: #818cf8;
 
-    /* Typography & Spacing remain same */
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --text-page-title-size: 24px;
-    --text-page-title-weight: 600;
-    --text-page-title-height: 1.3;
-    --text-section-title-size: 18px;
-    --text-section-title-weight: 600;
-    --text-section-title-height: 1.4;
-    --text-body-primary-size: 14px;
-    --text-body-primary-weight: 400;
-    --text-body-primary-height: 1.6;
-    --text-body-secondary-size: 12px;
-    --text-body-secondary-weight: 400;
-    --text-body-secondary-height: 1.5;
-    --text-label-size: 12px;
-    --text-label-weight: 500;
-    --text-label-height: 1.4;
-    --text-metric-size: 20px;
-    --text-metric-weight: 600;
-    --text-metric-height: 1.2;
-    --space-section: 48px;
-    --space-subsection: 32px;
-    --space-component: 16px;
-    --space-inline: 8px;
-    --padding-desktop: 32px;
-    --padding-tablet: 24px;
-    --padding-mobile: 16px;
-    --card-radius: 8px;
-    --card-padding: 16px;
-    --card-border: 1px solid var(--border-default);
-    --button-height: 40px;
-    --button-radius: 6px;
-    --button-padding-x: 16px;
-    --input-height: 40px;
-    --input-radius: 6px;
-    --input-padding-x: 12px;
-    --input-border: 1px solid var(--border-default);
+    /* Layout & Geometry */
     --max-content-width: 1280px;
-    --transition-instant: 150ms ease;
-    --transition-fast: 200ms ease;
-    --transition-base: 300ms ease;
-    --transition-theme: 150ms ease;
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Border Radii */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* Shadows & Elevation */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+    --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
+    --shadow-drawer: -10px 0 30px rgba(0, 0, 0, 0.6);
+    --shadow-glow-emerald: 0 0 25px rgba(16, 185, 129, 0.2);
+
+    /* Motion Tokens */
+    --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-base: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ================================================
-   LIGHT MODE OVERRIDES
-   ================================================ */
-
+/* Light Mode Overrides */
 [data-theme='light'] {
     --theme: 'light';
 
-    /* Backgrounds */
-    --bg-primary: #F8FAFC;
-    --bg-surface: #FFFFFF;
+    --bg-primary: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f1f5f9;
+    --bg-glass: rgba(255, 255, 255, 0.85);
+    --bg-glass-card: rgba(255, 255, 255, 0.7);
 
-    /* Text */
-    --text-primary: #0F172A;
+    --text-primary: #0f172a;
     --text-secondary: #475569;
-    --text-muted: #475569;
+    --text-muted: #64748b;
+    --text-inverse: #ffffff;
 
-    /* Borders */
-    --border-subtle: #E2E8F0;
-    --border-default: #E2E8F0;
+    --border-subtle: #e2e8f0;
+    --border-default: #cbd5e1;
+    --border-highlight: rgba(16, 185, 129, 0.4);
 
-    /* Accents */
-    --accent-primary: #F59E0B;
-    --accent-primary-hover: #D97706;
-    --accent-secondary: #0EA5E9;
-    --accent-gradient: linear-gradient(135deg, #F59E0B 0%, #0EA5E9 100%);
-
-    /* Semantic */
-    --success: #059669;
-    --danger: #DC2626;
-    --warning: #D97706;
-
-    /* Risk Semantic Colors */
-    --risk-high: var(--danger);
-    --risk-medium: var(--warning);
-    --risk-low: var(--success);
-
-    /* State Colors */
-    --state-success: var(--success);
-    --state-warning: var(--warning);
-    --state-error: var(--danger);
-    --state-info: #0EA5E9;
-
-    /* Charts */
-    --chart-1: #D97706;
-    /* Deep Amber */
-    --chart-2: #0891B2;
-    /* Deep Cyan */
-    --chart-3: #4F46E5;
-    /* Indigo */
-    --chart-4: #0EA5E9;
-    /* Sky Blue */
-    --chart-5: #9333EA;
-    /* Purple */
-    --chart-6: #DB2777;
-    /* Pink */
-    --chart-7: #E11D48;
-    /* Crimson */
-    --chart-8: #059669;
-    /* Green */
-}
-
-/* Responsive Padding */
-@media (max-width: 1199px) and (min-width: 768px) {
-    :root {
-        --padding-horizontal: var(--padding-tablet);
-    }
-}
-
-@media (max-width: 767px) {
-    :root {
-        --padding-horizontal: var(--padding-mobile);
-    }
-}
-
-@media (min-width: 1200px) {
-    :root {
-        --padding-horizontal: var(--padding-desktop);
-    }
-}
-
-/* Theme transition */
-:root {
-    transition: background-color var(--transition-theme), color var(--transition-theme);
-}
-
-* {
-    transition: background-color var(--transition-theme), border-color var(--transition-theme), color var(--transition-theme);
+    --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
 }
