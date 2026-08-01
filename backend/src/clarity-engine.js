@@ -387,16 +387,18 @@ function buildAlignment(analysisResult, goal) {
         alignmentScore,
         flags,
         details: {
-            goal: profile.label,
-            timeHorizon: goal.timeHorizon || 'Not specified',
+            goal: (goal && goal.investmentGoal) 
+                ? (goal.investmentGoal.charAt(0).toUpperCase() + goal.investmentGoal.slice(1).toLowerCase()) 
+                : profile.label,
+            timeHorizon: (goal && goal.timeHorizon) || 'Not specified',
             actual: {
-                largeCap: parseFloat(actualLargePct.toFixed(1)),
-                midCap: parseFloat(actualMidPct.toFixed(1)),
-                smallCap: parseFloat(actualSmallPct.toFixed(1)),
-                sectorConcentration: parseFloat(maxSectorPct.toFixed(1)),
-                topSector: maxSector,
-                overlap: parseFloat(overlapPercent.toFixed(1)),
-                top3Concentration: parseFloat(top3Pct.toFixed(1))
+                largeCap: parseFloat((actualLargePct || 0).toFixed(1)),
+                midCap: parseFloat((actualMidPct || 0).toFixed(1)),
+                smallCap: parseFloat((actualSmallPct || 0).toFixed(1)),
+                sectorConcentration: parseFloat((maxSectorPct || 0).toFixed(1)),
+                topSector: maxSector || 'None',
+                overlap: parseFloat((overlapPercent || 0).toFixed(1)),
+                top3Concentration: parseFloat((top3Pct || 0).toFixed(1))
             },
             reference: {
                 largeCap: profile.largeCap,
@@ -573,13 +575,13 @@ function buildClarityReport(holdings, goal) {
     return {
         // Summary Block (PRD §11.1)
         summary: {
-            overlapPct: parseFloat(analysis.overlapPercent.toFixed(1)),
+            overlapPct: parseFloat((analysis.overlapPercent || 0).toFixed(1)),
             topDriverStock: analysis.stockExposure[0]?.ticker || null,
             topDriverStockPct: parseFloat((analysis.stockExposure[0]?.exposurePct || 0).toFixed(1)),
-            effectiveExposureCount: analysis.effectiveExposureCount,
-            uniqueStockCount: analysis.uniqueStockCount,
-            redundancyScore: parseFloat(redundancyScore.toFixed(1)),
-            topDriverConcentration: parseFloat(topDriverConcentration.toFixed(1)),
+            effectiveExposureCount: analysis.effectiveExposureCount || 0,
+            uniqueStockCount: analysis.uniqueStockCount || 0,
+            redundancyScore: parseFloat((redundancyScore || 0).toFixed(1)),
+            topDriverConcentration: parseFloat((topDriverConcentration || 0).toFixed(1)),
             totalValue: analysis.totalValue,
             totalStocks: analysis.stockExposure.length,
             overlapVerdict: analysis.overlapVerdict

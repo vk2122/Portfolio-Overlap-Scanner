@@ -17,8 +17,7 @@ module.exports = defineConfig({
     {
       name: 'chromium',
       use: { 
-        ...devices['Desktop Chrome'],
-        channel: 'chrome' // Force Playwright to use the local Chrome browser already present on Windows
+        ...devices['Desktop Chrome']
       },
     }
   ]

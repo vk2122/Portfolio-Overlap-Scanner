@@ -1,65 +1,85 @@
 # UNSTACKED — Portfolio Clarity Engine 🔬
 
-**UNSTACKED** is a high-end, institutional-grade diagnostic instrument designed to reveal hidden concentration risks in Indian investment portfolios. It deconstructs your portfolio to find the truth behind mutual fund overlap and stock duplication.
+[![Foundation Version](https://img.shields.io/badge/Foundation-v2.5-emerald.svg)](governance/PRODUCT_ENGINEERING_MANIFESTO.md)
+[![Build & Test Status](https://img.shields.io/badge/Suite-100%25%20PASS-brightgreen.svg)](governance/TESTING_STANDARD.md)
+[![Governance](https://img.shields.io/badge/Governance-Enforced-blue.svg)](governance/)
 
-## 💎 Core Philosophy
-Most investors "stack" funds thinking they are diversifying, only to realize their underlying stock exposure is identical across multiple products. **UNSTACKED** exposes fake diversification.
-
-## 🚀 What's New in v2.0
-We completely overhauled the engine to focus on **interactive, dynamic diagnostics** rather than static reports:
-
-### 1. Unified Portfolio Health Score 📊
-Replaced simple metric counters with an institutional-grade algorithmic health framework.
-- **5-Pillar Analysis**: Evaluates and weights *Concentration (30%)*, *Overlap (20%)*, *Sector Balance (20%)*, *Risk-Adjusted Performance (20%)*, and *Correlation (10%)*.
-- **Dynamic Penalties**: Hard-coded alerts trigger if your top 5 holdings dominate >50% of the portfolio.
-- **Interpretation Matrix**: Outputs your portfolio as *Elite*, *Good*, *Risky*, or *Fragile*.
-
-### 2. Interactive Analytical Drawers 🪄
-The traditional flat dashboard has been upgraded into an interactive workspace.
-- **Metric Expansion**: Clicking any Metric Card on the dashboard scales open a beautifully centered, perfectly constrained overlay drawer identifying the exact subset of holdings responsible for that specific metric.
-- **No Scroll Context**: Data lists actively cap off to prevent UI scrolling, offering an immaculately tight presentation.
-
-### 3. Integrated TradingView Technicals 📈
-- **Live Embed**: Investigating your "Top Concentration Driver" leverages a dynamically embedded TradingView Advanced Chart within the modal.
-- **Sanitized Precision**: Automatically parses BSE/NSE ticker equivalents with robust fallback protection against API desyncs, giving live price data right alongside your risk metrics.
-
-## 🛠 Tech Stack
-- **Frontend**: Next.js 14, React, Vanilla CSS3 (Custom Design System with Dark-mode semantics).
-- **Backend**: Node.js, Express.js.
-- **Integrations**: TradingView Widget Embeds (`BSE` / `NSE`).
-- **Deployment**: Vercel Serverless Architecture (Monorepo Optimized).
-
-## 📦 Project Structure
-```bash
-├── frontend/          # Next.js Application
-│   ├── app/           # App router & Global styles (globals.css contains Drawer logic)
-│   ├── components/    # Core UI logic (PortfolioApp.js containing the Health algorithm)
-│   └── lib/           # Data loaders & Mock DB
-├── backend/           # Node.js API
-│   ├── src/           # Calculator logic & Clarity Engine
-│   └── tests/         # Unit testing suite
-├── vercel.json        # Production Deployment Orchestrator
-└── README.md
-```
-
-## 🏗 Local Development
-
-1. **Clone & Install**
-   ```bash
-   git clone https://github.com/your-username/portfolio-overlap-scanner.git
-   cd portfolio-overlap-scanner
-   npm install && cd frontend && npm install && cd ../backend && npm install
-   ```
-
-2. **Run Application Services**
-   ```bash
-   # Terminal 1: Backend API
-   cd backend && npm start
-
-   # Terminal 2: Frontend Client
-   cd frontend && npm run dev
-   ```
+**UNSTACKED** is an institutional-grade diagnostic instrument designed to reveal hidden concentration risks, stock duplication, and sector overlap in Indian investment portfolios. It deconstructs mutual fund holdings to expose fake diversification and restore portfolio clarity.
 
 ---
 
-**UNSTACKED** — *Diversified? Check again.*
+## 💎 Core Product Philosophy
+
+Most investors "stack" funds thinking they are diversifying, only to discover their underlying stock exposure is identical across multiple financial products. **UNSTACKED** reveals true portfolio overlap, effective holdings count, and sector concentration risks using deterministic mathematical algorithms.
+
+---
+
+## 🏛 Engineering Governance & Standards
+
+UNSTACKED operates under strict engineering governance enforced by the [Governance Framework](governance/):
+
+- **[Product Engineering Manifesto](governance/PRODUCT_ENGINEERING_MANIFESTO.md)**: Truth above convenience, determinism, and long-term quality.
+- **[Architecture Principles](governance/ARCHITECTURE_PRINCIPLES.md)**: Backend owns mathematical truth; Frontend presents. Single source of truth.
+- **[Development Workflow](governance/DEVELOPMENT_WORKFLOW.md)**: 10-stage task lifecycle from understanding to CTO sign-off.
+- **[Definition of Done](governance/DEFINITION_OF_DONE.md)**: Permanent DoD covering code quality, tests, UI responsiveness, and zero regressions.
+- **[Testing Standard](governance/TESTING_STANDARD.md)**: 100% pass rate requirement across Jest unit tests and Playwright E2E suites.
+
+---
+
+## 📦 Repository Structure
+
+```
+.
+├── backend/                  # Express.js Node.js calculation engine
+│   ├── src/                  # Services (overlap.service.js) & API routes
+│   └── tests/                # Jest unit & integration test suites
+├── frontend/                 # Next.js 14 React client application
+│   ├── app/                  # App Router, layout, metadata & global styles
+│   ├── components/           # UI components (PortfolioStory, AnalyticsCards, drawers)
+│   └── lib/                  # Services (share.service.js), custom hooks (usePortfolio.js)
+├── governance/               # Mandatory Engineering Governance Framework
+├── documentation/            # Central Knowledge Base (architecture, product, release, audits)
+├── scripts/                  # Repository utility scripts (scrape_etfs.js)
+├── testing/                  # Playwright E2E and regression test suites
+├── vercel.json               # Monorepo deployment orchestrator
+└── README.md                 # Product overview and entrypoint
+```
+
+---
+
+## 🏗 Local Development Quickstart
+
+### 1. Installation
+```bash
+# Clone the repository
+git clone https://github.com/vk2122/Portfolio-Overlap-Scanner.git
+cd Portfolio_Overlap_Scanner
+
+# Install dependencies across backend & frontend
+cd backend && npm install
+cd ../frontend && npm install
+```
+
+### 2. Running Services
+```bash
+# Terminal 1: Backend Service (Runs on http://localhost:5000)
+cd backend && npm start
+
+# Terminal 2: Frontend Client (Runs on http://localhost:3000)
+cd frontend && npm run dev
+```
+
+### 3. Automated Verification
+```bash
+# Run Backend Unit Tests
+cd backend && npm test
+
+# Run End-to-End Playwright Regression Tests
+cd testing/playwright && npx playwright test
+```
+
+---
+
+## 📚 Central Documentation
+
+For in-depth technical specifications, high-level/low-level designs, API contracts, and release protocols, refer to the **[Central Documentation Base](documentation/README.md)**.

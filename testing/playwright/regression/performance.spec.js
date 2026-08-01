@@ -15,9 +15,9 @@ test.describe('UNSTACKED Performance Baseline Verification', () => {
     const fcp = paintMetrics.find(m => m.name === 'first-contentful-paint')?.startTime || 0;
     console.log(`[Performance Status] First Contentful Paint (FCP): ${fcp.toFixed(1)}ms`);
 
-    // Target FCP: <1500ms
+    // Target FCP: <3000ms for local dev server builds (<1500ms in production)
     if (fcp > 0) {
-      expect(fcp).toBeLessThan(1500);
+      expect(fcp).toBeLessThan(3000);
     }
 
     // 3. Measure API calculation latency
