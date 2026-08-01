@@ -208,6 +208,15 @@ export default function PortfolioApp() {
         ].join(" ");
     };
 
+    const loadDemoPortfolio = useCallback(() => {
+        setGoal({ investmentGoal: 'growth', timeHorizon: '3-7' });
+        setHoldings([
+            { id: 'demo-1', instrumentId: 'NIFTY50_ETF', name: 'Nifty 50 ETF', type: 'ETF', value: 100000 },
+            { id: 'demo-2', instrumentId: 'PPFCF_MF', name: 'Parag Parikh Flexi Cap Fund', type: 'MF', value: 150000 },
+            { id: 'demo-3', instrumentId: 'RELIANCE', name: 'Reliance Industries Ltd', type: 'EQUITY', value: 50000 }
+        ]);
+    }, [setGoal, setHoldings]);
+
     return (
         <>
             {showBulkImport && (
@@ -238,6 +247,19 @@ export default function PortfolioApp() {
             </header>
 
             <main className="main-flow" role="main">
+                {/* 20-Second Onboarding Banner for new users */}
+                {holdings.length === 0 && (
+                    <div className="onboarding-hero-banner" style={{ padding: '0.8rem 1.2rem', background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-subtle)', borderRadius: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                        <div>
+                            <strong style={{ color: 'var(--color-action)', display: 'block', marginBottom: '0.2rem', fontSize: '0.85rem' }}>💡 How UNSTACKED Works</strong>
+                            <span>Add your stocks, MFs, or ETFs above. We calculate hidden overlapping constituent stocks, top concentration drivers, and structural risk score.</span>
+                        </div>
+                        <button type="button" onClick={loadDemoPortfolio} style={{ background: 'rgba(245, 166, 35, 0.15)', border: '1px solid var(--color-action)', color: 'var(--color-action)', padding: '0.45rem 0.9rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                            ⚡ Try Demo Portfolio
+                        </button>
+                    </div>
+                )}
+
                 {/* Confidence indicator header bar */}
                 {holdings.length > 0 && (
                     <div style={{ padding: '0.4rem 1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', fontSize: '0.7rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -306,7 +328,7 @@ export default function PortfolioApp() {
                     <PortfolioStory result={result} healthScore={healthScore} />
                 )}
 
-                <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} />
+                <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} setOpenMethodology={setOpenMethodology} />
 
                 {result && holdings.length >= 1 && (
                     <>
@@ -570,7 +592,28 @@ export default function PortfolioApp() {
                         <div className="verdict-empty">
                             <h2>NO CLARITY REPORT YET.</h2>
                             <p className="sub">Select a goal and add at least one holding to generate your portfolio clarity report.</p>
-                            <span className="system-note">The clarity engine is currently idle.</span>
+                            <div style={{ marginTop: '1.2rem' }}>
+                                <button
+                                    type="button"
+                                    onClick={loadDemoPortfolio}
+                                    style={{
+                                        background: 'var(--color-action)',
+                                        color: '#000',
+                                        border: 'none',
+                                        padding: '0.65rem 1.4rem',
+                                        borderRadius: '6px',
+                                        fontWeight: '800',
+                                        fontSize: '0.75rem',
+                                        cursor: 'pointer',
+                                        letterSpacing: '0.05em',
+                                        boxShadow: '0 4px 14px rgba(245, 166, 35, 0.25)',
+                                        transition: 'transform 0.15s ease'
+                                    }}
+                                >
+                                    ⚡ TRY DEMO PORTFOLIO
+                                </button>
+                            </div>
+                            <span className="system-note" style={{ marginTop: '1rem', display: 'block' }}>Instant report with 3 sample holdings & goal configuration.</span>
                         </div>
                     </div>
                 )}

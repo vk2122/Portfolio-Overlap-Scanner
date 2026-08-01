@@ -1,6 +1,6 @@
 import HoldingDonutChart from './HoldingDonutChart';
 
-export default function HoldingsList({ holdings, result, removeHolding, validationErrors }) {
+export default function HoldingsList({ holdings, result, removeHolding, validationErrors, setOpenMethodology }) {
     if (holdings.length === 0) return null;
 
     const totalValue = holdings.reduce((sum, h) => sum + Number(h.value), 0);
@@ -26,20 +26,36 @@ export default function HoldingsList({ holdings, result, removeHolding, validati
                 <span className="holdings-count">{holdings.length} instrument{holdings.length !== 1 ? 's' : ''} · ₹{totalValue.toLocaleString()}</span>
             </div>
 
-            {/* Portfolio Validation Warning Display */}
-            {validationErrors && validationErrors.length > 0 && (
-                <div className="portfolio-validation-errors" style={{ marginBottom: '1.2rem', padding: '0.8rem', background: 'rgba(214, 69, 69, 0.05)', border: '1px solid rgba(214, 69, 69, 0.2)', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--color-risk)', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-                        ⚠ Validation Alerts
-                    </div>
-                    {validationErrors.map((err, i) => (
-                        <div key={i} style={{ fontSize: '0.75rem', color: err.severity === 'warning' ? '#f5a623' : 'var(--text-primary)', marginBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <span>•</span>
-                            <span>{err.message}</span>
+            {/* Professional Confidence & Data Quality Panel */}
+            {validationErrors && validationErrors.length > 0 && (() => {
+                const simulatedItems = validationErrors
+                    .filter(e => e.type === 'SIMULATED')
+                    .map(e => e.instrumentName || cleanTicker(e.instrumentId))
+                    .filter(Boolean);
+                const uniqueSimulated = Array.from(new Set(simulatedItems));
+
+                return (
+                    <div className="confidence-panel" style={{ marginBottom: '1rem', padding: '0.6rem 0.9rem', background: 'rgba(245, 166, 35, 0.04)', border: '1px solid rgba(245, 166, 35, 0.2)', borderRadius: '6px', fontSize: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)' }}>
+                            <span style={{ color: 'var(--color-action)', fontWeight: 800 }}>ℹ️ DATA NOTE:</span>
+                            <span>
+                                {uniqueSimulated.length > 0
+                                    ? `Estimated constituent benchmarks used for ${uniqueSimulated.join(', ')}.`
+                                    : 'Some constituent weights use estimated market proxies.'}
+                            </span>
                         </div>
-                    ))}
-                </div>
-            )}
+                        {setOpenMethodology && (
+                            <button
+                                type="button"
+                                onClick={() => setOpenMethodology('effective')}
+                                style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold', padding: 0, whiteSpace: 'nowrap' }}
+                            >
+                                Methodology ↗
+                            </button>
+                        )}
+                    </div>
+                );
+            })()}
 
             <HoldingDonutChart holdings={holdings} totalValue={totalValue} />
             {holdings.map(h => {

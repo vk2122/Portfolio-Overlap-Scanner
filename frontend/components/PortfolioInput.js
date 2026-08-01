@@ -92,13 +92,21 @@ export default function PortfolioInput({
                 )}
             </div>
             <div className="field value-field">
-                <label>VALUE (₹)</label>
+                <label title="Current total market value of this position in Rupees">
+                    CURRENT VALUE (₹) <span style={{ opacity: 0.65, fontSize: '0.6rem', textTransform: 'none', fontWeight: 500 }}>(Market Value)</span>
+                </label>
                 <input type="number" placeholder="50000" value={value} onChange={(e) => setValue(e.target.value)} />
             </div>
             <div className="input-strip-actions">
-                <button type="button" className={`bulk-import-trigger ${isWhatIfMode ? 'active' : ''}`} onClick={() => setIsWhatIfMode(!isWhatIfMode)} title="Toggle Budget Impact Mode">
+                <button
+                    type="button"
+                    className={`bulk-import-trigger ${isWhatIfMode ? 'active' : ''}`}
+                    onClick={() => setIsWhatIfMode(!isWhatIfMode)}
+                    title="Simulate portfolio impact without saving permanently"
+                    style={{ fontWeight: 800 }}
+                >
                     <span style={{ marginRight: '4px' }}>🔮</span> 
-                    WHAT-IF
+                    WHAT-IF SIMULATION
                 </button>
                 <button type="submit" className="cta-reveal" disabled={!selectedInstrument || !value}>ADD</button>
                 <button type="button" className="bulk-import-trigger" onClick={onBulkClick} title="Bulk paste CSV data">

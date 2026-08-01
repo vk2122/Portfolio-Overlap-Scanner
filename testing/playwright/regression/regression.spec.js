@@ -96,8 +96,8 @@ test.describe('UNSTACKED Cumulative Regression Suite', () => {
     await expect(page.locator('text=Confidence Indicator:')).toBeVisible();
     await expect(page.locator('text=High Confidence (Verified Data)')).toBeVisible();
 
-    // 3. Portfolio Story check
-    await expect(page.locator('text=Elite Diversification Active')).toBeVisible();
+    // 3. Portfolio Story check (Reconciled TRUST-001 story title)
+    await expect(page.locator('section.details-zone h4').first()).toHaveText(/Low Overlap|Balanced|Elite Diversification/);
 
     // 4. Methodology Drawer check (open and close behavior)
     await page.click('text=Learn methodology ↗');

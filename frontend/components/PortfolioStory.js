@@ -8,6 +8,9 @@ export default function PortfolioStory({ result, healthScore }) {
 
     const cleanTicker = (ticker) => ticker?.replace('INE_SYNTH_', '').replace('INE_', '') || 'Unknown';
 
+    const healthInterp = healthScore?.interp || 'GOOD';
+    const finalScore = healthScore?.finalScore || 70;
+
     let storyTitle = "Diversification Story";
     let storyBody = "";
     let alertColor = "var(--success)";
@@ -15,14 +18,30 @@ export default function PortfolioStory({ result, healthScore }) {
     if (overlap > 40) {
         alertColor = "var(--danger)";
         storyTitle = "⚠️ Redundant Diversification Detected";
-        storyBody = `Your portfolio shows a high overlap of ${overlap}%. This means that more than a third of your invested capital is actively duplicated across multiple funds. The primary driver of this overlap is ${focusZone.topOverlapDrivers?.map(d => cleanTicker(d.ticker)).join(' and ') || 'common stock picks'}.`;
+        storyBody = `Your portfolio shows a high overlap of ${overlap}%. More than a third of your invested capital is actively duplicated across multiple funds. The primary driver of this overlap is ${focusZone?.topOverlapDrivers?.map(d => cleanTicker(d.ticker)).join(' and ') || 'common stock picks'}.`;
     } else if (overlap >= 20) {
         alertColor = "var(--warning)";
         storyTitle = "⚡️ Moderate Overlap & Concentration";
-        storyBody = `Your portfolio shows a moderate overlap of ${overlap}%. While some duplication is normal when holding general index funds, your concentration is dominated by ${cleanTicker(topDriver)}, which accounts for ${topDriverPct}% of your total direct and indirect exposure.`;
+        storyBody = `Your portfolio shows a moderate overlap of ${overlap}%. While some duplication is normal when holding general index funds, your concentration is dominated by ${cleanTicker(topDriver)}, accounting for ${topDriverPct}% of total exposure.`;
     } else {
-        storyTitle = "💎 Elite Diversification Active";
-        storyBody = `Your portfolio represents excellent diversification, with only ${overlap}% overlap. Your mutual funds and stock holdings are highly complementary, spreading your risk efficiently across ${result.summary.uniqueStocks || result.summary.totalStocks || 0} unique companies.`;
+        // Low overlap (<20%) - Check Health Score to prevent contradictory narrative
+        if (healthInterp === 'FRAGILE' || finalScore < 50) {
+            alertColor = "var(--danger)";
+            storyTitle = "⚡ Low Overlap, But High Concentration Risk";
+            storyBody = `Your portfolio shows minimal overlap (${overlap}%), but overall structural health is FRAGILE. Low fund overlap alone does not protect your capital because exposure is heavily concentrated in ${cleanTicker(topDriver)} (${topDriverPct}% of portfolio).`;
+        } else if (healthInterp === 'RISKY' || finalScore < 65) {
+            alertColor = "var(--warning)";
+            storyTitle = "⚡ Low Overlap with Concentration Bottleneck";
+            storyBody = `Your portfolio exhibits low overlap of ${overlap}%, but carries concentration risk dominated by ${cleanTicker(topDriver)} (${topDriverPct}% exposure). Overall structural health remains in the RISKY tier.`;
+        } else if (healthInterp === 'ELITE' || finalScore >= 80) {
+            alertColor = "var(--success)";
+            storyTitle = "💎 Elite Diversification Active";
+            storyBody = `Your portfolio represents institutional-grade diversification with only ${overlap}% overlap. Your holdings are highly complementary, spreading risk efficiently across ${result.summary.uniqueStocks || result.summary.totalStocks || 0} unique companies.`;
+        } else {
+            alertColor = "var(--success)";
+            storyTitle = "✅ Balanced & Complementary Holdings";
+            storyBody = `Your portfolio shows good overall structure with low overlap of ${overlap}%. Holdings work efficiently together with minor concentration in ${cleanTicker(topDriver)} (${topDriverPct}% exposure).`;
+        }
     }
 
     return (

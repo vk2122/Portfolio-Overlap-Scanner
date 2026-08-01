@@ -93,4 +93,39 @@ test.describe('Production Bugs regression', () => {
     const overflow = await storySection.evaluate(el => el.scrollWidth > el.clientWidth);
     expect(overflow).toBe(false);
   });
+
+  test('TRUST-001: Narrative story title must agree with Health Score interpretation', async ({ page }) => {
+    setupPageMonitoring(page);
+
+    // Hydrate with a single stock having 100% concentration -> Health score is FRAGILE
+    await page.goto('/');
+    await page.evaluate(() => localStorage.clear());
+    await page.goto('/?p=RELIANCE:EQUITY:100000&g=growth:3-7');
+    await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
+
+    const storyHeader = page.locator('section.details-zone h4').first();
+    await expect(storyHeader).toBeVisible();
+    const headerText = await storyHeader.textContent();
+
+    // TRUST-001 assertion: A fragile portfolio must NEVER claim "Elite Diversification Active"
+    expect(headerText).not.toContain('Elite Diversification');
+    expect(headerText).toMatch(/Low Overlap, But High Concentration Risk|Fragile/i);
+  });
+
+  test('Phase 2.2 UX: Demo Portfolio 1-click execution', async ({ page }) => {
+    setupPageMonitoring(page);
+
+    await page.goto('/');
+    await page.evaluate(() => localStorage.clear());
+    await page.goto('/');
+
+    const demoBtn = page.locator('button:has-text("TRY DEMO PORTFOLIO")').first();
+    await expect(demoBtn).toBeVisible();
+    await demoBtn.click();
+
+    // Verify 3 demo holdings added and report generated
+    await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
+    await expect(page.locator('.holding-row')).toHaveCount(3);
+    await expect(page.locator('#summary-block')).toBeVisible();
+  });
 });
