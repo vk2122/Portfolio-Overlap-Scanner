@@ -58,8 +58,25 @@ export default function PortfolioHealthSummary({ healthScore, interpretation, re
                 }} />
             </div>
 
+            {/* Health Score Bridge Explanation Callout */}
+            {(overlapPct < 30 && scoreValue < 70) && (
+                <div style={{
+                    padding: '0.65rem 0.9rem',
+                    background: 'rgba(245, 158, 11, 0.08)',
+                    border: '1px solid rgba(245, 158, 11, 0.25)',
+                    borderRadius: 'var(--radius-md)',
+                    marginBottom: '1rem',
+                    fontSize: '0.775rem',
+                    color: 'var(--text-secondary)',
+                    lineHeight: '1.5'
+                }}>
+                    <strong style={{ color: 'var(--accent-amber)', display: 'inline-block', marginRight: '0.35rem' }}>💡 Health Score Bridge:</strong>
+                    Why {scoreValue}/100 Health with {overlapPct.toFixed(1)}% Overlap? Overlap measures fund-to-fund duplication, while Health evaluates overall structural risk. Single-stock concentration bottlenecks (e.g. {topDriver}) or sector weights lower health even when fund overlap is low.
+                </div>
+            )}
+
             {/* Key Metrics Quick Summary */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
                 <div>
                     <span className="text-caption" style={{ color: 'var(--text-muted)' }}>Weighted Overlap</span>
                     <div style={{ fontWeight: '700', fontSize: '1.1rem', color: 'var(--text-primary)', marginTop: '0.15rem' }}>{overlapPct.toFixed(1)}%</div>

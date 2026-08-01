@@ -50,7 +50,7 @@ export default function PortfolioStory({ result, healthScore }) {
     }
 
     return (
-        <section className="details-zone fadeIn" style={{ borderLeft: `4px solid ${alertColor}`, padding: '1.2rem 1.5rem', background: 'rgba(255, 255, 255, 0.01)', overflow: 'visible', wordWrap: 'break-word', overflowWrap: 'break-word', minHeight: 'fit-content' }}>
+        <section className="details-zone fadeIn" style={{ borderLeft: `4px solid ${alertColor}`, padding: '1.2rem 1.5rem', background: 'rgba(255, 255, 255, 0.01)', overflow: 'hidden', wordWrap: 'break-word', overflowWrap: 'break-word', minHeight: 'fit-content', boxSizing: 'border-box', maxWidth: '100%' }}>
             <h4 style={{ color: alertColor, borderBottom: 'none', paddingBottom: 0, marginBottom: '0.4rem', fontSize: '1rem', fontWeight: '800' }}>
                 {storyTitle}
             </h4>

@@ -108,7 +108,19 @@ export default function PortfolioInput({
                     <span style={{ marginRight: '4px' }}>🔮</span> 
                     WHAT-IF SIMULATION
                 </button>
-                <button type="submit" className="cta-reveal" disabled={!selectedInstrument || !value}>ADD</button>
+                <button 
+                    type="submit" 
+                    className="cta-reveal" 
+                    disabled={!selectedInstrument || !value}
+                    title={!selectedInstrument ? "Select an instrument from search first" : !value ? "Enter position value to add" : "Add position to portfolio"}
+                    style={{
+                        opacity: (!selectedInstrument || !value) ? 0.45 : 1,
+                        cursor: (!selectedInstrument || !value) ? 'not-allowed' : 'pointer',
+                        filter: (!selectedInstrument || !value) ? 'grayscale(0.7)' : 'none'
+                    }}
+                >
+                    ADD
+                </button>
                 <button type="button" className="bulk-import-trigger" onClick={onBulkClick} title="Bulk paste CSV data">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />

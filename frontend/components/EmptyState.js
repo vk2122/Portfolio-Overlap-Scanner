@@ -20,20 +20,19 @@ export default function EmptyState({ onSelectDemo }) {
                 Reveal hidden stock overlap, calculate effective holdings count, evaluate sector risk, and optimize your portfolio before making any financial investment.
             </p>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem' }}>
                 <button
                     onClick={() => onSelectDemo && onSelectDemo('balanced')}
                     className="pill-badge pill-badge-emerald"
-                    style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', cursor: 'pointer' }}
+                    style={{ padding: '0.75rem 1.6rem', fontSize: '0.9rem', cursor: 'pointer', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.25)' }}
                 >
                     ⚡ TRY DEMO PORTFOLIO
                 </button>
                 <button
                     onClick={() => onSelectDemo && onSelectDemo('overlap')}
-                    className="pill-badge pill-badge-amber"
-                    style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', cursor: 'pointer' }}
+                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '0.775rem', cursor: 'pointer', textDecoration: 'underline' }}
                 >
-                    ⚠️ Try High-Overlap Demo
+                    Looking to test high-overlap risk? Try High-Overlap Demo ↗
                 </button>
             </div>
         </section>

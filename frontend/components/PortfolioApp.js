@@ -61,6 +61,10 @@ export default function PortfolioApp() {
     const [selectedSector, setSelectedSector] = useState(null);
     const [showTypeResults, setShowTypeResults] = useState(false);
 
+    // Phase 3.2 Product Experience States (Compose vs Analyze & Progressive Disclosure)
+    const [productMode, setProductMode] = useState('compose');
+    const [showDeepAnalysis, setShowDeepAnalysis] = useState(false);
+
     // Loading Experience (Initiative 9)
     const [loadingIndex, setLoadingIndex] = useState(0);
 
@@ -266,7 +270,7 @@ export default function PortfolioApp() {
 
                 {/* Status Bar */}
                 <div className={`status-bar ${calculating ? 'active' : ''} ${result ? 'has-result' : ''}`}>
-                    {calculating ? LOADING_PHASES[loadingIndex] : result ? 'CLARITY REPORT READY' : 'ENGINE IDLE'}
+                    {calculating ? LOADING_PHASES[loadingIndex] : result ? 'CLARITY REPORT READY' : 'Waiting for holdings...'}
                 </div>
 
                 {/* Error Panel */}
@@ -287,11 +291,59 @@ export default function PortfolioApp() {
                     </div>
                 )}
 
-                {/* Confidence indicator header bar */}
+                {/* Product Mode Bar & Confidence Indicator */}
                 {holdings.length > 0 && (
-                    <div style={{ padding: '0.4rem 1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', fontSize: '0.7rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                        <span>Confidence Indicator:</span>
-                        <strong style={{ color: confidenceRating.color }}>{confidenceRating.label}</strong>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: '1.25rem', maxWidth: '100%', boxSizing: 'border-box' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <button
+                                onClick={() => setProductMode('analyze')}
+                                className={`pill-badge ${productMode === 'analyze' ? 'pill-badge-emerald' : ''}`}
+                                style={{ background: productMode === 'analyze' ? undefined : 'transparent', border: productMode === 'analyze' ? undefined : '1px solid transparent', color: productMode === 'analyze' ? undefined : 'var(--text-secondary)', cursor: 'pointer' }}
+                            >
+                                📊 Analyze View
+                            </button>
+                            <button
+                                onClick={() => setProductMode('compose')}
+                                className={`pill-badge ${productMode === 'compose' ? 'pill-badge-cyan' : ''}`}
+                                style={{ background: productMode === 'compose' ? undefined : 'transparent', border: productMode === 'compose' ? undefined : '1px solid transparent', color: productMode === 'compose' ? undefined : 'var(--text-secondary)', cursor: 'pointer' }}
+                            >
+                                ✏️ Compose Mode
+                            </button>
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                            Confidence Indicator: <strong style={{ color: confidenceRating.color }}>{confidenceRating.label}</strong>
+                        </div>
+                    </div>
+                )}
+
+                {/* Compose Mode Inputs */}
+                {(productMode === 'compose' || holdings.length === 0) && (
+                    <div className="card-v2 glass-panel fadeIn" style={{ marginBottom: '1.5rem', padding: '1rem', maxWidth: '100%', boxSizing: 'border-box' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                            <span className="text-label" style={{ color: 'var(--accent-cyan)' }}>Portfolio Composition & Editing</span>
+                            {result && holdings.length > 0 && (
+                                <button onClick={() => setProductMode('analyze')} style={{ background: 'transparent', border: 'none', color: 'var(--accent-emerald)', fontSize: '0.8rem', fontWeight: '700', cursor: 'pointer' }}>
+                                    Done Editing ↗
+                                </button>
+                            )}
+                        </div>
+                        <GoalSelector goal={goal} setGoal={setGoal} />
+                        <PortfolioInput
+                            type={type} setType={setType}
+                            searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                            searchResults={searchResults}
+                            showResults={showResults} setShowResults={setShowResults}
+                            selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument}
+                            value={value} setValue={setValue}
+                            kbIndex={kbIndex} setKbIndex={setKbIndex}
+                            showTypeResults={showTypeResults} setShowTypeResults={setShowTypeResults}
+                            isWhatIfMode={isWhatIfMode} setIsWhatIfMode={setIsWhatIfMode}
+                            onAddHolding={handleAddHoldingWrapper}
+                            onBulkClick={() => setShowBulkImport(true)}
+                            onSearchFocus={onSearchFocus}
+                            handleSearchKeyDown={handleSearchKeyDown}
+                            formRef={formRef} searchInputRef={searchInputRef} resultsRef={resultsRef}
+                        />
                     </div>
                 )}
 
@@ -312,7 +364,12 @@ export default function PortfolioApp() {
 
                 {/* 5. Top 3 Recommended Actions (IA §3) */}
                 {result && holdings.length >= 1 && (
-                    <RecommendedActions result={result} holdings={holdings} />
+                    <RecommendedActions 
+                        result={result} 
+                        holdings={holdings} 
+                        onToggleWhatIf={() => { setIsWhatIfMode(true); setShowDeepAnalysis(true); }}
+                        onHighlightHolding={() => setProductMode('compose')}
+                    />
                 )}
 
                 {/* 6. Portfolio Intelligence Summary (IA §4) */}
@@ -331,43 +388,51 @@ export default function PortfolioApp() {
                     />
                 )}
 
-                {/* 8. Holdings Input & Selected List (IA §6) */}
-                <GoalSelector goal={goal} setGoal={setGoal} />
-
-                <PortfolioInput
-                    type={type} setType={setType}
-                    searchQuery={searchQuery} setSearchQuery={setSearchQuery}
-                    searchResults={searchResults}
-                    showResults={showResults} setShowResults={setShowResults}
-                    selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument}
-                    value={value} setValue={setValue}
-                    kbIndex={kbIndex} setKbIndex={setKbIndex}
-                    showTypeResults={showTypeResults} setShowTypeResults={setShowTypeResults}
-                    isWhatIfMode={isWhatIfMode} setIsWhatIfMode={setIsWhatIfMode}
-                    onAddHolding={handleAddHoldingWrapper}
-                    onBulkClick={() => setShowBulkImport(true)}
-                    onSearchFocus={onSearchFocus}
-                    handleSearchKeyDown={handleSearchKeyDown}
-                    formRef={formRef} searchInputRef={searchInputRef} resultsRef={resultsRef}
-                />
-
+                {/* 8. Holdings List (IA §6) */}
                 <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} setOpenMethodology={setOpenMethodology} />
 
-                {/* 9. Deep Dive & What-If Sandbox (IA §7) */}
-                <ScenarioPanel
-                    isWhatIfMode={isWhatIfMode}
-                    selectedInstrument={selectedInstrument}
-                    value={value}
-                    result={result}
-                    healthScore={healthScore}
-                    hypoCalculating={hypoCalculating}
-                    hypoResult={hypoResult}
-                    expandedScenario={expandedScenario}
-                    setExpandedScenario={setExpandedScenario}
-                    validationErrors={validationErrors}
-                />
-
+                {/* Progressive Disclosure Toggle for Deep Dive Analysis (IA §7) */}
                 {result && holdings.length >= 1 && (
+                    <div style={{ textAlign: 'center', margin: '2rem 0 1.5rem 0' }}>
+                        <button
+                            onClick={() => setShowDeepAnalysis(!showDeepAnalysis)}
+                            className="card-v2"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                padding: '0.75rem 1.75rem',
+                                background: 'rgba(255, 255, 255, 0.03)',
+                                border: '1px solid var(--border-default)',
+                                color: 'var(--accent-cyan)',
+                                fontSize: '0.875rem',
+                                fontWeight: '700',
+                                cursor: 'pointer',
+                                borderRadius: 'var(--radius-full)'
+                            }}
+                        >
+                            {showDeepAnalysis ? '▲ Hide Detailed Analysis & Sector Breakdown' : '🔬 Show Detailed Analysis & Sector Breakdown ▾'}
+                        </button>
+                    </div>
+                )}
+
+                {/* 9. Deep Dive & What-If Sandbox (IA §7) */}
+                {result && holdings.length >= 1 && (
+                    <ScenarioPanel
+                        isWhatIfMode={isWhatIfMode}
+                        selectedInstrument={selectedInstrument}
+                        value={value}
+                        result={result}
+                        healthScore={healthScore}
+                        hypoCalculating={hypoCalculating}
+                        hypoResult={hypoResult}
+                        expandedScenario={expandedScenario}
+                        setExpandedScenario={setExpandedScenario}
+                        validationErrors={validationErrors}
+                    />
+                )}
+
+                {result && holdings.length >= 1 && showDeepAnalysis && (
                     <>
                         {result.focusZone?.focusStatement && (
                             <div className="details-zone focus-zone fadeIn" id="focus-zone">

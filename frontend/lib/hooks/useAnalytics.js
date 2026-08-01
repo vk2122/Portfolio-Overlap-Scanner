@@ -42,7 +42,7 @@ export function useAnalytics(holdings, goal) {
                     document.getElementById('summary-block')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 200);
             }
-        }, 300);
+        }, 50);
 
         return () => clearTimeout(timer);
     }, [holdings, goal]);

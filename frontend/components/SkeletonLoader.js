@@ -17,7 +17,7 @@ export default function SkeletonLoader({ phase }) {
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
                 <div className="skeleton-shimmer" style={{ height: '90px', borderRadius: 'var(--radius-lg)' }} />
                 <div className="skeleton-shimmer" style={{ height: '90px', borderRadius: 'var(--radius-lg)' }} />
                 <div className="skeleton-shimmer" style={{ height: '90px', borderRadius: 'var(--radius-lg)' }} />

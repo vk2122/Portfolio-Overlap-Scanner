@@ -28,13 +28,13 @@ export function useHydration(setHoldings, setGoal) {
     useEffect(() => {
         // Hydrate configuration
         const handleHydration = async () => {
-            // Check URL parameters first
-            if (typeof window !== 'undefined' && window.location.search.includes('p=')) {
-                try {
-                    const data = await fetchMarketData();
-                    setMarketData(data);
-                    setDbLoaded(true);
+            try {
+                const data = await fetchMarketData();
+                setMarketData(data);
+                setDbLoaded(true);
 
+                // Check URL parameters first
+                if (typeof window !== 'undefined' && window.location.search.includes('p=')) {
                     const parsed = shareService.parseURLParams(window.location.search, data);
                     if (parsed && parsed.holdings) {
                         setHoldings(parsed.holdings);
@@ -42,9 +42,9 @@ export function useHydration(setHoldings, setGoal) {
                         setIsHydrated(true);
                         return;
                     }
-                } catch (e) {
-                    console.error("[useHydration] Decoded URL hydration failed:", e);
                 }
+            } catch (e) {
+                console.error("[useHydration] Market data / URL hydration failed:", e);
             }
 
             // Fallback to storageService
