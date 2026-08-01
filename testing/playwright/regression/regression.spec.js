@@ -89,6 +89,7 @@ test.describe('UNSTACKED Cumulative Regression Suite', () => {
     await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
 
     // 1. Transparency Badges check
+    await page.click('button:has-text("Show Detailed Analysis")');
     await expect(page.locator('.provenance-badge.verified').first()).toBeVisible();
     await expect(page.locator('.provenance-badge.estimated').first()).toBeVisible();
 

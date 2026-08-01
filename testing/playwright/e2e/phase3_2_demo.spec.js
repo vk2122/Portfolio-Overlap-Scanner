@@ -16,7 +16,8 @@ test.describe('Phase 3.2 Product Experience & Intelligence Regression', () => {
         // Status bar transition check
         await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY', { timeout: 15000 });
 
-        // Holdings should be populated (3 demo holdings)
+        // Expand detailed analysis and verify holdings
+        await page.click('button:has-text("Show Detailed Analysis")');
         await expect(page.locator('.holding-row')).toHaveCount(3);
 
         // Analyze View should be active
@@ -56,5 +57,21 @@ test.describe('Phase 3.2 Product Experience & Intelligence Regression', () => {
         const addBtn = page.locator('button[type="submit"]:has-text("ADD")');
         await expect(addBtn).toBeDisabled();
         await expect(addBtn).toHaveAttribute('title', 'Select an instrument from search first');
+    });
+
+    test('P3.2-05: High Overlap Demo 1-click execution & report generation', async ({ page }) => {
+        await expect(page.locator('button:has-text("High-Overlap Demo")')).toBeVisible();
+        await page.click('button:has-text("High-Overlap Demo")');
+
+        // Status bar transition check
+        await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY', { timeout: 15000 });
+
+        // Verify High Overlap report features (68.6% overlap)
+        await expect(page.locator('text=68.6%').first()).toBeVisible();
+        await expect(page.locator('.pill-badge-rose:has-text("High Impact")').first()).toBeVisible();
+
+        // Expand detailed analysis and verify holdings
+        await page.click('button:has-text("Show Detailed Analysis")');
+        await expect(page.locator('.holding-row')).toHaveCount(3);
     });
 });

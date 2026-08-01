@@ -1,0 +1,7 @@
+Phase 3.2.1: Fix High Overlap Demo reliability and complete Progressive Disclosure hierarchy
+
+- Fix DEMO-002: Update loadDemoPortfolio to handle 'overlap' preset deterministically (68.6% overlap)
+- Fix UXP-32-01: Reorganize Executive-First Progressive Disclosure hierarchy in PortfolioApp.js
+- Test: Add P3.2-05 E2E test for High Overlap Demo in phase3_2_demo.spec.js
+- Test: Verify 18/18 Playwright tests pass, 29/29 Jest tests pass, Next.js build succeeds cleanly
+- Test: 20/20 consecutive deterministic demo execution stress test passed

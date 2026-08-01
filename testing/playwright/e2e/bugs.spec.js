@@ -30,8 +30,7 @@ test.describe('Production Bugs regression', () => {
     await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
 
     // BUG-001 assertion: With 1 holding, the report sections MUST be visible.
-    // Before the fix, PortfolioStory and AnalyticsCards were gated behind holdings.length >= 2,
-    // creating a dead zone where the status bar said "CLARITY REPORT READY" but nothing was shown.
+    await page.click('button:has-text("Show Detailed Analysis")');
     await expect(page.locator('#summary-block')).toBeVisible();
 
     // The empty state text must NOT be visible when a report exists
@@ -125,6 +124,7 @@ test.describe('Production Bugs regression', () => {
 
     // Verify 3 demo holdings added and report generated
     await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
+    await page.click('button:has-text("Show Detailed Analysis")');
     await expect(page.locator('.holding-row')).toHaveCount(3);
     await expect(page.locator('#summary-block')).toBeVisible();
   });

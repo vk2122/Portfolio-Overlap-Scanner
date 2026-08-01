@@ -219,14 +219,24 @@ export default function PortfolioApp() {
         ].join(" ");
     };
 
-    const loadDemoPortfolio = useCallback(() => {
+    const loadDemoPortfolio = useCallback((preset = 'balanced') => {
         setGoal({ investmentGoal: 'growth', timeHorizon: '3-7' });
-        setHoldings([
-            { id: 'demo-1', instrumentId: 'NIFTY50_ETF', name: 'Nifty 50 ETF', type: 'ETF', value: 100000 },
-            { id: 'demo-2', instrumentId: 'PPFCF_MF', name: 'Parag Parikh Flexi Cap Fund', type: 'MF', value: 150000 },
-            { id: 'demo-3', instrumentId: 'RELIANCE', name: 'Reliance Industries Ltd', type: 'EQUITY', value: 50000 }
-        ]);
-    }, [setGoal, setHoldings]);
+        setProductMode('analyze');
+        setShowDeepAnalysis(false);
+        if (preset === 'overlap') {
+            setHoldings([
+                { id: 'demo-ovp-1', instrumentId: 'MF_AXIS_BLUECHIP', name: 'Axis Bluechip Fund', type: 'MF', value: 150000 },
+                { id: 'demo-ovp-2', instrumentId: 'INE467B01029', name: 'Tata Consultancy Services', type: 'EQUITY', value: 150000 },
+                { id: 'demo-ovp-3', instrumentId: 'INE090A01021', name: 'Axis Bank Ltd', type: 'EQUITY', value: 100000 }
+            ]);
+        } else {
+            setHoldings([
+                { id: 'demo-1', instrumentId: 'NIFTY50_ETF', name: 'Nifty 50 ETF', type: 'ETF', value: 100000 },
+                { id: 'demo-2', instrumentId: 'PPFCF_MF', name: 'Parag Parikh Flexi Cap Fund', type: 'MF', value: 150000 },
+                { id: 'demo-3', instrumentId: 'RELIANCE', name: 'Reliance Industries Ltd', type: 'EQUITY', value: 50000 }
+            ]);
+        }
+    }, [setGoal, setHoldings, setProductMode, setShowDeepAnalysis]);
 
     return (
         <>
@@ -368,7 +378,7 @@ export default function PortfolioApp() {
                         result={result} 
                         holdings={holdings} 
                         onToggleWhatIf={() => { setIsWhatIfMode(true); setShowDeepAnalysis(true); }}
-                        onHighlightHolding={() => setProductMode('compose')}
+                        onHighlightHolding={() => { setShowDeepAnalysis(true); setProductMode('compose'); }}
                     />
                 )}
 
@@ -377,23 +387,12 @@ export default function PortfolioApp() {
                     <IntelligenceSummary result={result} />
                 )}
 
-                {/* 7. Analytics Metric Cards (IA §5) */}
-                {result && holdings.length >= 1 && (
-                    <AnalyticsCards 
-                        result={result} 
-                        healthScore={healthScore} 
-                        setActiveCard={setActiveCard} 
-                        setOpenMethodology={setOpenMethodology} 
-                        validationErrors={validationErrors}
-                    />
-                )}
-
-                {/* 8. Holdings List (IA §6) */}
+                {/* 7. Holdings List */}
                 <HoldingsList holdings={holdings} result={result} removeHolding={removeHolding} validationErrors={validationErrors} setOpenMethodology={setOpenMethodology} />
 
-                {/* Progressive Disclosure Toggle for Deep Dive Analysis (IA §7) */}
+                {/* Progressive Disclosure Toggle for Detailed Exploration */}
                 {result && holdings.length >= 1 && (
-                    <div style={{ textAlign: 'center', margin: '2rem 0 1.5rem 0' }}>
+                    <div style={{ textAlign: 'center', margin: '1.5rem 0' }}>
                         <button
                             onClick={() => setShowDeepAnalysis(!showDeepAnalysis)}
                             className="card-v2"
@@ -416,24 +415,32 @@ export default function PortfolioApp() {
                     </div>
                 )}
 
-                {/* 9. Deep Dive & What-If Sandbox (IA §7) */}
-                {result && holdings.length >= 1 && (
-                    <ScenarioPanel
-                        isWhatIfMode={isWhatIfMode}
-                        selectedInstrument={selectedInstrument}
-                        value={value}
-                        result={result}
-                        healthScore={healthScore}
-                        hypoCalculating={hypoCalculating}
-                        hypoResult={hypoResult}
-                        expandedScenario={expandedScenario}
-                        setExpandedScenario={setExpandedScenario}
-                        validationErrors={validationErrors}
-                    />
-                )}
-
+                {/* Detailed Analysis & Exploration Section (Collapsed by Default) */}
                 {result && holdings.length >= 1 && showDeepAnalysis && (
-                    <>
+                    <div id="deep-analysis-section" className="fadeIn" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        {/* Analytics Metric Cards */}
+                        <AnalyticsCards 
+                            result={result} 
+                            healthScore={healthScore} 
+                            setActiveCard={setActiveCard} 
+                            setOpenMethodology={setOpenMethodology} 
+                            validationErrors={validationErrors}
+                        />
+
+                        {/* Deep Dive & What-If Sandbox */}
+                        <ScenarioPanel
+                            isWhatIfMode={isWhatIfMode}
+                            selectedInstrument={selectedInstrument}
+                            value={value}
+                            result={result}
+                            healthScore={healthScore}
+                            hypoCalculating={hypoCalculating}
+                            hypoResult={hypoResult}
+                            expandedScenario={expandedScenario}
+                            setExpandedScenario={setExpandedScenario}
+                            validationErrors={validationErrors}
+                        />
+
                         {result.focusZone?.focusStatement && (
                             <div className="details-zone focus-zone fadeIn" id="focus-zone">
                                 <h4>FOCUS ZONE</h4>
@@ -678,7 +685,7 @@ export default function PortfolioApp() {
                                 })}
                             </div>
                         )}
-                    </>
+                    </div>
                 )}
             </main>
 
