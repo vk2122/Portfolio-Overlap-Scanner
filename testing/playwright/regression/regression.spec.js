@@ -110,4 +110,66 @@ test.describe('UNSTACKED Cumulative Regression Suite', () => {
     await page.click('.scenario-card');
     await expect(page.locator('.scenario-detail')).toBeVisible();
   });
+
+  test('Phase 2.1 - Scroll Layout: No sticky/fixed collisions in normal flow', async ({ page }) => {
+    setupPageMonitoring(page);
+
+    // Hydrate with 2 holdings for a standard report
+    await page.goto('/');
+    await page.evaluate(() => localStorage.clear());
+    await page.goto('/?p=ACC:EQUITY:100000,ABB:EQUITY:50000&g=growth:3-7');
+    await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
+
+    // 1. Holdings zone must NOT have position: sticky
+    const holdingsZone = page.locator('#holdings-zone');
+    await expect(holdingsZone).toBeVisible();
+    const holdingsPosition = await holdingsZone.evaluate(el => window.getComputedStyle(el).position);
+    expect(['static', 'relative']).toContain(holdingsPosition);
+
+    // 2. Footer must NOT have position: fixed
+    const footer = page.locator('footer.disclaimer-section');
+    await expect(footer).toBeVisible();
+    const footerPosition = await footer.evaluate(el => window.getComputedStyle(el).position);
+    expect(['static', 'relative']).toContain(footerPosition);
+
+    // 3. Main flow must not have horizontal overflow
+    const mainFlow = page.locator('.main-flow');
+    const hasOverflow = await mainFlow.evaluate(el => el.scrollWidth > el.clientWidth);
+    expect(hasOverflow).toBe(false);
+
+    // 4. Footer must be scrollable (not viewport-pinned) — verify it is below the fold
+    const footerBox = await footer.boundingBox();
+    const mainBox = await mainFlow.boundingBox();
+    // Footer's top edge must be at or below the main content's bottom edge
+    expect(footerBox.y).toBeGreaterThanOrEqual(mainBox.y + mainBox.height - 5);
+  });
+
+  test('Phase 2.1 - Long report (10 holdings) has no layout collisions', async ({ page }) => {
+    setupPageMonitoring(page);
+
+    // Hydrate with 10 holdings via URL
+    await page.goto('/');
+    await page.evaluate(() => localStorage.clear());
+    await page.goto('/?p=ACC:EQUITY:100000,ABB:EQUITY:50000,TCS:EQUITY:80000,RELIANCE:EQUITY:70000,INFY:EQUITY:60000,HDFCBANK:EQUITY:55000,SBIN:EQUITY:45000,ITC:EQUITY:40000,LT:EQUITY:35000,WIPRO:EQUITY:30000&g=balanced:3-7');
+    await expect(page.locator('.status-bar')).toHaveText('CLARITY REPORT READY');
+
+    // Verify all 10 holdings rendered
+    await expect(page.locator('.holding-row')).toHaveCount(10);
+
+    // Scroll to the bottom of the page
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Footer must be visible after scrolling to bottom
+    const footer = page.locator('footer.disclaimer-section');
+    await expect(footer).toBeVisible();
+
+    // No element should have negative bounding box (clipped off-screen)
+    const summaryBlock = page.locator('#summary-block');
+    if (await summaryBlock.count() > 0) {
+      const summaryBox = await summaryBlock.boundingBox();
+      expect(summaryBox).not.toBeNull();
+      expect(summaryBox.height).toBeGreaterThan(0);
+    }
+  });
 });

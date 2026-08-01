@@ -140,7 +140,6 @@ body {
     max-width: var(--max-content-width);
     margin: 0 auto;
     padding: var(--padding-horizontal);
-    padding-bottom: 120px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -165,8 +164,6 @@ body {
         grid-column: 1;
         grid-row: 4 / span 20;
         margin-top: 0 !important;
-        position: sticky;
-        top: 2rem;
     }
 
     .summary-block,
@@ -1629,18 +1626,16 @@ input[type=number] {
    ================================================ */
 
 .disclaimer-section {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: var(--bg-primary);
     border-top: 1px solid var(--border-default);
     padding: var(--space-component) var(--padding-horizontal);
-    z-index: 100;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: var(--space-component);
+    width: 100%;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
 }
 
 .disclaimer-label {

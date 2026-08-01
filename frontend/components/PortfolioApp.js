@@ -577,7 +577,7 @@ export default function PortfolioApp() {
             </main>
 
             {/* Structured Trust Signals Footer Links (Initiative 7) */}
-            <footer className="disclaimer-section" role="contentinfo" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', borderTop: '1px solid #1c1f26', paddingTop: '1.5rem', marginTop: '3rem' }}>
+            <footer className="disclaimer-section" role="contentinfo" style={{ flexDirection: 'column', gap: '0.8rem', borderTop: '1px solid #1c1f26', paddingTop: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '1.2rem', fontSize: '0.7rem', flexWrap: 'wrap' }}>
                     <button type="button" onClick={() => setOpenMethodology('effective')} style={{ background: 'none', border: 'none', color: 'var(--color-info)', cursor: 'pointer', fontWeight: 'bold' }}>Methodology</button>
                     <span style={{ color: 'var(--text-secondary)' }}>|</span>
