@@ -20,9 +20,14 @@ export default function PortfolioStory({ result, healthScore }) {
         storyTitle = "⚠️ Redundant Diversification Detected";
         storyBody = `Your portfolio shows a high overlap of ${overlap}%. More than a third of your invested capital is actively duplicated across multiple funds. The primary driver of this overlap is ${focusZone?.topOverlapDrivers?.map(d => cleanTicker(d.ticker)).join(' and ') || 'common stock picks'}.`;
     } else if (overlap >= 20) {
-        alertColor = "var(--warning)";
-        storyTitle = "⚡️ Moderate Overlap & Concentration";
-        storyBody = `Your portfolio shows a moderate overlap of ${overlap}%. While some duplication is normal when holding general index funds, your concentration is dominated by ${cleanTicker(topDriver)}, accounting for ${topDriverPct}% of total exposure.`;
+        alertColor = healthInterp === 'FRAGILE' ? "var(--danger)" : "var(--warning)";
+        storyTitle = healthInterp === 'FRAGILE'
+            ? "⚠️ Moderate Overlap & Elevated Health Risk"
+            : "⚡️ Moderate Overlap & Concentration";
+        const bridgeNote = (healthInterp === 'RISKY' || healthInterp === 'FRAGILE' || finalScore < 65)
+            ? ` Note: Overlap measures duplicated stock holdings (${overlap}%), whereas Portfolio Health evaluates total multi-pillar risk (${finalScore}/100 - ${healthInterp}). A portfolio can maintain moderate fund overlap while carrying elevated overall risk due to single-stock concentration.`
+            : ``;
+        storyBody = `Your portfolio shows a moderate overlap of ${overlap}%. While some duplication is normal when holding general index funds, your concentration is dominated by ${cleanTicker(topDriver)}, accounting for ${topDriverPct}% of total exposure.${bridgeNote}`;
     } else {
         // Low overlap (<20%) - Check Health Score to prevent contradictory narrative
         if (healthInterp === 'FRAGILE' || finalScore < 50) {

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { storageService } from '../services/storage.service';
+import { shareService } from '../services/share.service';
 
 export function usePortfolio(holdings, setHoldings, goal, setGoal, marketData, isHydrated, setResult) {
 
@@ -133,16 +134,10 @@ export function usePortfolio(holdings, setHoldings, goal, setGoal, marketData, i
         }
     }, [setResult]);
 
-    // Share URL Generator
+    // Share URL Generator (Using shareService)
     const handleShare = useCallback(() => {
         if (holdings.length === 0) return;
-        const hString = holdings.map(h => `${h.instrumentId}:${h.type}:${h.value}`).join(',');
-        const gString = (goal.investmentGoal && goal.timeHorizon) ? `${goal.investmentGoal}:${goal.timeHorizon}` : '';
-        const params = new URLSearchParams();
-        params.set('p', hString);
-        if (gString) params.set('g', gString);
-
-        const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        const url = shareService.generateShareableURL(holdings, goal);
         navigator.clipboard.writeText(url);
 
         const btn = document.getElementById('share-btn');

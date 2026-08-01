@@ -40,6 +40,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                     <button 
                         type="button" 
                         onClick={(e) => { e.stopPropagation(); setOpenMethodology('overlap'); }}
+                        aria-label="Learn methodology for Overlap"
                         style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.65rem', cursor: 'pointer', padding: 0, marginTop: '0.6rem', textAlign: 'left', fontWeight: 'bold' }}
                     >
                         Learn methodology ↗
@@ -47,7 +48,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                 </div>
 
                 {/* 2. Redundancy Card */}
-                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('redundancy')} title="Click for details">
+                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('redundancy')} title="Click to view duplicate holdings breakdown">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '0.4rem' }}>
                         <span className="metric-label">Redundancy</span>
                         {getProvenanceBadge('redundancy')}
@@ -59,6 +60,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                     <button 
                         type="button" 
                         onClick={(e) => { e.stopPropagation(); setOpenMethodology('redundancy'); }}
+                        aria-label="Learn methodology for Redundancy"
                         style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.65rem', cursor: 'pointer', padding: 0, marginTop: '0.6rem', textAlign: 'left', fontWeight: 'bold' }}
                     >
                         Learn methodology ↗
@@ -66,7 +68,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                 </div>
 
                 {/* 3. Top Driver Card */}
-                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('topDriver')} title="Click to view chart">
+                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('topDriver')} title="Click to view interactive chart for top stock">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '0.4rem' }}>
                         <span className="metric-label">Top Driver</span>
                         {getProvenanceBadge('topDriver')}
@@ -78,6 +80,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                     <button 
                         type="button" 
                         onClick={(e) => { e.stopPropagation(); setOpenMethodology('topDriver'); }}
+                        aria-label="Learn methodology for Top Driver"
                         style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.65rem', cursor: 'pointer', padding: 0, marginTop: '0.6rem', textAlign: 'left', fontWeight: 'bold' }}
                     >
                         Learn methodology ↗
@@ -85,7 +88,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                 </div>
 
                 {/* 4. Top 3 Card */}
-                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('top3')} title="Click for details">
+                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('top3')} title="Click to view top 3 concentration breakdown">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '0.4rem' }}>
                         <span className="metric-label">Top 3 Concentration</span>
                         {getProvenanceBadge('top3')}
@@ -97,6 +100,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                     <button 
                         type="button" 
                         onClick={(e) => { e.stopPropagation(); setOpenMethodology('top3'); }}
+                        aria-label="Learn methodology for Top 3 Concentration"
                         style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.65rem', cursor: 'pointer', padding: 0, marginTop: '0.6rem', textAlign: 'left', fontWeight: 'bold' }}
                     >
                         Learn methodology ↗
@@ -104,7 +108,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                 </div>
 
                 {/* 5. Health Card */}
-                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('effective')} title="Click for details">
+                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('effective')} title="Click to view 5-pillar health score breakdown">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '0.4rem' }}>
                         <span className="metric-label">Portfolio Health</span>
                         {getProvenanceBadge('effective')}
@@ -118,6 +122,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                     <button 
                         type="button" 
                         onClick={(e) => { e.stopPropagation(); setOpenMethodology('effective'); }}
+                        aria-label="Learn methodology for Portfolio Health"
                         style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.65rem', cursor: 'pointer', padding: 0, marginTop: '0.6rem', textAlign: 'left', fontWeight: 'bold' }}
                     >
                         Learn methodology ↗
@@ -125,7 +130,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                 </div>
 
                 {/* 6. Overlap Verdict Card */}
-                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('verdict')} title="Click for details">
+                <div className="metric-card metric-card--clickable" onClick={() => setActiveCard('verdict')} title="Click to view verdict classification breakdown">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', marginBottom: '0.4rem' }}>
                         <span className="metric-label">Overlap Verdict</span>
                         {getProvenanceBadge('verdict')}
@@ -139,6 +144,7 @@ export default function AnalyticsCards({ result, healthScore, setActiveCard, set
                     <button 
                         type="button" 
                         onClick={(e) => { e.stopPropagation(); setOpenMethodology('verdict'); }}
+                        aria-label="Learn methodology for Overlap Verdict"
                         style={{ background: 'none', border: 'none', color: 'var(--color-info)', fontSize: '0.65rem', cursor: 'pointer', padding: 0, marginTop: '0.6rem', textAlign: 'left', fontWeight: 'bold' }}
                     >
                         Learn methodology ↗

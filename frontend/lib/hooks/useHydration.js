@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchMarketData } from '../loader';
 import { storageService } from '../services/storage.service';
+import { shareService } from '../services/share.service';
 
 export function useHydration(setHoldings, setGoal) {
     const [isHydrated, setIsHydrated] = useState(false);
@@ -29,34 +30,18 @@ export function useHydration(setHoldings, setGoal) {
         const handleHydration = async () => {
             // Check URL parameters first
             if (typeof window !== 'undefined' && window.location.search.includes('p=')) {
-                const params = new URLSearchParams(window.location.search);
-                const pStr = params.get('p');
-                const gStr = params.get('g');
-
                 try {
-                    // Try to fetch catalog subset to decode URL parameters
                     const data = await fetchMarketData();
                     setMarketData(data);
                     setDbLoaded(true);
 
-                    const hList = pStr.split(',').map(item => {
-                        const [id, t, v] = item.split(':');
-                        const matched = (data.stocks || []).concat(data.etfs || []).concat(data.funds || []).find(m => String(m.isin || m.id) === id || m.ticker === id);
-                        return {
-                            id: Date.now() + Math.random(),
-                            instrumentId: id,
-                            type: t || 'EQUITY',
-                            name: matched ? (matched.ticker || matched.name) : id,
-                            value: parseFloat(v) || 0
-                        };
-                    });
-                    setHoldings(hList);
-                    if (gStr) {
-                        const [ig, th] = gStr.split(':');
-                        setGoal({ investmentGoal: ig, timeHorizon: th });
+                    const parsed = shareService.parseURLParams(window.location.search, data);
+                    if (parsed && parsed.holdings) {
+                        setHoldings(parsed.holdings);
+                        if (parsed.goal) setGoal(parsed.goal);
+                        setIsHydrated(true);
+                        return;
                     }
-                    setIsHydrated(true);
-                    return;
                 } catch (e) {
                     console.error("[useHydration] Decoded URL hydration failed:", e);
                 }
